@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.batch.dao.SiteInfoDao">
+
+	<select id="selectSiteInfoCount" resultType="int">
+		SELECT 
+     		count(1)
+		FROM site_info
+		WHERE 1=1
+		<if test="searchString != null  and searchString != ''">
+		AND site_nm like '%' #{searchString} '%'
+		</if>
+	</select>
+
+	<select id="selectSiteInfoList" resultType="kr.pethub.webapp.admin.batch.model.SiteInfo">
+		SELECT 
+     		site_srl
+			,site_nm								
+			,site_url								
+			,site_etc								
+			,reg_dt								
+		FROM site_info
+		WHERE 1=1
+		<if test="searchString != null  and searchString != ''">
+		AND site_nm like '%' #{searchString} '%'
+		</if>
+      	
+	    ORDER BY site_srl DESC
+		
+		LIMIT #{rowStart}, #{rowSize}
+	</select>
+
+	<select id="selectSiteInfo" resultType="kr.pethub.webapp.admin.batch.model.SiteInfo">
+		SELECT 
+     		site_srl
+			, site_nm								
+			, site_url								
+			, site_etc								
+			, reg_dt
+			, upt_dt								
+		FROM site_info
+      	WHERE site_srl = #{siteSrl}
+	</select>
+
+	<insert id="insertSiteInfo">
+		INSERT INTO site_info(
+			 site_nm								
+			, site_url								
+			, site_etc								
+			, reg_dt	
+			, upt_dt	
+		)VALUES(
+			 #{siteNm}								
+			, #{siteUrl}								
+			, #{siteEtc}
+			, SYSDATE()
+			, SYSDATE()								
+		)
+	</insert>
+	
+	<update id="updateSiteInfo">
+		UPDATE site_info SET
+			 site_nm =  #{siteNm}							
+			, site_url = 	#{siteUrl}							
+			, site_etc = 	#{siteEtc}							
+			, upt_dt	= SYSDATE()
+		WHERE site_srl = #{siteSrl}
+	</update>
+	
+	<delete id="deleteSiteInfo">
+		DELETE FROM site_info	WHERE site_srl = #{siteSrl}
+	</delete>
+	
+	<delete id="deleteSiteLink">
+		DELETE FROM site_link WHERE site_srl = #{siteSrl}
+	</delete>
+
+</mapper>  

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.site.dao.RoleDao">
+
+	<select id="selectRoleCount" resultType="int">
+	SELECT 
+		count(1)
+	FROM auth_role 
+	WHERE 1=1
+	 <if test="useYn != null and useYn != ''">
+	 AND use_yn = #{useYn}
+	 </if>
+	</select>
+
+
+	<select id="selectRoleList" resultType="kr.pethub.webapp.admin.site.model.Role">
+	SELECT 
+		role_srl
+	  	,role_cd
+	  	,role_nm
+	  	,use_yn
+	FROM auth_role 
+	WHERE 1=1
+	 <if test="useYn != null and useYn != ''">
+	 AND use_yn = #{useYn}
+	 </if>
+	ORDER BY role_srl DESC
+	</select>
+	
+	<select id="selectRole" resultType="kr.pethub.webapp.admin.site.model.Role">
+	SELECT 
+		role_srl
+	  	,role_cd
+	  	,role_nm
+	  	,use_yn
+	FROM auth_role
+	WHERE role_srl = #{roleSrl}
+	</select>
+
+	<insert id="insertRole">
+	INSERT INTO auth_role(
+	  	role_cd
+	  	,role_nm
+	  	,use_yn
+	)VALUES(
+	  	#{roleCd}
+	  	,#{roleNm}
+	  	,#{useYn}
+	)
+	</insert> 
+
+	<update id="updateRole">
+	UPDATE  auth_role SET
+		role_cd = #{roleCd}
+		,role_nm = #{roleNm}
+		,use_yn = #{useYn}
+	WHERE role_srl = #{roleSrl}
+	</update> 
+	
+	<update id="updateStatus">
+	UPDATE  auth_role SET
+		use_yn = #{useYn}
+	WHERE role_srl = #{roleSrl}
+	</update> 
+	
+	<delete id="deleteRole">
+	DELETE  FROM auth_role WHERE role_srl = #{roleSrl}
+	</delete> 
+	
+
+</mapper>  

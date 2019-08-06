@@ -1,0 +1,79 @@
+package kr.pethub.core.authority;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+
+public class Auth implements Serializable{
+	
+	private static final long serialVersionUID = -1540957347729418968L;
+	
+	private String userId;
+	private String userNm;
+	private String password;
+	private String email;
+	private String role;
+	private String useYn;
+	private String sessionId;
+	private Date loginDate;
+	
+	public Date getLoginDate() {
+		return loginDate;
+	}
+	public void setLoginDate(Date loginDate) {
+		this.loginDate = loginDate;
+	}
+	public String getSessionId() {
+		return sessionId;
+	}
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+	private List<String> roleList;
+	
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}	public String getUserNm() {
+		return userNm;
+	}
+	public void setUserName(String userNm) {
+		this.userNm = userNm;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public List<String> getRoleList() {
+		return roleList;
+	}
+	public void setRoleList(List<String> roleList) {
+		this.roleList = roleList;
+	}
+	public void setUserNm(String userNm) {
+		this.userNm = userNm;
+	}
+	public void setUseYn(String useYn) {
+		this.useYn = useYn;
+	}
+	public String getUseYn() {
+		return useYn;
+	}
+
+}

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.batch.dao.SiteLinkDataDao">
+
+	<select id="selectSiteLinkDataCount" resultType="int">
+		SELECT 
+     		count(1)
+		FROM site_info si,  site_link sl, site_link_data sld
+	    WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = sld.link_srl
+      	AND sl.use_yn = 'Y'
+
+     <if test="searchStringList != null  and !searchStringList.isEmpty()">
+		<foreach collection="searchStringList" item="item">
+         AND sld.data_title like CONCAT('%', #{item} ,'%') 
+       	</foreach>
+	</if>
+	</select>
+
+	<select id="selectSiteLinkDataList" resultType="kr.pethub.webapp.admin.batch.model.SiteLinkData">
+		SELECT 
+			 sld.data_srl
+     		, si.site_nm
+     		, sl.link_cd
+			, sld.data_title
+			, sld.data_link
+			, sld.data_img
+			, sld.data_content
+			, sld.reg_dt
+			, sld.upt_dt
+		FROM site_info si,  site_link sl, site_link_data sld
+	    WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = sld.link_srl
+      	AND sl.use_yn = 'Y'
+      	
+   	<if test="searchStringList != null  and !searchStringList.isEmpty()">
+		<foreach collection="searchStringList" item="item">
+         AND sld.data_title like CONCAT('%', #{item} ,'%') 
+       	</foreach>
+	</if>
+      	
+	    ORDER BY data_srl DESC
+		
+		LIMIT #{rowStart}, #{rowSize}
+	</select>
+
+	<select id="selectSiteLinkData" resultType="kr.pethub.webapp.admin.batch.model.SiteLinkData">
+		SELECT 
+     		 sl.link_srl
+			, sl.site_srl
+			, si.site_nm
+			, sl.link_cd
+			, sl.link_nm
+			, sl.link_url
+			, sl.link_cls
+			, sl.link_mtd_lst
+			, sl.link_mtd_cts
+			, sl.link_cnt
+			, sl.batch_itv
+			, sl.use_yn
+			, sl.reg_dt
+			, sl.upt_dt
+			, sl.exc_dt								
+		FROM site_info si, site_link_data sl
+      	WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = #{linkSrl}
+	</select>
+	
+	<delete id="deleteSiteLinkData">
+		DELETE FROM site_link_data	WHERE link_srl = #{linkSrl}
+	</delete>
+	
+</mapper>  

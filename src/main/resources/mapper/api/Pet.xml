@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.api.dao.PetDao">
+
+	<select id="selectPetUpdatedTime" resultType="String">
+		SELECT 
+		  ifnull(date_format(max(exc_dt), '%Y.%c.%e %kh'), date_format(sysdate(), '%Y.%c.%e %kh') ) 
+		FROM site_link
+	</select>
+
+	<select id="selectPetCount" resultType="int">
+		SELECT 
+     		count(1)
+		FROM site_info si,  site_link sl, site_link_data sld
+	    WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = sld.link_srl
+      	AND sl.use_yn = 'Y'
+
+     <if test="searchString != null  and !searchString.isEmpty()">
+		<foreach collection="searchString" item="item">
+         AND sld.data_title like CONCAT('%', #{item} ,'%') 
+       	</foreach>
+	</if>
+
+	</select>
+
+	<select id="selectPetList" resultType="kr.pethub.webapp.api.model.SiteLinkData">
+		SELECT 
+     		si.site_nm
+			, sld.data_title
+			, sld.data_link
+			, sld.data_img
+			, sld.data_content
+			, sld.reg_dt
+		FROM site_info si,  site_link sl, site_link_data sld
+	    WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = sld.link_srl
+      	AND sl.use_yn = 'Y'
+      	
+   	<if test="searchString != null  and !searchString.isEmpty()">
+		<foreach collection="searchString" item="item">
+         AND sld.data_title like CONCAT('%', #{item} ,'%') 
+       	</foreach>
+	</if>
+      	
+	    ORDER BY data_srl DESC
+		
+		LIMIT #{rowStart}, #{rowSize}
+	</select>
+
+</mapper>  

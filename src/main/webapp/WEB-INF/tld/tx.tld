@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+    version="2.0">
+
+	<description>TX Tag llibrary</description>
+	<tlib-version>1.1</tlib-version>
+	<short-name>pethub</short-name>
+
+	<tag>
+		<description>페이징처리</description>
+		<name>nav</name>
+		<tag-class>kr.pethub.core.web.tld.Paging</tag-class>
+		<body-content>empty</body-content>
+		 <attribute>
+		     <name>totalPage</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>page</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>pageCount</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>searchString</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   	</tag>
+
+   	<tag>
+   		<description>콤보박스 Array</description>
+   		 <name>selectArray</name>
+		<tag-class>kr.pethub.core.web.tld.SelectArray</tag-class>
+		<body-content>empty</body-content>
+		  <attribute>
+		     <name>id</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+		  <attribute>
+		     <name>name</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>key</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		   <attribute>
+		     <name>value</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		   <attribute>
+		     <name>selectKey</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>onChange</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>style</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>clasz</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>checkMsg</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>all</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+	</tag>
+
+	<tag>
+   		<description>콤보박스 코드</description>
+   		 <name>selectCodeList</name>
+		<tag-class>kr.pethub.core.web.tld.SelectCodeList</tag-class>
+		<body-content>empty</body-content>
+		  <attribute>
+		     <name>id</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+		  <attribute>
+		     <name>grpCd</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		   <attribute>
+		     <name>selectKey</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>onChange</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>style</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>checkMsg</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		 <attribute>
+		     <name>all</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+	</tag>
+
+	<tag>
+   		<description>코드 명</description>
+   		 <name>selectCode</name>
+		<tag-class>kr.pethub.core.web.tld.SelectCode</tag-class>
+		<body-content>empty</body-content>
+		  <attribute>
+		     <name>grpCd</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+		  <attribute>
+		     <name>cdCd</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+	</tag>
+
+    <tag>
+   		<description>Radio 코드 목록</description>
+   		 <name>radioCodeList</name>
+		<tag-class>kr.pethub.core.web.tld.RadioCodeList</tag-class>
+		<body-content>empty</body-content>
+		  <attribute>
+		     <name>name</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+		  <attribute>
+		     <name>grpCd</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+		  <attribute>
+		     <name>lineCnt</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		   <attribute>
+		     <name>selectKey</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+	</tag>
+
+   	<tag>
+		<description>권한별 메뉴목록</description>
+		<name>selectMenuList</name>
+		<tag-class>kr.pethub.core.web.tld.SelectMenuList</tag-class>
+		<body-content>empty</body-content>
+		 <attribute>
+		     <name>roleCd</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   	</tag>
+   	
+   		<tag>
+		<description>파일사이즈</description>
+		<name>fileSize</name>
+		<tag-class>kr.pethub.core.web.tld.FileSize</tag-class>
+		<body-content>empty</body-content>
+		 <attribute>
+		     <name>fileSize</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   	</tag>
+
+
+</taglib>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.site.dao.AuthDao">
+
+	<select id="getUserInfo" resultType="kr.pethub.core.authority.Auth">
+	SELECT 
+		user_id
+		,password
+		,user_nm
+		,email
+	FROM auth_member 
+	WHERE user_id = #{userId} AND use_yn = #{useYn}
+	</select>
+
+	<select id="getUserAuthList" resultType="kr.pethub.core.authority.Auth">
+		SELECT role_cd AS role  FROM auth_member_role WHERE user_id = #{userId}
+	</select>
+	
+
+	<insert id="insertLoginLog">
+		INSERT INTO auth_login_log(try_id, success_yn, reg_date, remote_addr, comment)
+		VALUES(#{tryId}, #{successYn}, sysdate(), #{remoteAddr}, #{comment})
+	</insert>
+		
+</mapper>  

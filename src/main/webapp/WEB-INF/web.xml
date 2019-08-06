@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+xmlns="http://java.sun.com/xml/ns/javaee" 
+xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" 
+xmlns:web="http://java.sun.com/xml/ns/javaee"
+xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+
+  <session-config>
+    <session-timeout>60</session-timeout>
+  </session-config>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://www.pethub.kr/tags</taglib-uri>
+      <taglib-location>/WEB-INF/tld/tx.tld</taglib-location>
+    </taglib>
+  </jsp-config>
+  <welcome-file-list>
+    <welcome-file>index.jsp</welcome-file>
+  </welcome-file-list>
+  
+ <!--  <error-page>
+    <error-code>404</error-code>
+    <location>/static/error404.html</location>
+  </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/static/error500.html</location>
+  </error-page> -->
+  
+</web-app>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.batch.dao.SiteLinkDao">
+
+	<select id="selectSiteInfoList" resultType="kr.pethub.webapp.admin.batch.model.SiteInfo">
+		SELECT 
+     		site_srl
+			,site_nm								
+		FROM site_info
+		ORDER BY site_nm
+	</select>
+
+
+	<select id="selectSiteLinkCount" resultType="int">
+		SELECT 
+			count(1)
+		FROM site_info si, site_link sl
+    	WHERE si.site_srl = sl.site_srl
+		<if test="searchString != null  and searchString != ''">
+		AND si.site_nm like '%' #{searchString} '%'
+		</if>
+	</select>
+
+	<select id="selectSiteLinkList" resultType="kr.pethub.webapp.admin.batch.model.SiteLink">
+		SELECT 
+			 sl.link_srl
+			, sl.site_srl
+			, si.site_nm
+			, sl.link_cd
+			, sl.link_nm
+			, sl.link_url
+			, sl.link_cls
+			, sl.link_mtd_lst
+			, sl.link_mtd_cts
+			, sl.link_cnt
+			, sl.batch_itv
+			, sl.use_yn
+			, sl.reg_dt
+			, sl.exc_dt			
+		FROM site_info si, site_link sl
+    	WHERE si.site_srl = sl.site_srl
+		<if test="searchString != null  and searchString != ''">
+		AND si.site_nm like '%' #{searchString} '%'
+		</if>
+      	
+	    ORDER BY site_nm ASC, link_srl DESC
+		
+		LIMIT #{rowStart}, #{rowSize}
+	</select>
+
+	<select id="selectSiteLink" resultType="kr.pethub.webapp.admin.batch.model.SiteLink">
+		SELECT 
+     		 sl.link_srl
+			, sl.site_srl
+			, si.site_nm
+			, sl.link_cd
+			, sl.link_nm
+			, sl.link_url
+			, sl.link_cls
+			, sl.link_mtd_lst
+			, sl.link_mtd_cts
+			, sl.link_cnt
+			, sl.batch_itv
+			, sl.use_yn
+			, sl.reg_dt
+			, sl.upt_dt
+			, sl.exc_dt								
+		FROM site_info si, site_link sl
+      	WHERE si.site_srl = sl.site_srl
+      	AND sl.link_srl = #{linkSrl}
+	</select>
+
+	<insert id="insertSiteLink">
+		INSERT INTO site_link(
+			  site_srl
+			, link_cd
+			, link_nm
+			, link_url
+			, link_cls
+			, link_mtd_lst
+			, link_mtd_cts
+			, batch_itv
+			, use_yn
+			, reg_dt
+			, upt_dt
+		)VALUES(
+			  #{siteSrl}
+			, #{linkCd}
+			, #{linkNm}
+			, #{linkUrl}
+			, #{linkCls}
+			, #{linkMtdLst}
+			, #{linkMtdCts}
+			, #{batchItv}
+			, #{useYn}
+			, SYSDATE()
+			, SYSDATE()
+		)
+	</insert>
+	
+	<update id="updateSiteLink">
+		UPDATE site_link SET
+			 link_cd = #{linkCd}
+			, site_srl = #{siteSrl}
+			, link_nm = #{linkNm}
+			, link_url = #{linkUrl}
+			, link_cls = #{linkCls}
+			, link_mtd_lst = #{linkMtdLst}
+			, link_mtd_cts = #{linkMtdCts}
+			, batch_itv = #{batchItv}
+			, use_yn = #{useYn}		
+			, upt_dt	= SYSDATE()
+		WHERE link_srl = #{linkSrl}
+	</update>
+	
+	<delete id="deleteSiteLink">
+		DELETE FROM site_link	WHERE link_srl = #{linkSrl}
+	</delete>
+	
+	
+	<insert id="insertSiteLinkData">
+		INSERT INTO site_link_data(
+			  site_srl
+			, link_srl
+			, data_id
+			, data_title
+			, data_link
+			, data_img
+			, data_content
+		) VALUES (
+			  #{siteSrl}
+			, #{linkSrl}
+			, #{dataId}
+			, #{dataTitle}
+			, #{dataLink}
+			, #{dataImg}
+			, #{dataContent}
+		)
+	</insert>
+	
+	<update id="updateSiteLinkData">
+		UPDATE site_link_data SET
+			 data_title = #{dataTitle}
+			, data_link = #{dataLink}
+			
+			<if test="dataImg != '' and dataImg != null">
+			, data_img = #{dataImg}
+			</if>
+			
+			, upt_dt = SYSDATE()
+		WHERE 	site_srl = #{siteSrl}
+		AND link_srl = #{linkSrl}
+		AND data_id = #{dataId}
+	</update>
+	
+</mapper>  

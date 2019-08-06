@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.site.dao.MenuDao">
+
+
+	<select id="selectMenuList1" resultType="kr.pethub.webapp.admin.site.model.Menu">
+	SELECT 
+		menu_srl AS menuSrl
+		,menu_srl AS menuSrl1
+		,"" AS menuSrl2
+	  	,parent_srl
+	  	,menu_nm
+	  	,menu_url
+	  	,use_yn
+	  	,menu_stp
+	FROM auth_menu
+	WHERE parent_srl = 0
+	ORDER BY menu_stp 
+	</select>
+	
+	<select id="selectMenuList2" resultType="kr.pethub.webapp.admin.site.model.Menu">
+		SELECT 
+			t2.menu_srl AS menuSrl
+			,t1.menu_srl AS menuSrl1
+		 	,t2.menu_srl AS menuSrl2
+		  	,t2.menu_nm
+	    	,t2.menu_url
+	    	,t2.use_yn
+	    	,t2.menu_stp
+		FROM auth_menu AS t1
+		LEFT JOIN auth_menu AS t2 ON t2.parent_srl = t1.menu_srl
+		WHERE  t1.menu_srl = #{menuSrl1} AND t2.menu_srl is not null
+		ORDER BY t2.menu_stp
+	</select>
+	
+	<select id="selectMenuList3" resultType="kr.pethub.webapp.admin.site.model.Menu">
+	SELECT 
+		t3.menu_srl AS menuSrl
+	  	,t3.menu_nm
+	  	,t3.menu_url
+	  	,t3.use_yn
+	  	,t3.menu_stp
+	FROM auth_menu AS t1
+	LEFT JOIN auth_menu AS t2 ON t2.parent_srl = t1.menu_srl
+	LEFT JOIN auth_menu AS t3 ON t3.parent_srl = t2.menu_srl
+	WHERE  t1.menu_srl = #{menuSrl1} AND t2.menu_srl = #{menuSrl2} AND t3.menu_srl is not null
+	ORDER BY t3.menu_stp
+	</select>
+	
+	<select id="selectAllMenuList" resultType="kr.pethub.webapp.admin.site.model.Menu">
+	
+	SELECT  
+	  A.menuSrl, A.menuSrl1, A.menuSrl2, A.menuSrl2, A.menuNm, A.menuLev
+	  ,CASE WHEN  B.menu_srl is not null
+	    THEN 'Y'
+	    ELSE 'N'
+	  END AS useYn
+	FROM(
+		SELECT 
+			menu_srl AS menuSrl
+			,menu_srl AS menuSrl1
+	       ,'' AS menuSrl2
+	       ,'' AS menuSrl3
+	       ,menu_nm AS menuNm
+	       ,menu_stp AS stp1
+	       ,0 AS stp2
+	       ,0 AS stp3
+	       ,'1' AS menuLev
+		FROM auth_menu
+		WHERE parent_srl = 0 AND use_yn = 'Y'
+	UNION ALL
+		SELECT 
+			t2.menu_srl AS menuSrl
+			,t1.menu_srl AS menuSrl1
+			,t2.menu_srl AS menuSrl2
+			,'' AS menuSrl3
+			,t2.menu_nm AS menuNm
+			,t1.menu_stp AS stp1
+			,t2.menu_stp AS stp2
+			,0 AS stp3
+			,'2' AS menuLev
+		FROM auth_menu  t1, auth_menu  t2
+		WHERE t2.parent_srl = t1.menu_srl
+		AND  t1.parent_srl = 0 AND t2.use_yn = 'Y'
+	UNION ALL
+		SELECT 
+			t3.menu_srl AS menuSrl
+			,t1.menu_srl AS menuSrl1
+		    ,t2.menu_srl AS menuSrl2
+		    ,t3.menu_srl AS menuSrl3
+		    ,t3.menu_nm AS menuNm
+			,t1.menu_stp AS stp1
+			,t2.menu_stp AS stp2
+			,t3.menu_stp AS stp3
+			,'3' AS menuLev
+		FROM auth_menu  t1, auth_menu  t2 , auth_menu  t3
+		WHERE t2.parent_srl = t1.menu_srl
+		AND t3.parent_srl = t2.menu_srl
+		AND t1.parent_srl = 0  AND t3.use_yn = 'Y'
+	 ) A LEFT OUTER JOIN  (SELECT menu_srl FROM auth_menu_role WHERE role_cd = #{roleCd}) B
+	ON A.menuSrl = B.menu_srl
+	ORDER BY stp1, stp2, stp3
+	</select>
+	
+	<select id="selectAuthMenuList" resultType="kr.pethub.webapp.admin.site.model.Menu">
+	
+	SELECT  
+	  menuSrl, menuSrl1, menuSrl2, menuSrl2, menuNm, menuUrl, menuLev
+	FROM(
+		SELECT 
+			menu_srl AS menuSrl
+			,menu_srl AS menuSrl1
+	       ,'' AS menuSrl2
+	       ,'' AS menuSrl3
+	       ,menu_nm AS menuNm
+	       ,menu_url AS menuUrl
+	       ,menu_stp AS stp1
+	       ,0 AS stp2
+	       ,0 AS stp3
+	       ,'1' AS menuLev
+		FROM auth_menu
+		WHERE parent_srl = 0
+	UNION ALL
+		SELECT 
+			t2.menu_srl AS menuSrl
+			,t1.menu_srl AS menuSrl1
+			,t2.menu_srl AS menuSrl2
+			,'' AS menuSrl3
+			,t2.menu_nm AS menuNm
+			,t2.menu_url AS menuUrl
+			,t1.menu_stp AS stp1
+			,t2.menu_stp AS stp2
+			,0 AS stp3
+			,'2' AS menuLev
+		FROM auth_menu  t1, auth_menu  t2
+		WHERE t2.parent_srl = t1.menu_srl
+		AND  t1.parent_srl = 0
+	UNION ALL
+		SELECT 
+			t3.menu_srl AS menuSrl
+			,t1.menu_srl AS menuSrl1
+		    ,t2.menu_srl AS menuSrl2
+		    ,t3.menu_srl AS menuSrl3
+		    ,t3.menu_nm AS menuNm
+		    ,t3.menu_url AS menuUrl
+			,t1.menu_stp AS stp1
+			,t2.menu_stp AS stp2
+			,t3.menu_stp AS stp3
+			,'3' AS menuLev
+		FROM auth_menu  t1, auth_menu  t2 , auth_menu  t3
+		WHERE t2.parent_srl = t1.menu_srl
+		AND t3.parent_srl = t2.menu_srl
+		AND t1.parent_srl = 0 
+		
+	 ) A , 
+	 (SELECT menu_srl FROM auth_menu_role WHERE role_cd = #{roleCd}) B
+	WHERE A.menuSrl = B.menu_srl
+	ORDER BY stp1, stp2, stp3
+	</select>
+	
+	<select id="selectMenu" resultType="kr.pethub.webapp.admin.site.model.Menu">
+	SELECT 
+		menu_srl
+	  	,parent_srl
+	  	,menu_nm
+	  	,menu_url
+	  	,use_yn
+	  	,menu_stp
+	FROM auth_menu
+	WHERE menu_srl = #{menuSrl}
+	</select>
+	
+	<insert id="insertMenu">
+	INSERT INTO auth_menu(
+	  	parent_srl
+	  	,menu_nm
+	  	,menu_url
+	  	,menu_stp
+	  	,use_yn
+	)VALUES(
+	  	#{parentSrl}
+	  	,#{menuNm}
+	  	,#{menuUrl}
+	  	,#{menuStp}
+	  	,#{useYn}
+	)
+	</insert> 
+	
+	<delete id="deleteMenu">
+	/** deleteMenu **/
+	DELETE  FROM auth_menu  WHERE menu_srl = #{menuSrl}
+	</delete>
+	
+	<delete id="deleteMenu2">
+	/** deleteMenu2 **/
+	DELETE  FROM auth_menu WHERE menu_srl IN ( 
+		SELECT T.menu_srl FROM(
+			SELECT 
+				t2.menu_srl
+			FROM auth_menu AS t1,  auth_menu AS t2
+			WHERE t2.parent_srl = t1.menu_srl
+			AND t1.menu_srl = #{menuSrl}
+		) T
+	)
+	</delete>	
+		
+	<delete id="deleteMenu3">
+	/** deleteMenu3 **/
+	DELETE  FROM auth_menu WHERE menu_srl IN (
+		SELECT T.menu_srl FROM(
+			SELECT 
+				t3.menu_srl
+			FROM auth_menu AS t1,  auth_menu AS t2,  auth_menu AS t3
+			WHERE t2.parent_srl = t1.menu_srl AND t3.parent_srl = t2.menu_srl
+			<if test="menuNm == 'menu1'  and menuNm !='' ">
+			AND t1.menu_srl = #{menuSrl}
+			</if>
+			<if test="menuNm == 'menu2'  and menuNm !='' ">
+			AND t2.menu_srl = #{menuSrl}
+			</if>
+		) T
+		
+	)
+	</delete>	
+	
+	<update id="updateMenu">
+	UPDATE  auth_menu SET
+	  	menu_nm = #{menuNm}
+	  	,menu_url = #{menuUrl}
+		,menu_stp = #{menuStp}
+		,use_yn = #{useYn}
+	WHERE menu_srl = #{menuSrl}
+	</update> 
+	
+
+	<update id="updateMenuStatus">
+	UPDATE  auth_menu SET
+		menu_stp = #{menuStp}
+		,use_yn = #{useYn}
+	WHERE menu_srl = #{menuSrl}
+	</update> 
+	
+	<insert id="deleteMenuRole">
+	DELETE FROM  auth_menu_role WHERE role_cd = #{roleCd}
+	</insert> 
+	
+	<insert id="insertMenuRole">
+	INSERT INTO auth_menu_role(
+		role_cd
+	  	,menu_srl
+	)VALUES(
+	  	#{roleCd}
+		,#{roleSrl}
+	)
+	</insert> 
+	
+	
+
+</mapper>  	

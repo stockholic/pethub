@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.site.dao.UserDao">
+
+	<select id="selectUserCount" resultType="int">
+	SELECT 
+		count(1)
+	FROM auth_member t1, auth_member_role t2, auth_role t3
+	WHERE t1.user_id = t2.user_id
+	AND t2.role_cd = t3.role_cd
+	 <if test="useYn != null and useYn != ''">
+	 AND t1.use_yn = #{useYn}
+	 </if>
+	</select>
+
+
+	<select id="selectUserList" resultType="kr.pethub.webapp.admin.site.model.User">
+	SELECT 
+		t1.user_srl
+	  	,t1.user_id
+	  	,t1.user_nm
+	  	,t1.use_yn
+		,t3.role_nm 
+	FROM auth_member t1, auth_member_role t2, auth_role t3
+	WHERE t1.user_id = t2.user_id
+	AND t2.role_cd = t3.role_cd
+	 <if test="useYn != null and useYn != ''">
+	 AND t1.use_yn = #{useYn}
+	 </if>
+	ORDER BY t1.user_srl DESC
+	LIMIT #{rowStart}, #{rowSize} 
+	</select>
+	
+	<select id="selectUser" resultType="kr.pethub.webapp.admin.site.model.User">
+	SELECT 
+		user_srl
+		,user_id
+		,user_nm
+		,password
+		,email
+		,use_yn
+		,(select role_cd from auth_member_role where user_id = t1.user_id ) AS roleCd
+	FROM auth_member t1
+	WHERE user_srl = #{userSrl}
+	</select>
+
+	<insert id="insertUser">
+	INSERT INTO auth_member(
+		user_id
+		,password
+		,user_nm
+		,email
+		,use_yn
+		,reg_date
+	)VALUES(
+		#{userId}
+		,#{password}
+		,#{userNm}
+		,#{email}
+		,'Y'
+		,SYSDATE()
+	)
+	</insert> 
+	
+	<insert id="insertUserRole">
+	INSERT INTO auth_member_role(
+		user_id
+		,role_cd
+	)VALUES(
+		#{userId}
+		,#{roleCd}
+	)
+	</insert> 
+	
+	<update id="updateUser">
+	UPDATE  auth_member SET
+		user_nm = #{userNm}
+		,email = #{email}
+		,use_yn = #{useYn}
+		<if test="password != null and password != ''">
+		,password = #{password}
+		</if>
+	WHERE user_srl = #{userSrl}
+	</update> 
+
+	<update id="updateUseRole">
+	UPDATE  auth_member_role SET
+		role_cd = #{roleCd}
+	WHERE user_role_srl = #{userSrl}
+	</update> 
+	
+
+
+</mapper>  

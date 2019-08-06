@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- title -->
+	<definition name=".adminTitle">
+        <put-attribute name="title" value="PetHub" />
+    </definition>
+	<definition name=".frontTitle">
+        <put-attribute name="title" value="PetHub" />
+    </definition>
+	
+	<!-- none -->
+    <definition name="none:**"  extends=".adminTitle"  template="/WEB-INF/layouts/none/layout.jsp" >
+        <put-attribute name="body" value="/WEB-INF/view/{1}.jsp" />
+    </definition>
+    
+	<!-- Ajax -->
+    <definition name="ajax:**" template="/WEB-INF/layouts/ajax/layout.jsp" >
+        <put-attribute name="body" value="/WEB-INF/view/{1}.jsp" />
+    </definition>
+    
+	<!-- admin layout -->
+    <definition name="admin:**" extends=".adminTitle"  template="/WEB-INF/layouts/admin/layout.jsp">
+        <put-attribute name="header" value="/WEB-INF/layouts/admin/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/layouts/admin/menu.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/admin/{1}.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layouts/admin/footer.jsp" />
+    </definition>
+    
+    <!-- front layout -->
+    <definition name="front:**" extends=".frontTitle"  template="/WEB-INF/layouts/front/layout.jsp">
+        <put-attribute name="header" value="/WEB-INF/layouts/front/header.jsp" />
+        <put-attribute name="menu" value="/WEB-INF/layouts/front/menu.jsp" />
+        <put-attribute name="body" value="/WEB-INF/view/front/{1}.jsp" />
+        <put-attribute name="footer" value="/WEB-INF/layouts/front/footer.jsp" />
+    </definition>
+
+    <!-- admin script -->
+    <definition name="adminScript" template="/WEB-INF/layouts/admin/script.jsp"> </definition>
+     <!-- admin css -->
+    <definition name="adminCss" template="/WEB-INF/layouts/admin/css.jsp"> </definition>
+    
+    
+    <!-- front script -->
+    <definition name="frontScript" template="/WEB-INF/layouts/front/script.jsp"> </definition>
+     <!-- admfrontin css -->
+    <definition name="frontCss" template="/WEB-INF/layouts/front/css.jsp"> </definition>
+    
+    
+    
+</tiles-definitions>
