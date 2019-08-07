@@ -45,7 +45,7 @@ public class Paging extends TagSupport{
 		//마지막 페이지 그룹처리, 우측 페이지 표시안함
 		if( totalPage - page <  rightCnt || totalPage == page) {
 			endPage = totalPage + 1;
-			System.out.println( "endPage 2 : " + endPage );
+			//System.out.println( "endPage 2 : " + endPage );
 		}
 		
 		/*
