@@ -284,8 +284,9 @@ function siteLinkTest(siteSrl, linkSrl, linkUrl, linkCls, linkMtdLst){
 	
 }
 
-
+//----------------------------------------------------------- WebSocket Start
 //사이트 테스트 WebSocket 연결
+var ws = null;
 function wsConnect() {
  	var host = "ws://"+window.location.hostname;
 	var port = window.location.port
@@ -297,6 +298,7 @@ function wsConnect() {
 	}
 }
 
+//----------------------------------------------------------- WebSocket End
 
 //사이트 데이터 등록
 function regSiteLinkData(){
