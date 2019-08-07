@@ -22,10 +22,10 @@ public class Paging extends TagSupport{
 		int pageCount = (this.pageCount == 0) ? 10 : this.pageCount;
 
 		int leftCnt = (int)Math.floor( (double)pageCount / 2);		//기준페이지 좌측 페이지 개수
-		System.out.println( "leftCnt : " + leftCnt );
+		//System.out.println( "leftCnt : " + leftCnt );
 		
 		int rightCnt = pageCount - leftCnt -1;		//기준페이지 우측 페이지 개수
-		System.out.println( "rightCnt : " + rightCnt );
+		//System.out.println( "rightCnt : " + rightCnt );
 
 		int startPage = 1;									//페이지 표시 시작
 		int endPage = 0;									//페이지 표시 종료
