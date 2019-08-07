@@ -3,7 +3,7 @@
 
 	<statusListener class="ch.qos.logback.core.status.NopStatusListener" />
 
-	 <property name="output" value="/usr/local/www/logs/pethub" />
+	 <property name="output" value="/usr/local/www_work/logs/pethub" />
 	 
 	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
 		<layout class="ch.qos.logback.classic.PatternLayout">
