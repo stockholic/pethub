@@ -51,5 +51,9 @@ public class SiteLinkDao extends MultiSqlSessionDaoSupport{
 	public int insertSiteLinkData(SiteLinkData siteLinkData){
 		return insert("insertSiteLinkData",siteLinkData);
 	}
+	
+	public int updateSiteLinkCnt(SiteLink siteLink){
+		return insert("updateSiteLinkCnt",siteLink);
+	}
 
 }

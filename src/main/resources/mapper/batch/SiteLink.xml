@@ -155,4 +155,11 @@
 		AND data_id = #{dataId}
 	</update>
 	
+	<update id="updateSiteLinkCnt">
+		UPDATE site_link SET
+			 link_cnt = #{linkCnt}
+			, exc_dt = SYSDATE()
+		WHERE link_srl = #{linkSrl}
+	</update>
+	
 </mapper>  

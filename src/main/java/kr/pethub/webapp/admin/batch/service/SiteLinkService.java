@@ -111,6 +111,16 @@ public class SiteLinkService {
 			
 		}
 		
+		//등록 후 사이트링크 처리 업데이트
+		if(siteLinkDataList.getDataList().size() > 0) {
+			
+			SiteLink siteLink = new SiteLink();
+			siteLink.setLinkCnt( Integer.toString(siteLinkDataList.getDataList().size()) );
+			siteLink.setLinkSrl(siteLinkDataList.getLinkSrl());
+			
+			siteLinkDao.updateSiteLinkCnt(siteLink);
+		}
+		
 		return  1;
 	}
 	
