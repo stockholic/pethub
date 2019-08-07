@@ -45,12 +45,14 @@ public class RoleController{
 		model.addAttribute("list", list);
 		
 
+		/*
 		List<Object> principals = this.sessionRegistry.getAllPrincipals();
 		
 		for (Object principal: principals) {
 		    	System.out.println( ">> " +  ((AuthInfo)principal).getUser().getUserId());
 		    	System.out.println(">> " +  ((AuthInfo)principal).getUser().getSessionId() + ":" + ((AuthInfo)principal).getUser().getLoginDate());
 		}
+		*/
 		
 		 return "admin:site/role/roleList";
 	} 
