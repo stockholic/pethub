@@ -22,10 +22,10 @@ public class Paging extends TagSupport{
 		int pageCount = (this.pageCount == 0) ? 10 : this.pageCount;
 
 		int leftCnt = (int)Math.floor( (double)pageCount / 2);		//기준페이지 좌측 페이지 개수
-		//System.out.println( "leftCnt : " + leftCnt );
+		System.out.println( "leftCnt : " + leftCnt );
 		
 		int rightCnt = pageCount - leftCnt -1;		//기준페이지 우측 페이지 개수
-		//System.out.println( "rightCnt : " + rightCnt );
+		System.out.println( "rightCnt : " + rightCnt );
 
 		int startPage = 1;									//페이지 표시 시작
 		int endPage = 0;									//페이지 표시 종료
@@ -35,17 +35,17 @@ public class Paging extends TagSupport{
 			startPage = page - leftCnt;
 			//System.out.println( "startPage : " + startPage );
 		}
-		endPage = startPage + pageCount; 
-		//System.out.println( "endPage 1 : " + endPage );
 		
 		//마지막이 페이지가 총페이지를 넘는지 체크
-		if(endPage > totalPage) endPage = totalPage;
-		
+		if(pageCount > totalPage) pageCount = totalPage;
+				
+		endPage = startPage + pageCount; 
+		//System.out.println( "endPage 1 : " + endPage );
 		
 		//마지막 페이지 그룹처리, 우측 페이지 표시안함
 		if( totalPage - page <  rightCnt || totalPage == page) {
 			endPage = totalPage + 1;
-			//System.out.println( "endPage 2 : " + endPage );
+			System.out.println( "endPage 2 : " + endPage );
 		}
 		
 		/*
