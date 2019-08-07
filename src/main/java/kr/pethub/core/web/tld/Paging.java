@@ -44,6 +44,9 @@ public class Paging extends TagSupport{
 			//System.out.println( "endPage 2 : " + endPage );
 		}
 		
+		// 루프의 마지막이 총페이지를 넘는지 체크
+		if(endPage > totalPage) endPage = totalPage;		
+		
 		/*
 		for(int i = startPage; i < endPage; i++) {
 			System.out.println( i + ", " );
