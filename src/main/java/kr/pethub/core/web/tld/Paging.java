@@ -30,6 +30,9 @@ public class Paging extends TagSupport{
 		int startPage = 1;									//페이지 표시 시작
 		int endPage = 0;									//페이지 표시 종료
 		
+		// 루프의 마지막이 총페이지를 넘는지 체크
+		if(endPage > totalPage) endPage = totalPage;		
+		
 		//첫번째 페이지 그룹처리, 좌측 페이지 표시 여부 조건
 		if(page - leftCnt > 0) {
 			startPage = page - leftCnt;
@@ -43,9 +46,6 @@ public class Paging extends TagSupport{
 			endPage = totalPage + 1;
 			//System.out.println( "endPage 2 : " + endPage );
 		}
-		
-		// 루프의 마지막이 총페이지를 넘는지 체크
-		if(endPage > totalPage) endPage = totalPage;		
 		
 		/*
 		for(int i = startPage; i < endPage; i++) {
