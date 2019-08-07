@@ -12,7 +12,7 @@ public class PropertyEncryptTest {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
-	 private String USER = "shkr";
+	 private String USER = "phkr";
 	 private String PASSWORD = "Wkwkdaus";
 	
 	@Test
