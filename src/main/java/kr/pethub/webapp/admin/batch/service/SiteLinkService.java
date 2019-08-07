@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pethub.core.module.model.SiteLinkData;
+import kr.pethub.core.utils.JsoupUtil;
 import kr.pethub.webapp.admin.batch.dao.SiteLinkDao;
 import kr.pethub.webapp.admin.batch.model.SiteInfo;
 import kr.pethub.webapp.admin.batch.model.SiteLink;
@@ -100,13 +101,21 @@ public class SiteLinkService {
 	 */
 	public int insertSiteLinkData(SiteLinkDataList siteLinkDataList) {
 		
+		int linkCnt = 0;
 		for  ( SiteLinkData siteLinkData :  siteLinkDataList.getDataList()  ) {
 			
-			siteLinkData.setSiteSrl(siteLinkDataList.getSiteSrl());
-			siteLinkData.setLinkSrl(siteLinkDataList.getLinkSrl());
-			
-			if( siteLinkDao.updateSiteLinkData(siteLinkData) == 0 ) {
-				siteLinkDao.insertSiteLinkData(siteLinkData);
+			//키값(ID)이 올바른것 만 저장, 숫자 이여야 함 
+			if(  JsoupUtil.isRegex("^[0-9]+$", siteLinkData.getDataId() ) ) { 
+				
+				siteLinkData.setSiteSrl(siteLinkDataList.getSiteSrl());
+				siteLinkData.setLinkSrl(siteLinkDataList.getLinkSrl());
+				
+				if( siteLinkDao.updateSiteLinkData(siteLinkData) == 0 ) {
+					siteLinkDao.insertSiteLinkData(siteLinkData);
+				}
+				
+				linkCnt++;
+				
 			}
 			
 		}
@@ -115,7 +124,7 @@ public class SiteLinkService {
 		if(siteLinkDataList.getDataList().size() > 0) {
 			
 			SiteLink siteLink = new SiteLink();
-			siteLink.setLinkCnt( Integer.toString(siteLinkDataList.getDataList().size()) );
+			siteLink.setLinkCnt( Integer.toString(linkCnt) );
 			siteLink.setLinkSrl(siteLinkDataList.getLinkSrl());
 			
 			siteLinkDao.updateSiteLinkCnt(siteLink);
