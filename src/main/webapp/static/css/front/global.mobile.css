@@ -5,6 +5,12 @@
 
 @media screen and (max-width:480px) {
 	
+	.search-wrap .col-3 {
+    	text-align: center;
+    	max-width: none;
+    	flex:none;
+	}
+	
 	#updatedTime{
 		display:none;
 	}
