@@ -93,6 +93,7 @@
 	
 	<div class="box-footer">
 		<button type="button" onclick="openRegForm()" class="btn btn-primary btn-xm">등록</button>
+		<button type="button" onclick="sseConnect('http://www.animal.or.kr/bbs/board.php?bo_table=commu_08','kr.pethub.site.AnimalOrKr','getDogList')" class="btn btn-xm">AAAAAAAAA</button>
 	</div>
 	
 	
@@ -151,10 +152,6 @@ $(document).ready(function() {
 				$(".jBox-content").scrollTop($(".jBox-content")[0].scrollHeight);
 			}
 		});
-		
-	//Site Test  WebSocket
-	wsConnect();
-	
 });
 
 // Ajax 데이터 추출,  Vue 에 정의된 함수명 
@@ -246,7 +243,24 @@ function openUptForm(linkSrl){
 	})
 }
 
-//사이트 테스트 호출
+
+//----------------------------------------------------------- WebSocket Start
+//사이트 테스트 WebSocket 연결
+//nginx 연결시 소켓 타임아웃 설정해 줘야 한다.
+function wsConnect() {
+	var host = "ws://"+window.location.hostname;
+	var port = window.location.port
+	var ws = new WebSocket(host + ":" + port+ "/console"); 
+	
+	ws.onmessage = function(message){
+		console.log(JSON.parse(message.data));
+		sObj.siteData.push( JSON.parse(message.data) );
+	}
+}
+//----------------------------------------------------------- WebSocket End
+
+
+//사이트 테스트 호출	Server-Sent Events
 var _siteSrl = "";
 var _linkSrl = "";
 function siteLinkTest(siteSrl, linkSrl, linkUrl, linkCls, linkMtdLst){
@@ -265,40 +279,36 @@ function siteLinkTest(siteSrl, linkSrl, linkUrl, linkCls, linkMtdLst){
 		content : $("#siteLinkDataTest")
 	});
 	
-	setTimeout(function() {
+	var params = {
+		linkUrl : linkUrl,
+		linkCls : linkCls,
+		linkMtdLst : linkMtdLst
+	}
+	
+	console.log( encodeURI($.param(params, true)) );
+			
+	var url = "/adm/batch/siteLinkSseTest?" + encodeURI($.param(params, true));
+	var es = new EventSource(url);
+	
+	es.onopen = function (message) {
+		console.log("SSE open");
 		com.loading("body");
-		
-		com.requestAjax({
-			url : "/adm/batch/siteLinkTest", 
-			type : "POST", 
-			params : {
-				linkUrl : linkUrl,
-				linkCls : linkCls,
-				linkMtdLst : linkMtdLst
-			}
-		},function(){
-			com.loadingClose();
-		})
-		
-	}, 500);
-	
-}
+	};
 
-//----------------------------------------------------------- WebSocket Start
-//사이트 테스트 WebSocket 연결
-var ws = null;
-function wsConnect() {
- 	var host = "ws://"+window.location.hostname;
-	var port = window.location.port
-	ws = new WebSocket(host + ":" + port+ "/console"); 
-	
-	ws.onmessage = function(message){
+	//메세지 도착
+	es.onmessage = function (message) {
 		console.log(JSON.parse(message.data));
 		sObj.siteData.push( JSON.parse(message.data) );
-	}
-}
+	};
 
-//----------------------------------------------------------- WebSocket End
+	//연결종료나 에러발생시 호출
+	es.onerror = function (message) {
+		es.close();
+		com.loadingClose();
+		console.log("SSE error OR close");
+	};
+	
+}
 
 //사이트 데이터 등록
 function regSiteLinkData(){

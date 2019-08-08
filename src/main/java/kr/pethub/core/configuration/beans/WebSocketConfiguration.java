@@ -25,7 +25,30 @@ public class WebSocketConfiguration  implements WebSocketConfigurer {
 	
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(consoleSocketHandler(), "/console");
+		
+    	// nginx 연결시 소켓 타임아웃 설정해 줘야 한다.
+    	/*
+    	  location / {
+                proxy_pass  http://127.0.0.1:8080;
+                proxy_set_header   Host             $host;
+                #proxy_set_header X-Real-IP $remote_addr;
+                proxy_set_header X-Forwarded-For $remote_addr;
+                proxy_http_version 1.1;
+
+                # use websocket
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "upgrade";
+
+                # websocket timeout ex. 1d days ,  86400s	1days
+                proxy_connect_timeout 1d;
+                proxy_send_timeout 1d;
+                proxy_read_timeout 1d;
+
+                client_max_body_size 500M;
+        	}
+    	 */
+    	registry.addHandler(consoleSocketHandler(), "/console");
+    	
     }
     
     @Bean
