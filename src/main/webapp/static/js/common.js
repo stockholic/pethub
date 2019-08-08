@@ -521,21 +521,26 @@ jQuery.fn.serializeObject = function() {
 
 //--------------------------------------------------------------------  Vue Filter
 // 천단위 콤마
-Vue.filter('addComma', function (num) {
-	if(num == undefined) return "";
-	return com.formatNumber(num)
-});
 
-Vue.filter('timestampToDate', function (timestamp) {
-	var d = new Date(timestamp);
-    year = d.getFullYear(),
-    month = '' + (d.getMonth() + 1),
-    day = '' + d.getDate();
+try{
+	Vue.filter('addComma', function (num) {
+		if(num == undefined) return "";
+		return com.formatNumber(num)
+	});
+}catch(e){}
 
-	if (month.length < 2) month = '0' + month;
-	if (day.length < 2) day = '0' + day;
+try{
+	Vue.filter('timestampToDate', function (timestamp) {
+		var d = new Date(timestamp);
+	    year = d.getFullYear(),
+	    month = '' + (d.getMonth() + 1),
+	    day = '' + d.getDate();
 	
-	return [year, month, day].join('.');
-});
+		if (month.length < 2) month = '0' + month;
+		if (day.length < 2) day = '0' + day;
+		
+		return [year, month, day].join('.');
+	});
+}catch(e){}
 
 
