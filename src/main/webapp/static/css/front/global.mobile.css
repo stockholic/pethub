@@ -1,0 +1,16 @@
+@media screen and (min-width:480px) {
+	
+}
+
+
+@media screen and (max-width:480px) {
+	
+	#updatedTime{
+		display:none;
+	}
+	#searchInput{
+		flex:none;
+		max-width:none;
+	}
+	
+}

@@ -9,7 +9,7 @@
 		<a href= "/">PetHub.kr</a>
 	</div>
 	
-  	<div class="col-6 text-center">
+  	<div class="col-6 text-center" id="searchInput">
   	<div class="search-input">
 		<div class="form-group has-search">
 		<span class="fa fa-search form-control-feedback"></span>
@@ -18,7 +18,7 @@
   	</div>
   	</div>
   	
-	<div class="col-3 text-right last-update">
+	<div class="col-3 text-right last-update" id="updatedTime">
 		<div>last updated</div>
 		<div>${updatedTime }</div>
 	</div>
@@ -68,7 +68,7 @@
 
 <c:if test="${siteLinkData.totalRow > 0}">
 <ul class="pagination justify-content-center">
-<tx:nav totalPage="${siteLinkData.totalPage }" page="${siteLinkData.page}" pageCount="10" searchString="${siteLinkData.dataTitle }"/>
+<tx:nav totalPage="${siteLinkData.totalPage }" page="${siteLinkData.page}" pageCount="5" searchString="${siteLinkData.dataTitle }"/>
 </ul>
 </c:if>
 

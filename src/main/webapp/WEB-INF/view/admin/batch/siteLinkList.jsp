@@ -93,7 +93,6 @@
 	
 	<div class="box-footer">
 		<button type="button" onclick="openRegForm()" class="btn btn-primary btn-xm">등록</button>
-		<button type="button" onclick="sseConnect('http://www.animal.or.kr/bbs/board.php?bo_table=commu_08','kr.pethub.site.AnimalOrKr','getDogList')" class="btn btn-xm">AAAAAAAAA</button>
 	</div>
 	
 	
@@ -256,6 +255,9 @@ function wsConnect() {
 		console.log(JSON.parse(message.data));
 		sObj.siteData.push( JSON.parse(message.data) );
 	}
+	
+	
+	//  서버에서 보냄 consoleLog.getConsole().send(mapper.writeValueAsString(cli) );
 }
 //----------------------------------------------------------- WebSocket End
 
