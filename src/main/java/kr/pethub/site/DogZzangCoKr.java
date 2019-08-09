@@ -3,9 +3,7 @@ package kr.pethub.site;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -35,7 +33,6 @@ public class DogZzangCoKr {
 	 * @return
 	 * @throws IOException 
 	 */
-	
 	public void getDogList1(String linkUrl, HttpServletResponse response) throws IOException {
 		
 		PrintWriter writer = null;
@@ -132,9 +129,9 @@ public class DogZzangCoKr {
 	 * @throws IOException 
 	 */
 	
-	public List<SiteLinkData> getDogList2(String linkUrl) throws IOException {
+	public void getDogList2(String linkUrl, HttpServletResponse response) throws IOException {	
 		
-		List<SiteLinkData> list = new ArrayList<SiteLinkData>();
+		PrintWriter writer = null;
 		
 		String selector = "body > table > tbody > tr > td > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(6) > tbody > tr > td > table";
 		String domain = "http://www.dog-zzang.co.kr";
@@ -144,52 +141,65 @@ public class DogZzangCoKr {
 		Collections.reverse(elements);
 		
 		int k = 1;
-		for( Element ele :  elements) {
+		try {
+			writer = response.getWriter();
 			
-			
-			if( ele.getElementsByTag("tr").hasAttr("onmouseover")  ) {
-				logger.debug("--------------------------------------------------------------------------------------------------------------- " + (k++));
+			for( Element ele :  elements) {
 				
-				SiteLinkData cli  = new SiteLinkData();
-				
-				//제목 추출
-				String dataTitle = ele.getElementsByTag("td").get(2).text() + " " + ele.getElementsByTag("td").get(3).text() + " " + ele.getElementsByTag("td").get(4).text() + " " + ele.getElementsByTag("td").get(5).text() + " " + ele.getElementsByTag("td").get(6).text();
-				logger.debug( "TITEL : {}" , JsoupUtil.specialCharacterRemove(dataTitle));
-				cli.setDataTitle( JsoupUtil.specialCharacterRemove(dataTitle)); 
-				
-				//링크 추출
-				String dataLink = domain + ele.getElementsByTag("td").get(2).getElementsByTag("a").attr("href");
-				logger.debug( "LINK : {}" , dataLink );
-				cli.setDataLink(dataLink);
-				
-				//이미지 추출
-				String dataImg = domain +"/dog_sale/"+ ele.getElementsByTag("td").get(1).getElementsByTag("img").attr("src").replace("./", "");
-				dataImg = (dataImg.contains("free_no_image.gif"))  ? "" : dataImg;
-				logger.debug( "IMAGE : {}" , dataImg );
-				cli.setDataImg(dataImg);	
-				
-				//아이디 추출
-				String dataId = dataLink.replaceAll(patternId, "$3");
-				logger.debug( "ID : {}" , dataId );
-				cli.setDataId( dataId );
-				
-				//내용 접근 URL
-				cli.setDataLink(dataLink);	
-				
-				list.add(cli);
+				if( ele.getElementsByTag("tr").hasAttr("onmouseover")  ) {
+					
+					//--------------------------------------------------------------------------------------------------------------- Start
+					
+					SiteLinkData cli  = new SiteLinkData();
+					
+					//제목 추출
+					String dataTitle = ele.getElementsByTag("td").get(2).text() + " " + ele.getElementsByTag("td").get(3).text() + " " + ele.getElementsByTag("td").get(4).text() + " " + ele.getElementsByTag("td").get(5).text() + " " + ele.getElementsByTag("td").get(6).text();
+					logger.debug( "TITEL : {}" , JsoupUtil.specialCharacterRemove(dataTitle));
+					cli.setDataTitle( JsoupUtil.specialCharacterRemove(dataTitle)); 
+					
+					//링크 추출
+					String dataLink = domain + ele.getElementsByTag("td").get(2).getElementsByTag("a").attr("href");
+					logger.debug( "LINK : {}" , dataLink );
+					cli.setDataLink(dataLink);
+					
+					//이미지 추출
+					String dataImg = domain +"/dog_sale/"+ ele.getElementsByTag("td").get(1).getElementsByTag("img").attr("src").replace("./", "");
+					dataImg = (dataImg.contains("free_no_image.gif"))  ? "" : dataImg;
+					logger.debug( "IMAGE : {}" , dataImg );
+					cli.setDataImg(dataImg);	
+					
+					//아이디 추출
+					String dataId = dataLink.replaceAll(patternId, "$3");
+					logger.debug( "ID : {}" , dataId );
+					cli.setDataId( dataId );
+					
+					//내용 접근 URL
+					cli.setDataLink(dataLink);	
+					
+					//--------------------------------------------------------------------------------------------------------------- End
+					
+					ObjectMapper mapper = new ObjectMapper();
+					cli.setNum(k++);
+					getDogContent2(cli);
+					writer.write("data:" + mapper.writeValueAsString(cli)  + "\n\n" );
+					writer.flush();
+					
+				}
 				
 			}
 			
+		}catch(Exception e) {
+			e.getStackTrace();
+		}finally {
+			writer.close();
 		}
-		
-		return list;
 	}
 	
 	
 	/**
 	 * 강아지 무료분양 내용 추출
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public void getDogContent2( SiteLinkData siteLinkData ) throws IOException {
 		

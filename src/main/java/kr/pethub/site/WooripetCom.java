@@ -1,9 +1,7 @@
 package kr.pethub.site;
 
 import java.io.IOException;
-
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 import java.util.Collections;
 
 import javax.servlet.http.HttpServletResponse;
@@ -19,11 +17,11 @@ import kr.pethub.core.module.model.SiteLinkData;
 import kr.pethub.core.utils.JsoupUtil;
 
 /**
- * 유기견보호센터 http://www.animal.or.kr
+ * 우리펫 http://www.우리펫.com
  * @author shkr
  *
  */
-public class AnimalOrKr {
+public class WooripetCom {
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
@@ -37,17 +35,15 @@ public class AnimalOrKr {
 		
 		PrintWriter writer = null;
 		
-		String domain = "http://www.animal.or.kr";
-		String selector = "#fboardlist table .mw_basic_list_subject_m";
-		String patternId ="(.*)(wr_id=)([0-9]+)";
+		String selector = "#wrap .sct_li";
+		String patternId ="(.*)(it_id=)([0-9]+)";
 
-		Elements elements = JsoupUtil.getElements(linkUrl, "euc-kr", selector);
+		Elements elements = JsoupUtil.getElements(linkUrl, selector);
 		Collections.reverse(elements);
 		
 		int k = 1;
 		try {
 			writer = response.getWriter();
-			
 			for( Element ele :  elements) {
 				
 				//--------------------------------------------------------------------------------------------------------------- Start
@@ -55,19 +51,19 @@ public class AnimalOrKr {
 				SiteLinkData cli  = new SiteLinkData();
 				
 				//제목 추출
-				String dataTitle = ele.getElementsByClass("mw_basic_list_subject_desc").text();
+				String dataTitle = ele.getElementsByClass("sct_txt").text() + " " +  ele.getElementsByClass("sct_cost").text();
 				logger.debug( "TITEL : {}" , JsoupUtil.specialCharacterRemove(dataTitle));
 				cli.setDataTitle( JsoupUtil.specialCharacterRemove(dataTitle));
-	
+				
 				//링크 추출
-				String dataLink = ele.select("a").attr("href").replace("..", ""); 
-				logger.debug( "LINK : {}" , domain + dataLink );
-				cli.setDataLink(domain + dataLink);
-	
+				String dataLink = ele.select("a").attr("href"); 
+				logger.debug( "LINK : {}" , dataLink );
+				cli.setDataLink(dataLink);
+				
 				//이미지 추출
-				String dataImg = ele.getElementsByTag("img").attr("src").replace("..", ""); ;
-				logger.debug( "IMAGE : {}" , domain + dataImg );
-				cli.setDataImg(domain + dataImg);	
+				String dataImg = ele.getElementsByTag("img").attr("src");
+				logger.debug( "IMAGE : {}" , dataImg );
+				cli.setDataImg(dataImg);	
 				
 				//아이디 추출
 				String dataId = dataLink.replaceAll(patternId, "$3");
@@ -84,33 +80,30 @@ public class AnimalOrKr {
 				getDogContent(cli);
 				writer.write("data:" + mapper.writeValueAsString(cli)  + "\n\n" );
 				writer.flush();
-				 
+				
 			}
-			
+
 		}catch(Exception e) {
 			e.getStackTrace();
 		}finally {
 			writer.close();
 		}
-		
-		
+
 	}
 	
 	/**
 	 * 강아지 내용 추출
 	 * @return
 	 * @throws IOException 
-	 * @throws URISyntaxException 
 	 */
-	public void getDogContent( SiteLinkData siteLinkData ) throws IOException, URISyntaxException {
+	public void getDogContent( SiteLinkData siteLinkData ) throws IOException {
 
-		String selector = "#view_content";
-		Elements contents = JsoupUtil.getElements(siteLinkData.getDataLink() , "euc-kr", selector );
+		String selector = "#sit  section";
+		Elements contents = JsoupUtil.getElements(siteLinkData.getDataLink() , selector );
 		
 		String dataContent = JsoupUtil.specialCharacterRemove(contents.text());		
 		siteLinkData.setDataContent(dataContent);
 		logger.debug( "CONTENTS : {}" , dataContent );
-		
 	}
 	
 	
