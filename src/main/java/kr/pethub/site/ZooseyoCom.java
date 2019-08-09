@@ -206,7 +206,7 @@ public class ZooseyoCom {
 		
 		PrintWriter writer = null;
 		
-		String selector = "body > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(9) > tbody > tr > td > table";
+		String selector = "body > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(10) > tbody > tr > td > table";
 		String domain = "http://www.zooseyo.com";
 		String patternId ="(.*)(no=)([0-9]+)(.*)";
 
@@ -218,7 +218,7 @@ public class ZooseyoCom {
 			writer = response.getWriter();
 			for( Element ele :  elements) {
 				
-				if( ele.getElementsByTag("tr").hasAttr("onclick")  ) {
+				if( ele.getElementsByTag("table").hasAttr("onclick")  ) {
 					
 					//--------------------------------------------------------------------------------------------------------------- Start
 					
