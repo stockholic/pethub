@@ -28,7 +28,7 @@ public class ZooseyoCom {
 	
 	
 	/**
-	 * 강이지 목록 추출
+	 * 강이지 무료 목록 추출
 	 * @return
 	 * @throws IOException 
 	 */
@@ -98,7 +98,7 @@ public class ZooseyoCom {
 	}
 	
 	/**
-	 * 강아지 내용 추출
+	 * 강아지 무료 내용 추출
 	 * @return
 	 * @throws IOException 
 	 */
@@ -113,7 +113,7 @@ public class ZooseyoCom {
 	}
 	
 	/**
-	 * 고양이 목록 추출
+	 * 고양이 무료 목록 추출
 	 * @return
 	 * @throws IOException 
 	 */
@@ -182,7 +182,7 @@ public class ZooseyoCom {
 	}
 	
 	/**
-	 * 고양이 내용 추출
+	 * 고양이 무료 내용 추출
 	 * @return
 	 * @throws IOException 
 	 */
@@ -196,5 +196,90 @@ public class ZooseyoCom {
 		logger.debug( "CONTENTS : {}" , dataContent );
 	}
 	
+	
+	/**
+	 * 강이지 유료 목록 추출
+	 * @return
+	 * @throws IOException 
+	 */
+	public void getDogList2(String linkUrl, HttpServletResponse response) throws IOException {
+		
+		PrintWriter writer = null;
+		
+		String selector = "body > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(9) > tbody > tr > td > table";
+		String domain = "http://www.zooseyo.com";
+		String patternId ="(.*)(no=)([0-9]+)(.*)";
+
+		Elements elements = JsoupUtil.getElements(linkUrl, "euc-kr", selector);
+		Collections.reverse(elements);
+		
+		int k = 1;
+		try {
+			writer = response.getWriter();
+			for( Element ele :  elements) {
+				
+				if( ele.getElementsByTag("tr").hasAttr("onclick")  ) {
+					
+					//--------------------------------------------------------------------------------------------------------------- Start
+					
+					SiteLinkData cli  = new SiteLinkData();
+					
+					//제목 추출
+					String dataTitle = ele.getElementsByTag("td").get(3).text() + " " + ele.getElementsByTag("td").get(4).text() + " " + ele.getElementsByTag("td").get(5).text()  + " " + ele.getElementsByTag("td").get(6).text() + " " + ele.getElementsByTag("td").get(7).text();
+					logger.debug( "TITEL : {}" , JsoupUtil.specialCharacterRemove(dataTitle));
+					cli.setDataTitle( JsoupUtil.specialCharacterRemove(dataTitle)) ;
+					
+					//링크 추출
+					String dataLink = domain + ele.getElementsByTag("td").get(8).getElementsByTag("a").attr("href").replace("..", "");
+					logger.debug( "LINK : {}" , dataLink );
+					cli.setDataLink(dataLink);
+					
+					//이미지 추출
+					String dataImg = domain + ele.getElementsByTag("td").get(1).getElementsByTag("img").attr("src");
+					logger.debug( "IMAGE : {}" , dataImg );
+					cli.setDataImg(dataImg);	
+					
+					//아이디 추출
+					String dataId = dataLink.replaceAll(patternId, "$3");
+					logger.debug( "ID : {}" , dataId );
+					cli.setDataId( dataId );
+					
+					//내용 접근 URL
+					cli.setDataLink(dataLink);	
+					
+					//--------------------------------------------------------------------------------------------------------------- End
+					
+					ObjectMapper mapper = new ObjectMapper();
+					cli.setNum(k++);
+					getDogContent2(cli);
+					writer.write("data:" + mapper.writeValueAsString(cli)  + "\n\n" );
+					writer.flush();
+					
+				}
+				
+			}
+			
+		}catch(Exception e) {
+			e.getStackTrace();
+		}finally {
+			writer.close();
+		}
+
+	}
+	
+	/**
+	 * 강아지 유료 내용 추출
+	 * @return
+	 * @throws IOException 
+	 */
+	public void getDogContent2( SiteLinkData siteLinkData ) throws IOException {
+
+		String selector = "body > table:nth-child(4) > tbody > tr > td > table:nth-child(22) > tbody > tr > td";
+		Elements contents = JsoupUtil.getElements(siteLinkData.getDataLink() , "euc-kr", selector );
+		
+		String dataContent = JsoupUtil.specialCharacterRemove(contents.text());		
+		siteLinkData.setDataContent(dataContent);
+		logger.debug( "CONTENTS : {}" , dataContent );;
+	}
 	
 }
