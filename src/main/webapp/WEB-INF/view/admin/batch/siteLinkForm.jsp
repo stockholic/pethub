@@ -34,7 +34,11 @@
 	</td>
 </tr>
 <tr>
-	<th>링크</th>
+	<th>대상</th>
+	<td><input type="text" class="form-control" name="linkNm" id="linkNm" value="${siteLink.linkNm}"></td>
+</tr>
+<tr>
+	<th class="required">링크</th>
 	<td><input type="text" class="form-control" name="linkUrl" id="linkUrl" value="${siteLink.linkUrl}"></td>
 </tr>
 <tr>

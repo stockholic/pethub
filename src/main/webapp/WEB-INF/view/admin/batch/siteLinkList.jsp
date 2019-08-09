@@ -40,6 +40,7 @@
 		    <col style="width:60px">
 		     <col style="width:60px">
 		     <col style="width:120px">
+		     <col style="width:120px">
 		     <col />
 		     <col style="width:80px">
 		     <col style="width:80px">
@@ -53,6 +54,7 @@
 			<th class="text-center">번호</th>
 			<th>구분</th>
 			<th>사이트 명</th>
+			<th>대상</th>
 			<th>링크</th>
 			<th class="text-center">링크수</th>
 			<th class="text-center">배치간격</th>
@@ -68,12 +70,13 @@
 			<td class="text-center">{{ lst.num | addComma }}</td>
 			<td v-bind:style="{'color': ( lst.linkCd == 'dog' ? '' : 'blue' )}">{{ lst.linkCd  =='dog' ? '강아지' : '고양이' }}</td>
 			<td>{{ lst.siteNm }}</td>
+			<td>{{ lst.linkNm }}</td>
 			<td class="truncate-ellipsis"><a href="javascript:;" v-on:click="openUptForm(lst.linkSrl)">{{ lst.linkUrl }}</a></td>
 			<td class="text-center">{{ lst.linkCnt}}</td>
 			<td class="text-center">{{ lst.batchItv}}</td>
 			<td class="text-center" v-bind:style="{'text-decoration': ( lst.useYn == 'Y' ? 'none' : 'line-through' )}">{{ lst.useYn == 'Y' ? '사용' : '미사용' }}</td>
-			<td class="text-center">{{ lst.regDt | timestampToDate }}</td>
 			<td class="text-center">{{ lst.excDt | timestampToDate }}</td>
+			<td class="text-center">{{ lst.regDt | timestampToDate }}</td>
 			<td class="text-center">
 				<a href="javascript:;" v-bind:href="lst.linkUrl" target="_blank">[보기]</a>&nbsp;&nbsp;
 				<a href="javascript:;" v-on:click="siteLinkTest(lst.siteSrl, lst.linkSrl, lst.linkUrl, lst.linkCls, lst.linkMtdLst)">[테스트]</a>
@@ -226,7 +229,7 @@ function openRegForm(){
 	com.popup({
 		title : "링크 등록",
 		width : 700,
-		height : 480,
+		height : 540,
 		url : "/adm/batch/siteLinkForm"
 	})
 }
@@ -236,7 +239,7 @@ function openUptForm(linkSrl){
 	com.popup({
 		title : "링크 수정",
 		width : 700,
-		height : 480,
+		height : 540,
 		url : "/adm/batch/siteLinkForm",
 		params : {linkSrl : linkSrl}
 	})
