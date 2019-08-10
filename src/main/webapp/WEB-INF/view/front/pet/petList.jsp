@@ -27,7 +27,7 @@
 <div id="list_wrap">
 
 	<c:if test="${siteLinkData.totalRow > 0}">
-	<div class="row-count">${siteLinkData.totalRow } [ <fmt:formatNumber value="${siteLinkData.page }" pattern="#,###" /> / ${siteLinkData.totalPage } ]</div>
+	<div class="row-count"><fmt:formatNumber value="${siteLinkData.totalRow }" pattern="#,###" /> [ <fmt:formatNumber value="${siteLinkData.page }" pattern="#,###" /> / ${siteLinkData.totalPage } ]</div>
 	</c:if>
 
 	<ul class="list-unstyled">
@@ -67,7 +67,10 @@
 
 
 <c:if test="${siteLinkData.totalRow > 0}">
-<ul class="pagination justify-content-center">
+<ul class="pagination justify-content-center" id="webPaging">
+<tx:nav totalPage="${siteLinkData.totalPage }" page="${siteLinkData.page}" pageCount="10" searchString="${siteLinkData.dataTitle }"/>
+</ul>
+<ul class="pagination justify-content-center" id="mobilePaging">
 <tx:nav totalPage="${siteLinkData.totalPage }" page="${siteLinkData.page}" pageCount="5" searchString="${siteLinkData.dataTitle }"/>
 </ul>
 </c:if>

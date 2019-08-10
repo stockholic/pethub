@@ -1,8 +1,13 @@
+/*  PC screen */
 @media screen and (min-width:480px) {
 	
+	#mobilePaging{
+		display:none;
+	}
 }
 
 
+/*  Mobile screen */
 @media screen and (max-width:480px) {
 	
 	.search-wrap .col-3 {
@@ -19,5 +24,9 @@
 		flex:none;
 		max-width:none;
 	}
+	#webPaging{
+		display:none;
+	}
 	
 }
+	
