@@ -9,10 +9,25 @@
   
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  	<link rel="canonical" href="http://www.pethub.kr">
 	<meta name="description" content="강아지, 고양이 종합 정보">
 	<meta name="keywords" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양"> 
 	<meta name="classification" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">  	
-  	
+	
+	<meta property="og:type" content="website">
+	<meta property="og:title" content="강아지, 고양이 종합 정보">
+	<meta property="og:description" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">
+	<meta property="og:image" content="http://www.pethub.kr/static/image/pethub.png">
+	<meta property="og:url" content="http://www.pethub.kr">
+	
+	<meta property="al:ios:url" content="applinks://docs">
+	<meta property="al:ios:app_store_id" content="12345">
+	<meta property="al:ios:app_name" content="App Links">
+	<meta property="al:android:url" content="applinks://docs">
+	<meta property="al:android:app_name" content="App Links">
+	<meta property="al:android:package" content="org.applinks">
+	<meta property="al:web:url" content="http://applinks.org/documentation">
+	
   	<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 	<tiles:insertDefinition name="frontCss" />
 	<tiles:insertDefinition name="frontScript"/>
