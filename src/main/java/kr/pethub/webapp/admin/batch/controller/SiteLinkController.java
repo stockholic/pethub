@@ -160,6 +160,18 @@ public class SiteLinkController{
 		return map;
 	} 
 	
+	
+	/**
+	 * 사이트 링크 테스트 목록
+	 * @param user
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/batch/siteLinkTestList")
+	public String siteLinkTestList(Auth user, @RequestParam(value="linkSrl", required=false) String linkSrl, Model model) {
+		 return "ajax:admin/batch/siteLinkTestList";
+	} 
+	
 	/**
 	 * 사이트 링크 테스트 Server-Sent Events
 	 * @throws IOException 
