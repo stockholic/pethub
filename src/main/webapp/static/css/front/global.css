@@ -85,8 +85,13 @@
 }
 
 .pagination>li>a, .pagination>li>span { 
-	border-radius: 50% !important;
-	margin: 0 5px;
+    border-radius: 50% !important;
+    margin: 0 5px;
+    padding: 0;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 6px;
 }
 
 .page-item.active .page-link {

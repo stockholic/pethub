@@ -60,7 +60,7 @@
 	</ul>
 	
 	<c:if test="${siteLinkData.totalRow > 0}">
-	<div class="row-count">${siteLinkData.totalRow } [ <fmt:formatNumber value="${siteLinkData.page }" pattern="#,###" /> / ${siteLinkData.totalPage } ]</div>
+	<div class="row-count"><fmt:formatNumber value="${siteLinkData.totalRow }" pattern="#,###" /> [ <fmt:formatNumber value="${siteLinkData.page }" pattern="#,###" /> / ${siteLinkData.totalPage } ]</div>
 	</c:if>
 	
 </div>
