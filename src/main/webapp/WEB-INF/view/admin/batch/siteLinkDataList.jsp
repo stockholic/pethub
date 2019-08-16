@@ -38,7 +38,7 @@
 		  <colgroup>
 		    <col style="width:40px">
 		    <col style="width:60px">
-		     <col style="width:120px">
+		     <col style="width:150px">
 		     <col style="width:60px">
 		     <col style="width:60px">
 		     <col />
