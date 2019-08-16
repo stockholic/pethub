@@ -22,22 +22,28 @@ public class SSHTunnelBean {
 	@Value("${deploy}")
 	 private  String deploy;
 	
-	 @Value("#{systemProperties['adminTool.key']}") 
-	 private String key;
+	 @Value("#{systemProperties['pethub.ip']}") 
+	 private String ip;
 	 
-	 private  Session session;
+	 @Value("#{systemProperties['pethub.user']}") 
+	 private String user;
+	 
+	 @Value("#{systemProperties['pethub.passwd']}") 
+	 private String passwd;
+	 
+	 private Session session;
 	
 	@PostConstruct
 	public void init() throws JSchException {
 		
 		if("local".equals(deploy)) {
-			 JSchUtil js = new JSchUtil( "host",22,"user","password");
+			 JSchUtil js =new JSchUtil(ip,22, user ,passwd);
 			 
 			 Session session = js.getSession();
 			 session.connect();
-			 session.setPortForwardingL(000, "localhost", 000);
+			 session.setPortForwardingL(3306, "localhost", 3306);
 			 
-			 logger.info("key : {}",key);
+			 logger.info("ip : {}",ip);
 			 logger.info("deploy : {}, SSH forwarding {} To {}", deploy, "localhost","host");
 		}
 		
@@ -48,7 +54,9 @@ public class SSHTunnelBean {
 	@PreDestroy
 	public void close() {
 		if("local".equals(deploy) && session != null) {
-			session.disconnect();
+			if(session.isConnected() == false) {
+				session.disconnect();
+			}
 			logger.info("deploy : {}, SSH forwarding disconnect", deploy);
 		}
 	}
