@@ -23,6 +23,8 @@ public class SiteLink extends Pagination{
 	private Date regDt;					// 등록일
 	private Date uptDt;					// 수정일
 	private Date excDt;					// 실행일
+
+	private int siteDataCnt;				// 데이터 수
 	
 	private String searchString;			// 검색어	
 	
@@ -127,6 +129,12 @@ public class SiteLink extends Pagination{
 	}
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
+	}
+	public int getSiteDataCnt() {
+		return siteDataCnt;
+	}
+	public void setSiteDataCnt(int siteDataCnt) {
+		this.siteDataCnt = siteDataCnt;
 	}
 	
 } 

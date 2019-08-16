@@ -125,7 +125,7 @@ function update(){
 		if (data.result > 0){
 			com.notice("수정 되었습니다.")
 			com.popupClose();
-			goPage();
+			goPage( com.getCurrentPage("#paging") );
 		}
 	});
 	

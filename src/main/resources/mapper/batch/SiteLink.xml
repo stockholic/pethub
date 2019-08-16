@@ -5,6 +5,7 @@
 <mapper namespace="kr.pethub.webapp.admin.batch.dao.SiteLinkDao">
 
 	<select id="selectSiteInfoList" resultType="kr.pethub.webapp.admin.batch.model.SiteInfo">
+	/* selectSiteInfoList */
 		SELECT 
      		site_srl
 			,site_nm								
@@ -14,6 +15,7 @@
 
 
 	<select id="selectSiteLinkCount" resultType="int">
+	/* selectSiteLinkCount */
 		SELECT 
 			count(1)
 		FROM site_info si, site_link sl
@@ -24,6 +26,7 @@
 	</select>
 
 	<select id="selectSiteLinkList" resultType="kr.pethub.webapp.admin.batch.model.SiteLink">
+	/* selectSiteLinkList */
 		SELECT 
 			 sl.link_srl
 			, sl.site_srl
@@ -35,6 +38,7 @@
 			, sl.link_mtd_lst
 			, sl.link_mtd_cts
 			, sl.link_cnt
+			, (select count(1) from site_link_data where site_srl = sl.site_srl and link_srl = sl.link_srl) AS siteDataCnt
 			, sl.batch_itv
 			, sl.use_yn
 			, sl.reg_dt
@@ -45,12 +49,13 @@
 		AND si.site_nm like '%' #{searchString} '%'
 		</if>
       	
-	    ORDER BY site_nm ASC, link_srl DESC
+	    ORDER BY use_yn DESC, site_nm ASC, link_srl DESC
 		
 		LIMIT #{rowStart}, #{rowSize}
 	</select>
 
 	<select id="selectSiteLink" resultType="kr.pethub.webapp.admin.batch.model.SiteLink">
+	/* selectSiteLink */
 		SELECT 
      		 sl.link_srl
 			, sl.site_srl
@@ -73,6 +78,7 @@
 	</select>
 
 	<insert id="insertSiteLink">
+	/* insertSiteLink */
 		INSERT INTO site_link(
 			  site_srl
 			, link_cd
@@ -101,6 +107,7 @@
 	</insert>
 	
 	<update id="updateSiteLink">
+	/* updateSiteLink */
 		UPDATE site_link SET
 			 link_cd = #{linkCd}
 			, site_srl = #{siteSrl}
@@ -116,11 +123,13 @@
 	</update>
 	
 	<delete id="deleteSiteLink">
+	/* deleteSiteLink */
 		DELETE FROM site_link	WHERE link_srl = #{linkSrl}
 	</delete>
 	
 	
 	<insert id="insertSiteLinkData">
+	/* insertSiteLinkData */
 		INSERT INTO site_link_data(
 			  site_srl
 			, link_srl
@@ -141,6 +150,7 @@
 	</insert>
 	
 	<update id="updateSiteLinkData">
+	/* updateSiteLinkData */
 		UPDATE site_link_data SET
 			 data_title = #{dataTitle}
 			, data_link = #{dataLink}
@@ -156,6 +166,7 @@
 	</update>
 	
 	<update id="updateSiteLinkCnt">
+	/* updateSiteLinkCnt */
 		UPDATE site_link SET
 			 link_cnt = #{linkCnt}
 			, exc_dt = SYSDATE()

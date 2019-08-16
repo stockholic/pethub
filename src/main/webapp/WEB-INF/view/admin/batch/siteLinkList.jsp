@@ -39,9 +39,10 @@
 		  <colgroup>
 		    <col style="width:60px">
 		     <col style="width:60px">
-		     <col style="width:120px">
+		     <col style="width:150px">
 		     <col style="width:120px">
 		     <col />
+		     <col style="width:80px">
 		     <col style="width:80px">
 		     <col style="width:80px">
 		     <col style="width:80px">
@@ -57,6 +58,7 @@
 			<th>대상</th>
 			<th>링크</th>
 			<th class="text-center">링크수</th>
+			<th class="text-center">데이터수</th>
 			<th class="text-center">배치간격</th>
 			<th class="text-center">사용여부</th>
 			<th class="text-center">실행일</th>
@@ -73,6 +75,7 @@
 			<td>{{ lst.linkNm }}</td>
 			<td class="truncate-ellipsis"><a href="javascript:;" v-on:click="openUptForm(lst.linkSrl)">{{ lst.linkUrl }}</a></td>
 			<td class="text-center">{{ lst.linkCnt}}</td>
+			<td class="text-center">{{ lst.siteDataCnt | addComma}}</td>
 			<td class="text-center">{{ lst.batchItv}}</td>
 			<td class="text-center" v-bind:style="{'text-decoration': ( lst.useYn == 'Y' ? 'none' : 'line-through' )}">{{ lst.useYn == 'Y' ? '사용' : '미사용' }}</td>
 			<td class="text-center">{{ lst.excDt | timestampToDate }}</td>
