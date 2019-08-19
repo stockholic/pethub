@@ -1,7 +1,7 @@
 
 <script src="/static/assets/jquery/jquery-3.4.1.min.js"></script>
 
-<!-- <script src="/static/assets/jquery-2.2.4.min.js"></script> -->
+<!-- <script src="/static/assets/jquery/jquery-2.2.4.min.js"></script> -->
 
 
 <script src="/static/js/vue.min.2.6.10.js"></script>

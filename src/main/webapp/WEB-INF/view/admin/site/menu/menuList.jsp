@@ -44,8 +44,8 @@
     <small>3단계 메뉴등록</small>  
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"> Level</a></li>
-    <li class="active">Here</li>
+    <li><a href="#"> 메뉴등록</a></li>
+    <li class="active">3단계 메뉴등록</li>
   </ol>
 </section>
 
@@ -64,27 +64,28 @@
 
 <script>
 
+$(document).ready(function(){
+	getMenu({
+		name : "대분류",
+		id : "menu1"
+	});
+	
+});
+
+/**
+ * 목록호출
+ */
 function getMenu(params){
 	
-   $.ajax({      
-    	type : "POST",  
-        url : "/adm/menu/ajaxList",
-        data : params.data,
-        beforeSend : function(xhr){
-			xhr.setRequestHeader("AJAX", "true");
-	    },
-        success : function(response){   
-        	$("#" + params.id).html(response)
-        	$("#" + params.id).find(".tb1 tr th:eq(0)").text(params.name);
-        },   
-        error : function(xhr) {
-        	if(xhr.status == "403"){
-        		document.location.href = "/login";
-        	}else{
-    	        alert("에러 : " + xhr.status);
-	       	}
-        }
-    });  
+   com.requestAjax({
+		type: "POST",
+		url : "/adm/menu/ajaxList",
+		params : params.data,
+	},function(data){
+		$("#" + params.id).html(data)
+       	$("#" + params.id).find(".tb1 tr th:eq(0)").text(params.name);
+	});
+   
 }
 
 function subMenu(obj,srl1,srl2, srl){
@@ -118,6 +119,9 @@ function reloadMenu(menu,srl1,srl2){
 	
 }
 
+/**
+ * 순서변경
+ */
 function saveStp(obj, srl1, srl2){
 	
 	var menu = $(obj).closest(".menu-wrap").attr("id");
@@ -137,36 +141,28 @@ function saveStp(obj, srl1, srl2){
 		data.arrMenuStp.push($(this).val());
 	});
 
-	
-	 $.ajax({      
-    	type : "POST",  
-        url : "/adm/menu/updateStatus",
-        data : $.param(data,true),
-        beforeSend : function(xhr){
-			xhr.setRequestHeader("AJAX", "true");
-	    },
-        success : function(response){   
-        	alert("저장되었습니다.");
-        	reloadMenu(menu, srl1, srl2)
-        },   
-        error : function(xhr) {
-        	if(xhr.status == "403"){
-        		document.location.href = "/login";
-        	}else{
-    	        alert("에러 : " + xhr.status);
-	       	}
-        }
-    });  
+	 com.requestAjax({
+			type: "POST",
+			url : "/adm/menu/updateStatus",
+			params : $.param(data,true),
+		},function(data){
+			com.notice("저장 되었습니다.")
+			reloadMenu(menu, srl1, srl2)
+		});
 	
 }
 
-function save(obj,srl1,srl2,srl){
+/**
+ * 등록폼
+ */
+function openRegForm(obj,srl1,srl2,srl){
 	
 	var menu = $(obj).closest(".menu-wrap").attr("id");
 	
 	com.popup({
-		width:520,
-		height:350,
+		title : "메뉴 등록",
+		width : 520,
+		height : 300,
 		url : "/adm/menu/form?menuSrl=" + srl + "&menuSrl1=" + srl1 + "&menuSrl2=" + srl2
 	})
 }
@@ -183,45 +179,32 @@ function deleteMenu(obj, srl1, srl2){
 		menuSrl : $(obj).closest("div").find("input[name=menuSrl]").val()
 	}
 	
-	$.ajax({      
-    	type : "POST",  
-        url : "/adm/menu/delete",
-        data : data,
-        beforeSend : function(xhr){
-			xhr.setRequestHeader("AJAX", "true");
-	    },
-        success : function(response){   
-        	reloadMenu(menu, srl1, srl2);
-        	
-        	if("menu1" == menu){
-	        	$("#menu2").empty();
-        	}else if("menu2" == menu){
-	        	$("#menu3").empty();
-        	}
-        	
-        },   
-        error : function(xhr) {
-        	if(xhr.status == "403"){
-        		document.location.href = "/login";
-        	}else{
-    	        alert("에러 : " + xhr.status);
-	       	}
-        }
-    });  
-	
-	
-}
 
-$(document).ready(function(){
-	getMenu({
-		name : "대분류",
-		id : "menu1"
+	com.confirm({
+		content : "삭제 하겠습니까 ?",
+		confirm : function(){
+			var obj = com.requestAjax({
+				type: "POST",
+				url : "/adm/menu/delete",
+				params : data
+			},function(data){
+				com.notice("삭제 되었습니다.")
+				reloadMenu(menu, srl1, srl2);
+	        	
+	        	if("menu1" == menu){
+		        	$("#menu2").empty();
+	        	}else if("menu2" == menu){
+		        	$("#menu3").empty();
+	        	}
+				
+				com.confirmClose();
+			});
+		},
+		cancel : function(){
+		}
 	});
 	
-	 $("input[name=menuStp]").mask("000");
-});
-
-
+}
 
 
 </script>

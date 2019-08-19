@@ -21,7 +21,7 @@
     <div class="box-body">
     
     	<div class="box-600">
-    	<div class="form-group-sm pull-left">
+    	<div class="pull-left">
        	<form name="frm" id="frm" action="" method="POST" class="form-inline">
 		  <div class="form-group">
 		    <label>사용여부</label>

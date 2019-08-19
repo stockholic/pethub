@@ -71,7 +71,7 @@ public class MenuController{
 		if(StringUtils.isNotEmpty(menu.getMenuSrl())){
 			model.addAttribute("menuData", menuService.selectMenu(menu));
 		}
-		 return "none:admin/site/menu/menuForm";
+		 return "ajax:admin/site/menu/menuForm";
 	}
 	
 	/**
