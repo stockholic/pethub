@@ -146,7 +146,7 @@ function remove(){
 			},function(data){
 				if (data.result > 0){
 					com.notice("삭제 되었습니다.")
-					com.popupClose();
+					com.confirmClose();
 					goPage();
 				}
 			});

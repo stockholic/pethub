@@ -34,6 +34,28 @@
 		     <rtexprvalue>true</rtexprvalue>
    		 </attribute>
    	</tag>
+   	
+   	<tag>
+		<description>페이징처리2</description>
+		<name>nav2</name>
+		<tag-class>kr.pethub.core.web.tld.Paging2</tag-class>
+		<body-content>empty</body-content>
+		 <attribute>
+		     <name>totalPage</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>page</name>
+		     <required>true</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   		  <attribute>
+		     <name>pageCount</name>
+		     <required>false</required>
+		     <rtexprvalue>true</rtexprvalue>
+   		 </attribute>
+   	</tag>
 
    	<tag>
    		<description>콤보박스 Array</description>

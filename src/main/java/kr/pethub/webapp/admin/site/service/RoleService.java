@@ -31,6 +31,9 @@ public class RoleService {
 	 * @return
 	 */
 	public List<Role> selectRoleList(Role role) {
+		
+		role.setTotalRow(selectRoleCount(role));
+		
 		return roleDao.selectRoleList(role);
 	}
 

@@ -5,31 +5,31 @@
 <section class="content-header">
   <h1>
     권한관리
-    <small>그룹/권한관리</small>  
+    <small>그룹관리</small>  
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"> Level</a></li>
-    <li class="active">Here</li>
+    <li><a href="#"> 권한관리</a></li>
+    <li class="active">그룹관리</li>
   </ol>
 </section>
 
 <section class="content container-fluid">
 
 <div class="box box-default">
-    <div class="box-body">
+    <div class="box-body" id="dataWrap">
     
     	<div class="box-600">
-	  	<div class="form-group-sm pull-left">
-       	<form name="frm" id="frm" action="/adm/role/list" method="POST" class="form-inline">
+	  	<div class="pull-left">
+       	<form name="frm" id="frm" class="form-inline">
 		    <label>사용여부</label>
 			 <select name="useYn" id="useYn" class="form-control" onChange="search()">
 				<option value="">전체</option>
-				<option value="Y" ${role.useYn eq "Y" ? "selected" : "" }>사용</option>
-				<option value="N" ${role.useYn eq "N" ? "selected" : "" }>미사용</option>
+				<option value="Y">사용</option>
+				<option value="N">미사용</option>
 			</select>
 		</form>
 	  	</div>
-		<div class="pull-right">Total :  ${fn:length(list)}</div> 
+		<div class="pull-right" v-cloak>Total : {{ vData.totalRow | addComma }} [ {{ vData.page }} / {{ vData.totalPage }} ]</div> 
 		</div>
 
 		<table class="table table-hover table-top box-600">
@@ -49,19 +49,16 @@
 		</thead>
 		<tbody>
 		
-		<c:forEach var="lst" items="${list }">
-		<tr>
-			<td><input type="checkbox" name="roleSrl" value="${lst.roleSrl }"></td>
-			<td><a href="javascript:save(${lst.roleSrl})">${lst.roleCd }</a></td>
-			<td>${lst.roleNm }</td>
-			<td style="text-align: center">${lst.useYn }</td>
+		<tr v-for="lst in vData.dataList" v-cloak>
+			<td><input type="checkbox" name="roleSrl" v-bind:value="lst.roleSrl"></td>
+			<td><a href="javascript:;" v-on:click="openRegForm(lst.roleSrl)">{{ lst.roleCd}}</a></td>
+			<td>{{ lst.roleNm}}</td>
+			<td style="text-align: center">{{ lst.useYn }}</td>
 		</tr>
-		</c:forEach>
-		<c:if test="${empty list }">
-		<tr>
-			<td colspan="4" style="height:100px;text-align:center;vertical-align: middle">자료가 없습니다.</td>
+		
+		<tr v-if="vData.totalPage == 0" v-cloak>
+			<td class="text-center" colspan="4" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
 		</tr>
-		</c:if>
 		
 		</tbody>
 		</table> 
@@ -69,7 +66,7 @@
 	</div>
 
     <div class="box-footer box-600">
-		<button type="button" class="btn btn-primary btn-xm" onClick="save()">등록</button>
+		<button type="button" class="btn btn-primary btn-xm" onClick="openRegForm()">등록</button>
 
 		<button type="button" class="btn btn-primary btn-xm pull-right pull-margin" onClick="remove()">삭제</button>
 		<button type="button" class="btn btn-primary btn-xm pull-right pull-margin" onClick="updateStatus('N')">미사용</button>
@@ -83,18 +80,51 @@
 
 <script>
 
+var vObj = null;			//Vue 객제
+var rowSize = 15;		//페이지당 보여줄 로우 수
+
+$(document).ready(function() {
+
+	//Vue 초기화
+	vObj = com.initVue("#dataWrap");
+	
+});
+
+
+//Ajax 데이터 추출,  Vue 에 정의된 함수명 
+function getVdata(params){	
+	
+	var obj = {};
+ 	com.requestAjax({
+		type: "POST",
+		url : "/adm/role/listJson", 
+		params : params,
+		
+	//call back	
+	},function(data){
+		obj = data;
+		console.log(obj);
+		vObj.vData = obj;
+	});
+	
+	return obj;
+}
+
+
 function search(){
-	document.frm.submit();
+	getVdata({
+		rowSize : rowSize,
+		useYn : $("#useYn").val()
+	});
+	
 }
 
-function goPage(p){
-	document.frm.submit();
-}
 
-function save(roleSrl){
+function openRegForm(roleSrl){
 	com.popup({
-		width:520,
-		height:300,
+		title : "권한 등록",
+		width : 520,
+		height : 300,
 		url : "/adm/role/form"+( roleSrl != undefined ? "?roleSrl="+roleSrl : "")
 	})
 }
@@ -117,26 +147,24 @@ function updateStatus(useYn){
 	});
 	
 	if(data.arrRoleSrl.length == 0) return;
-	if(confirm("변경하겠습니까?") == false) return;
 	
-	 $.ajax({      
-    	type : "POST",  
-        url : "/adm/role/updateStatus",
-        data : $.param(data,true),
-        beforeSend : function(xhr){
-			xhr.setRequestHeader("AJAX", "true");
-	    },
-        success : function(response){   
-        	search();
-        },   
-        error : function(xhr) {
-        	if(xhr.status == "403"){
-        		document.location.href = "/login";
-        	}else{
-    	        alert("에러 : " + xhr.status);
-	       	}
-        }
-    });  
+	com.confirm({
+		content : "수정 하겠습니까 ?",
+		confirm : function(){
+			var obj = com.requestAjax({
+				type: "POST",
+				url : "/adm/role/updateStatus",
+				params : $.param(data,true)
+			},function(data){
+				com.notice("수정 되었습니다.")
+				com.confirmClose();
+				search();
+			});
+		},
+		cancel : function(){
+		}
+	});
+	
 }
 
 function remove(){
@@ -151,26 +179,24 @@ function remove(){
 	});
 	
 	if(data.arrRoleSrl.length == 0) return;
-	if(confirm("삭제하겠습니까?") == false) return;
 	
-	 $.ajax({      
-    	type : "POST",  
-        url : "/adm/role/delete",
-        data : $.param(data,true),
-	    beforeSend : function(xhr){
-			xhr.setRequestHeader("AJAX", "true");
-	    },
-        success : function(response){   
-        	search();
-        },   
-        error : function(xhr) {
-        	if(xhr.status == "403"){
-        		document.location.href = "/login";
-        	}else{
-    	        alert("에러 : " + xhr.status);
-	       	}
-        }
-    });  
+	com.confirm({
+		content : "삭제 하겠습니까 ?",
+		confirm : function(){
+			var obj = com.requestAjax({
+				type: "POST",
+				url : "/adm/role/delete",
+				params : $.param(data,true)
+			},function(data){
+				com.notice("삭제 되었습니다.")
+				com.confirmClose();
+				search();
+			});
+		},
+		cancel : function(){
+		}
+	});
+	
 }
 
 </script>

@@ -74,9 +74,6 @@ public class SiteLinkController{
 		Map<String, Object> map = new HashMap<String, Object>();
 		List<SiteLink> list =  siteLinkService.selectSiteLinkList(siteLink);
 		
-		map.put("page", siteLink.getPage());
-		map.put("totalRow", siteLink.getTotalRow());
-		map.put("totalPage", siteLink.getTotalPage());
 		map.put("dataList", list);
 
 		return map;

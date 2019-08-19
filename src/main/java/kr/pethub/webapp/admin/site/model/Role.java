@@ -2,7 +2,9 @@ package kr.pethub.webapp.admin.site.model;
 
 import java.util.List;
 
-public class Role{
+import kr.pethub.core.module.model.Pagination;
+
+public class Role extends Pagination{
 
 	private String roleSrl;
 	private String roleCd;

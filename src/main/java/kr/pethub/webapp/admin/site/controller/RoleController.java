@@ -1,13 +1,14 @@
 package kr.pethub.webapp.admin.site.controller;
 
+import java.util.HashMap;
 import java.util.List;
-
-import javax.annotation.Resource;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.pethub.core.authority.AuthInfo;
 import kr.pethub.webapp.admin.site.model.Role;
 import kr.pethub.webapp.admin.site.service.RoleService;
 
@@ -40,11 +40,6 @@ public class RoleController{
 	 */
 	@RequestMapping(value="/role/list")
 	public String roleList(@ModelAttribute Role role, Model model) {
-		
-		List<Role> list = roleService.selectRoleList(role);
-		model.addAttribute("list", list);
-		
-
 		/*
 		List<Object> principals = this.sessionRegistry.getAllPrincipals();
 		
@@ -70,9 +65,31 @@ public class RoleController{
 			model.addAttribute("role", roleService.selectRole(role.getRoleSrl()));
 		}
 		
-		 return "none:admin/site/role/roleForm";
+		 return "ajax:admin/site/role/roleForm";
 		 
 	} 
+	
+	/**
+	 * 권한 목록 데이터
+	 * @param role
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/role/listJson", produces = MediaType.APPLICATION_JSON_VALUE)
+	public Map<String, Object>  roleListJson(@ModelAttribute Role role) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		List<Role> list = roleService.selectRoleList(role);
+		
+		map.put("page", role.getPage());
+		map.put("totalRow", role.getTotalRow());
+		map.put("totalPage", role.getTotalPage());
+		map.put("dataList", list);
+
+		return map;
+		
+	} 
+	
 
 	
 	/**

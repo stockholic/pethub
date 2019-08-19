@@ -2,13 +2,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
-<div class="box box-primary"> 
 
-<div class="box-header with-border">
-  <h3 class="box-title">권한등록</h3>
-</div>
 
-<form id="frm" name="frm" action="/adm/role/insert" method="POST">
+<form id="regFrm" name="regFrm">
 <input type="hidden" name="roleSrl" value="${role.roleSrl }">
 <table class="table" style="width:500px;padding:10px">
   <colgroup>
@@ -17,11 +13,11 @@
   </colgroup>
 <tbody>
 <tr>
-	<th>권한그룹코드</th>
+	<th class="required">권한그룹코드</th>
 	<td><input type="text" class="form-control" name="roleCd" id="roleCd" value="${role.roleCd }"></td>
 </tr>
 <tr>
-	<th>권한그룹명</th>
+	<th class="required">권한그룹명</th>
 	<td><input type="text" class="form-control" name="roleNm" id="roleNm" value="${role.roleNm }"></td>
 </tr>
 <tr>
@@ -37,11 +33,10 @@
 </table> 
 </form>
 
-</div>
 
 <div style="text-align:center;padding:10px">
 	<button type="button" class="btn btn-primary btn-xm" onClick="save()">저장</button>&nbsp;
-	<button type="button" class="btn btn-primary btn-xm" onClick="window.close()">닫기</button>
+	<button type="button" class="btn btn-primary btn-xm" onClick="com.popupClose()">닫기</button>
 </div>
 
 
@@ -50,29 +45,17 @@
 
 function save(){
 	
-	if( $("#roleCd").val().trim() == "" ){
-		alert("권한코드를 입력해주세요");
-		$("#roleCd").focus();
-		return;
-	}
-	if( $("#roleNm").val().trim() == "" ){
-		alert("권한그룹을 입력해주세요");
-		$("#roleNm").focus();
-		return;
-	}
+	if( com.validation("#regFrm") == false ) return;
 	
-	$.ajax({      
-		type : "POST",  
-        url : "/adm/role/insert",
-        data :  $("#frm").serialize(),
-        success : function(response){   
-			window.opener.location.reload();
-        	window.close();
-        },   
-        error : function(xhr) {
-            alert("에러 : " + xhr.status);
-        }
-	});  
+	com.requestAjax({
+		type: "POST",
+		url : "/adm/role/insert",
+		params : $("#regFrm").serializeObject(),
+	},function(data){
+		com.notice("저장 되었습니다.")
+		com.popupClose();
+		 search();
+	});
 	
 }
 

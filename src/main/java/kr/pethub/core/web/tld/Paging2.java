@@ -20,15 +20,15 @@ public class Paging2 extends TagSupport{
 		int p = this.page;
 		int s = 0;
 		int e = 0;
-		int d = p % x;	// 현재 페이지 위치
+		int d = p % x;										// 현재 페이지 위치
 	
-		switch(d){		// 루프의 처음 s 과 마지막 e	
-			case 1:		// 현재 페이지가 네비게이션의 처음에 있을때..
+		switch(d){											// 루프의 처음 s 과 마지막 e	
+			case 1:											// 현재 페이지가 네비게이션의 처음에 있을때..
 				s = p;
 				e = p + (x - 1);
 			break;
 	
-			case 0:		// 현재 페이지가 마지막에 있을때.
+			case 0:	// 현재 페이지가 마지막에 있을때.
 				s = p - (x - 1);
 				e = p; 
 			break;
@@ -41,23 +41,28 @@ public class Paging2 extends TagSupport{
 		StringBuffer dataList = new StringBuffer();
 		
 		if(e > totalPage) e = totalPage;		// 루프의 마지막이 총페이지를 넘는지 체크
-		
-		// 이전 pageCount 만큼 이동
-		int prev = (p - x  > 0) ? p - x : p;
-		dataList.append("<li class=\"page-item " + (prev == p ? "disabled" : "")  + "\"><a class=\"page-link \" href=\"/search/list/" + prev + "\"><span class=\"fa fa-angle-double-left\"></span></a></li>");
-		// 이전 1개씩 
-		dataList.append("<li class=\"page-item " + (p == 1 ? "disabled":"")  + "\"><a class=\"page-link \" href=\"/search/list/" + (p-1) + "\"><span class=\"fa fa-angle-left\"></span></a></li>");
+	
+		if(p != 1 ){									//이전
+			int step1 = p - 1;
+			dataList.append("<li><a href=\"javascript:goPage(" + step1 + ")\"  aria-label=\"Previous\"><span aria-hidden=\"true\">《 </span></a></li>");
+		}else{
+			dataList.append("<li><span aria-hidden=\"true\">《 </span></li>");
+		}
 	
 		for(int i = s; i <= e ;i++){
-			 dataList.append("<li class=\"page-item "  + (i == p ? "active":"") + "\"><a class=\"page-link \" href=\"/search/list/" + i + "\">" + i + "</a></li>");
+			 if(i == p){
+				 dataList.append("<li class=\"active\"><span>" + i + "<span class=\"sr-only\">(current)</span></span></li>");
+			 } else{ 	
+				 dataList.append(" <li><a href=\"javascript:goPage(" + i + ")\">"+ i +"</a></li>");
+			 } 	
 		}
-		
-		//다음 1개씩
-		dataList.append("<li class=\"page-item " + (p == totalPage ? "disabled":"") + "\"><a class=\"page-link \" href=\"/search/list/" + (p+1) + "\"><span class=\"fa fa-angle-right\"></span></a></li>");
-		// 다음 pageCount 만큼 이동
-		int next = (p + x <= totalPage) ? p + x  : totalPage;
-		dataList.append("<li class=\"page-item " + (e >= totalPage ? "disabled":"") + "\"><a class=\"page-link \" href=\"/search/list/" + next + "\"><span class=\"fa fa-angle-double-right\"></span></a></li>");
-		
+	
+		if(p != totalPage){					//다음
+			int step2 = p + 1;
+			dataList.append("<li><a href=\"javascript:goPage(" + step2 + ")\"  aria-label=\"Next\"><span aria-hidden=\"true\"> 》</span></a></li>");
+		}else{
+			dataList.append("<li><span aria-hidden=\"true\"> 》</span></li>");
+		}
 		
 		try {
 			out.println(dataList);

@@ -85,12 +85,12 @@
 	<div class="pull-center box-600">
 	<nav aria-label="Page navigation">
 	  <ul class="pagination">
-	 	 <tx:nav totalPage="${user.totalPage }" page="${user.page }"/>
+	 	 <tx:nav2 totalPage="${user.totalPage }" page="${user.page }"/>
 	  </ul>
 	</nav>
 	</div>
 	</c:if>
-    
+	
 </div>
 
 
