@@ -124,7 +124,7 @@ function openRegForm(roleSrl){
 	com.popup({
 		title : "권한 등록",
 		width : 520,
-		height : 300,
+		height : 250,
 		url : "/adm/role/form"+( roleSrl != undefined ? "?roleSrl="+roleSrl : "")
 	})
 }

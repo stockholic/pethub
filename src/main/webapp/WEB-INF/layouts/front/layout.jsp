@@ -28,6 +28,18 @@
 	<meta property="al:android:package" content="org.applinks">
 	<meta property="al:web:url" content="http://applinks.org/documentation">
 	
+	
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-146217264-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	
+	  gtag('config', 'UA-146217264-1');
+	</script>
+	
+	
   	<link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
 	<tiles:insertDefinition name="frontCss" />
 	<tiles:insertDefinition name="frontScript"/>
