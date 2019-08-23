@@ -2,7 +2,6 @@ package kr.pethub.webapp.front.controller;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kr.pethub.core.constrants.SystemConstants;
 import kr.pethub.core.utils.StringUtil;
 import kr.pethub.webapp.api.model.SiteLinkData;
 import kr.pethub.webapp.api.service.PetService;
