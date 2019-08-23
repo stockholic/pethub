@@ -10,7 +10,7 @@
   	<meta http-equiv="X-UA-Compatible" content="IE=edge">
   	<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   	<link rel="canonical" href="http://www.pethub.kr">
-	<meta name="description" content="강아지, 고양이 종합 정보">
+	<meta name="description" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">
 	<meta name="keywords" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양"> 
 	<meta name="classification" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">  	
 	
