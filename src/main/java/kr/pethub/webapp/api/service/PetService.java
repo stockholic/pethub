@@ -1,12 +1,14 @@
 package kr.pethub.webapp.api.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.pethub.core.annotation.CacheablePetUpdatedTime;
+import kr.pethub.core.constrants.SystemConstants;
 import kr.pethub.webapp.api.dao.PetDao;
 import kr.pethub.webapp.api.model.SiteLinkData;
 
@@ -62,6 +64,26 @@ public class PetService {
 		}
 		
 		return list;
+	}
+	
+	
+	/**
+	 * 검색어 랜덤 생성
+	 * @return
+	 */
+	public String getSearchKey() {
+		
+		int rnd = new Random().nextInt(SystemConstants.SEARCH_KEY.length);
+		
+		return SystemConstants.SEARCH_KEY[rnd];
+	}
+	
+	/**
+	 * 모든 검색어
+	 * @return
+	 */
+	public String getAllSearchKey() {
+		return StringUtils.join(SystemConstants.SEARCH_KEY," ");
 	}
 
 }

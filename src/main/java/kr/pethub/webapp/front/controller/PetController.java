@@ -2,6 +2,7 @@ package kr.pethub.webapp.front.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.pethub.core.constrants.SystemConstants;
 import kr.pethub.core.utils.StringUtil;
 import kr.pethub.webapp.api.model.SiteLinkData;
 import kr.pethub.webapp.api.service.PetService;
@@ -67,6 +69,14 @@ public class PetController{
 		
 		model.addAttribute("list", list);
 		model.addAttribute("updatedTime", petService.selectPetUpdatedTime()	);
+
+		//리스트중 상위 1개 타이틀로
+		model.addAttribute("petTitle", list.size() > 0 ? "[" + list.get(0).getSiteNm() + "] " + list.get(0).getDataTitle().replaceAll("<em>","").replaceAll("</em>","") : "" );
+		
+		//랜덤 검색어 생성
+		model.addAttribute("searchKey",  petService.getSearchKey());
+		model.addAttribute("searchAllKey",  petService.getAllSearchKey());
+		
 		
 		 return "front:pet/petList";
 	} 
