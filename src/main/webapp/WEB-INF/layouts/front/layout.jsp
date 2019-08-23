@@ -15,7 +15,7 @@
 	<meta name="classification" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">  	
 	
 	<meta property="og:type" content="website">
-	<meta property="og:title" content="강아지, 고양이 종합 정보">
+	<meta property="og:title" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">
 	<meta property="og:description" content="애견,애완견,강아지,고양이,분양,애견분양,무료분양">
 	<meta property="og:image" content="http://www.pethub.kr/static/image/pethub.png">
 	<meta property="og:url" content="http://www.pethub.kr">
