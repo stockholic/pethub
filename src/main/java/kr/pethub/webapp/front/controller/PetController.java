@@ -69,7 +69,7 @@ public class PetController{
 		model.addAttribute("updatedTime", petService.selectPetUpdatedTime()	);
 
 		//리스트중 상위 1개 타이틀로
-		model.addAttribute("petTitle", list.size() > 0 ? StringUtils.left("펫허브 : PetHub [" + list.get(0).getSiteNm() + "] " + list.get(0).getDataTitle().replaceAll("<em>","").replaceAll("</em>","") , 50): "" );
+		model.addAttribute("petTitle", list.size() > 0 ? StringUtils.left("펫허브:PetHub [" + list.get(0).getSiteNm() + "] " + list.get(0).getDataTitle().replaceAll("<em>","").replaceAll("</em>","") , 40): "" );
 		
 		//랜덤 검색어 생성
 		model.addAttribute("searchKey",  petService.getSearchKey());
