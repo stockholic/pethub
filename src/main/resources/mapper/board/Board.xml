@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.board.dao.BoardDao">
+
+	<select id="selectBoardCount" resultType="int">
+	SELECT count(1) FROM com_board
+	WHERE  flag = #{flag}
+	
+	<if test="searchKey == 'title'  and searchValue !='' ">
+	 AND title LIKE '%' || #{searchValue} || '%'
+	</if>
+	<if test="searchKey == 'content' and searchValue !='' "> 
+	 AND content LIKE '%' || #{searchValue} || '%'
+	</if>
+	</select> 
+
+
+	<select id="selectBoardList" resultType="kr.pethub.webapp.admin.board.model.Board">
+	SELECT
+		board_srl 
+		,lev
+		,(select user_nm from auth_member where user_id = t1.user_id) AS userNm
+		,title
+		,user_id
+		,reg_date
+		,read_cnt
+		,(select count(1) from com_file_data where file_ref_srl = t1.board_srl and file_tp = 'board') AS fileCnt
+		<!-- ,IF(SYSDATE() &lt; DATE_ADD(reg_date, INTERVAL 3 DAY),'1','0') AS isNew -->
+	FROM com_board t1
+	WHERE flag = #{flag}
+	
+	<if test="searchKey == 'title'  and searchValue !='' ">
+	 AND title LIKE '%' || #{searchValue} || '%'
+	</if>
+	<if test="searchKey == 'content' and searchValue !='' ">
+	 AND content LIKE '%' || #{searchValue} || '%'
+	</if>
+	ORDER BY fid DESC,stp ASC
+	LIMIT #{rowStart},#{rowSize}
+	</select>
+	
+	<select id="selectBoard" resultType="kr.pethub.webapp.admin.board.model.Board">
+	SELECT
+		board_srl
+		,title
+		,(select user_nm from auth_member where user_id = t1.user_id) AS userNm
+		,content
+		,user_id
+		/*,reg_date*/
+		,read_cnt
+		,(select count(1) from com_file_data where file_ref_srl = t1.board_srl and file_tp = 'board') AS fileCnt 
+	FROM com_board t1 
+	WHERE board_srl = #{boardSrl} 
+	</select>
+	
+	<select id="selectBoardFid" resultType="int">
+	SELECT IFNULL(MAX(fid)+1,1) AS fid FROM com_board where flag = #{flag}
+	</select>
+	
+	<select id="selectBoardReply" resultType="kr.pethub.webapp.admin.board.model.Board">
+	SELECT 
+		fid
+		,lev+1 as lev
+		,stp+1 as stp
+	FROM com_board 
+	WHERE board_srl= #{boardSrl}
+	</select>
+
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="boardSrl">
+	INSERT INTO com_board(
+		fid
+		,lev
+		,stp
+		,title
+		,content
+		,user_id
+		,ip
+		,reg_date
+		,read_cnt
+		,flag
+	)VALUES(
+		#{fid}
+		,#{lev}
+		,#{stp}
+		,#{title}
+		,#{content}
+		,#{userId}
+		,#{ip}
+		,SYSDATE()
+		,0
+		,#{flag}
+	)
+	</insert> 
+	
+	<update id="updateBoardReplyStp">
+	UPDATE com_board SET stp=stp + 1 WHERE flag=#{flag} AND fid=#{fid} AND stp &gt;= #{stp}
+	</update>
+	
+	<update id="updateBoardRead">
+	UPDATE com_board SET read_cnt = read_cnt + 1 WHERE board_srl = #{boardSrl}
+	</update>
+	
+	<update id="updateBoard">
+	UPDATE com_board SET 
+		title = #{title}
+		,content = #{content}
+		,ip = #{ip}
+	WHERE board_srl = #{boardSrl}
+	 <if test="userId != null and userId != ''">
+	AND user_id = #{userId}
+	</if>
+	</update> 
+
+	<delete id="deleteBoard">
+	DELETE FROM com_board  WHERE board_srl = #{boardSrl} 
+	 <if test="userId != null and userId != ''">
+	AND user_id = #{userId}
+	</if>
+	</delete>
+
+</mapper>  

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.pethub.webapp.admin.board.dao.FileDao">
+
+
+	<insert id="insertFile">
+	INSERT INTO com_file_data(
+		file_ref_srl
+		,file_path
+		,file_sys_nm
+		,file_real_nm
+		,file_size
+		,file_tp
+		,reg_dt
+	)VALUES(
+		#{fileRefSrl}
+		,#{filePath}
+		,#{fileSysNm}
+		,#{fileRealNm}
+		,#{fileSize}
+		,#{fileTp}
+		,SYSDATE()
+	)
+	</insert> 
+	
+	<select id="selectFileList" resultType="kr.pethub.core.module.model.FileInfo">
+	SELECT
+		file_srl
+		,file_ref_srl
+		,file_path
+		,file_sys_nm
+		,file_real_nm
+		,file_size
+	FROM com_file_data
+	WHERE file_tp = #{fileTp} AND file_ref_srl = #{fileRefSrl}
+	ORDER BY file_ref_srl DESC
+	</select>
+	
+	<select id="selectFile" resultType="kr.pethub.core.module.model.FileInfo">
+	SELECT
+		file_path
+		,file_sys_nm
+		,file_real_nm
+	FROM com_file_data
+	WHERE file_srl = #{fileSrl}
+	</select>
+	
+	<delete id="deleteFile">
+	DELETE FROM com_file_data WHERE file_srl = #{fileSrl}
+	</delete>
+	
+</mapper>  
