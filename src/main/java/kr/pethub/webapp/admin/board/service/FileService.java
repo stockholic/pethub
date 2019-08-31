@@ -21,8 +21,8 @@ public class FileService{
 	@Value("${board.file.path}") 
 	private String boardFilePath;
 	
-	@Value("${stock.file.path}") 
-	private String stockFilePath;
+	@Value("${petInfo.file.path}") 
+	private String petInfoFilePath;
 	
 	@Autowired
 	FileDao fileDao;
@@ -43,7 +43,7 @@ public class FileService{
 		
 		Map<String,String> map = new HashMap<String, String>();
 		map.put("board", boardFilePath);
-		map.put("stock", stockFilePath);
+		map.put("petInfo", petInfoFilePath);
 		
 		return map.get(fileTp);
 	}

@@ -37,38 +37,26 @@
 	    <table class="table table-hover table-top">
 		  <colgroup>
 		    <col style="width:60px">
-		     <col style="width:150px">
-		     <col style="width:60px">
-		     <col style="width:60px">
 		     <col />
-		     <col style="width:100px">
 		     <col style="width:100px">
 		  </colgroup>
 		<thead>
 		<tr>
 			<th class="text-center">번호</th>
-			<th>사이트 명</th>
-			<th class="text-center">구분</th>
-			<th class="text-center">이미지</th>
 			<th>제목</th>
 			<th class="text-center">등록일</th>
-			<th class="text-center">수정일</th>
 		</tr>
 		</thead>
 		<tbody>
 		
 		<tr v-for="lst in vData.dataList" v-cloak>
 			<td class="text-center">{{ lst.num  }}</td>
-			<td>{{ lst.siteNm }}</td>
-			<td class="text-center" v-bind:style="{'color': ( lst.linkCd == 'dog' ? '' : 'blue' )}">{{ lst.linkCd  =='dog' ? '강아지' : '고양이' }}</td>
-			<td class="text-center"><img v-if="lst.dataImg" v-bind:src="lst.dataImg" style="max-height: 18px;" onerror="$(this).hide()"></td>
-			<td class="truncate-ellipsis"><a href="javascript:;" v-bind:href="lst.dataLink" target="_blank">{{ lst.dataTitle }}</a></td>
+			<td class="truncate-ellipsis"><a href="javascript:;" v-on:click="view(lst.petSrl)">{{ lst.petNm }}</a></td>
 			<td class="text-center">{{ lst.regDt | timestampToDate }}</td>
-			<td class="text-center">{{ lst.uptDt | timestampToDate }}</td>
 		</tr> 
 		
 		<tr v-if="vData.totalPage == 0" v-cloak>
-			<td class="text-center" colspan="7" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
+			<td class="text-center" colspan="3" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
 		</tr>
 		
 		</tbody>
@@ -79,12 +67,18 @@
 	<div id="paging"></div>
 	
 	<div class="box-footer">
-		<button type="button" onclick="" class="btn btn-primary btn-xm">등록</button>
+		<button type="button" onclick="regForm()" class="btn btn-primary btn-xm">등록</button>
 	</div>
 	
 </div>	
 
 </section>
+
+<form name="urlFrm" method="POST">
+	<input type="hidden" name="page" id="page" value="">
+	<input type="hidden" name="petSrl" id="petSrl" value="">
+	<input type="hidden" name="searchString" value="">
+</form>
 
 <script>
 
@@ -176,6 +170,18 @@ function goPage(pageNumber){
 		searchString : $("#searchString").val().trim().length  > 1 ? $("#searchString").val() : ""
 	});
 	
+}
+
+function view(petSrl){
+	document.urlFrm.action = "/adm/board/petInfoView";
+	$("#petSrl").val(petSrl)
+	document.urlFrm.submit();
+}
+
+
+function regForm(){
+	document.urlFrm.action = "/adm/board/petInfoForm";
+	document.urlFrm.submit();
 }
 
 

@@ -4,7 +4,6 @@
 
 <mapper namespace="kr.pethub.webapp.admin.board.dao.FileDao">
 
-
 	<insert id="insertFile">
 	INSERT INTO com_file_data(
 		file_ref_srl

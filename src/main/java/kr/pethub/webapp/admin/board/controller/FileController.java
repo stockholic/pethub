@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,9 +26,6 @@ import kr.pethub.webapp.admin.board.service.FileService;
 public class FileController{
 	
 	Logger logger = LoggerFactory.getLogger(getClass());
-	
-	@Value("${stock.file.path}") 
-	private String stockFilePath;
 	
 	@Autowired
 	private FileService fileService; 
@@ -84,7 +80,6 @@ public class FileController{
 	@RequestMapping(value="/fileDownLoad")
 	public void  fileDownLoad (HttpServletResponse response, @RequestParam("srl") Integer  srl) throws UnsupportedEncodingException  {
 		FileInfo fileInfo = fileService.selectFile(srl);
-		fileInfo.setFilePath(stockFilePath + fileInfo.getFilePath());
 		if(fileInfo == null) return;
 		FileManager.fileDownload(response, fileInfo);
 	} 

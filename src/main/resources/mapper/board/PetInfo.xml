@@ -5,25 +5,34 @@
 <mapper namespace="kr.pethub.webapp.admin.board.dao.PetInfoDao">
 
 	<select id="selectPetInfoCount" resultType="int">
+	/** selectPetInfoCount **/
+	
 	SELECT count(1) FROM pet_info
 	WHERE  1=1
 	
 	<if test="searchString != null  and searchString != ''">
-	AND title like '%' #{searchString} '%'
+	AND pet_nm like '%' #{searchString} '%'
 	</if>
 	</select> 
 
 
 	<select id="selectPetInfoList" resultType="kr.pethub.webapp.admin.board.model.PetInfo">
+	/** selectPetInfoList **/
 	SELECT
-		pet_srl 
-		,title
-		,reg_dt
+		 pet_srl
+		, pet_nm
+		, spec1
+		, spec2
+		, spec3
+		, spec4
+		, spec5
+		, spec6
+		, reg_dt
 	FROM pet_info t1
 	WHERE 1=1
 	
 	<if test="searchString != null  and searchString != ''">
-	AND title like '%' #{searchString} '%'
+	AND pet_nm like '%' #{searchString} '%'
 	</if>
 	
 	ORDER BY pet_srl DESC
@@ -31,34 +40,79 @@
 	</select>
 	
 	<select id="selectPetInfo" resultType="kr.pethub.webapp.admin.board.model.PetInfo">
+	/** selectPetInfo **/
 	SELECT
-		pet_srl
-		,title
-		,cts1
+  		 pet_srl
+		, pet_nm
+		, intro
+		, feature
+		, care
+		, feed
+		, spec1
+		, spec2
+		, spec3
+		, spec4
+		, spec5
+		, spec6
+		, reg_dt
+		, upt_dt
 	FROM pet_info t1 
 	WHERE pet_srl = #{petSrl} 
 	</select>
 	
 	<insert id="insertPetInfo" useGeneratedKeys="true" keyProperty="petSrl">
+	/** insertPetInfo **/
 	INSERT INTO pet_info(
-		,title
-		,cts1
-		,reg_dt
+		 pet_nm
+		, intro
+		, feature
+		, care
+		, feed
+		, spec1
+		, spec2
+		, spec3
+		, spec4
+		, spec5
+		, spec6
+		, reg_dt
+		, upt_dt
 	)VALUES(
-		,#{title}
-		,#{cts1}
-		,SYSDATE()
+		 #{petNm}
+		, #{intro}
+		, #{feature}
+		, #{care}
+		, #{feed}
+		, #{spec1}
+		, #{spec2}
+		, #{spec3}
+		, #{spec4}
+		, #{spec5}
+		, #{spec6}
+		, SYSDATE()
+		, SYSDATE()
 	)
 	</insert> 
 	
 	<update id="updatePetInfo">
+	/** updatePetInfo **/
 	UPDATE pet_info SET 
-		title = #{title}
-		,cts1 = #{cts1}
+		pet_nm = #{petNm}
+		, intro = #{intro}
+		, feature = #{feature}
+		, care = #{care}
+		, feed = #{feed}
+		, spec1 = #{spec1}
+		, spec2 = #{spec2}
+		, spec3 = #{spec3}
+		, spec4 = #{spec4}
+		, spec5 = #{spec5}
+		, spec6 = #{spec6}
+		,upt_dt = SYSDATE()
 	WHERE pet_srl = #{petSrl}
 	</update> 
 
 	<delete id="deletePetInfo">
+	/** deletePetInfo **/
 	DELETE FROM pet_info  WHERE pet_srl = #{petSrl} 
 	</delete>
 	
@@ -66,15 +120,36 @@
 	<!-- 
 	CREATE TABLE `pet_info` (
 	  `pet_srl` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-	  `title` varchar(200) DEFAULT NULL COMMENT '제목',
-	  `cts1` tinytext COMMENT '내용1',
-	  `cts2` tinytext COMMENT '내용2',
-	  `cts3` tinytext COMMENT '내용3',
-	  `cts4` tinytext COMMENT '내용4',
+	  `pet_nm` varchar(60) DEFAULT NULL COMMENT '펫이름',
+	  `intro` text COMMENT '소개',
+	  `feature` text COMMENT '특징',
+	  `care` text COMMENT '보살핌',
+	  `feed` varchar(200) DEFAULT NULL COMMENT '먹이',
+	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응성 adaptabie',
+	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친근함 friendly',
+	  `spec3` tinyint(4) DEFAULT '0' COMMENT '청결 Health',
+	  `spec4` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
+	  `spec5` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
+	  `spec6` tinyint(4) DEFAULT '0' COMMENT '활동성 activity',
 	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
 	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',
 	  PRIMARY KEY (`pet_srl`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='펫정보';
+
+
+		
+	CREATE TABLE com_file_data (
+	  file_srl int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '일련번호',
+	  file_ref_srl int(10) unsigned DEFAULT '0' COMMENT '파일참조번호',
+	  file_path varchar(100) DEFAULT NULL,
+	  file_sys_nm varchar(50) DEFAULT NULL,
+	  file_real_nm varchar(100) DEFAULT NULL,
+	  file_size varchar(10) DEFAULT NULL,
+	  file_tp varchar(10) DEFAULT NULL COMMENT '파일구분',
+	  reg_dt datetime DEFAULT NULL,
+	  PRIMARY KEY (file_srl),
+	  KEY file_tp (file_tp,file_ref_srl)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='파일목록';		
 		
 	 -->
 

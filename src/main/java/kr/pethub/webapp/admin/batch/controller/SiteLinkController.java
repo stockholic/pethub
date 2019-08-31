@@ -47,8 +47,8 @@ public class SiteLinkController{
 	@Autowired
 	private SiteLinkService siteLinkService;
 	
-	@Autowired
-	private ConsoleLog consoleLog;
+	//@Autowired
+	//private ConsoleLog consoleLog;
 	
 	/**
 	 * 사이트 링크 화면

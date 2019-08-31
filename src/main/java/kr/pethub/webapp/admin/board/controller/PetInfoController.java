@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +24,7 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import kr.pethub.core.authority.Auth;
+import kr.pethub.core.utils.StringUtil;
 import kr.pethub.webapp.admin.board.model.PetInfo;
 import kr.pethub.webapp.admin.board.service.FileService;
 import kr.pethub.webapp.admin.board.service.PetInfoService;
@@ -42,11 +45,11 @@ public class PetInfoController{
 	/**
 	 * 펫 정보 목록
 	 * @param request
-	 * @param petinfo
+	 * @param petInfo
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping(value="/board/petInfolist")
+	@RequestMapping(value="/board/petInfoList")
 	public String petInfoList() {
 		
 		 return "admin:site/pet/petInfoList";
@@ -54,19 +57,19 @@ public class PetInfoController{
 	
 	/**
 	 * 펫 정보 데이터
-	 * @param petinfo
+	 * @param petInfo
 	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value="/board/petInfoJson", produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String, Object>  siteListJson(@ModelAttribute PetInfo petinfo) {
+	public Map<String, Object>  siteListJson(@ModelAttribute PetInfo petInfo) {
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		List<PetInfo> list = petInfoService.selectPetInfoList(petinfo);
+		List<PetInfo> list = petInfoService.selectPetInfoList(petInfo);
 		
-		map.put("page", petinfo.getPage());
-		map.put("totalRow", petinfo.getTotalRow());
-		map.put("totalPage", petinfo.getTotalPage());
+		map.put("page", petInfo.getPage());
+		map.put("totalRow", petInfo.getTotalRow());
+		map.put("totalPage", petInfo.getTotalPage());
 		map.put("dataList", list);
 		
 		return map;
@@ -74,18 +77,18 @@ public class PetInfoController{
 	
 	/**
 	 * 펫 정보 조회
-	 * @param petinfo
+	 * @param petInfo
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/board/petInfoView")
-	public String petInfoView(@ModelAttribute PetInfo petinfo, Model model) {
+	public String petInfoView(@ModelAttribute PetInfo petInfo, Model model) {
 		
-		model.addAttribute("petInfo", petInfoService.selectPetInfo(petinfo.getPetSrl()));
+		model.addAttribute("petInfoData", petInfoService.selectPetInfo(petInfo.getPetSrl()));
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("fileTp", "petinfo");
-		map.put("fileRefSrl", petinfo.getPetSrl());
+		map.put("fileTp", "petInfo");
+		map.put("fileRefSrl", petInfo.getPetSrl());
 		model.addAttribute("fileList", fileService.selectFileList(map));
 		
 		return "admin:site/pet/petInfoView";
@@ -93,22 +96,24 @@ public class PetInfoController{
 	
 	/**
 	 * 펫 정보 폼
-	 * @param petinfo
+	 * @param petInfo
 	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/board/petInfoForm")
-	public String inserPetInfoForm(@ModelAttribute PetInfo petinfo,Model model) {
+	public String inserPetInfoForm(@ModelAttribute PetInfo petInfo, Model model) {
 		
 		//수정 폼
-		if("update".equals("")){
-			model.addAttribute("petInfo", petInfoService.selectPetInfo(petinfo.getPetSrl()));
+		if(  petInfo.getPetSrl() !=null && StringUtil.isNumber(petInfo.getPetSrl().toString()) )   {
+			
+			model.addAttribute("petInfoData", petInfoService.selectPetInfo(petInfo.getPetSrl()));
 			
 			Map<String,Object> map = new HashMap<String,Object>();
-			map.put("fileTp", "petinfo");
-			map.put("fileRefSrl", petinfo.getPetSrl());
+			map.put("fileTp", "petInfo");
+			map.put("fileRefSrl", petInfo.getPetSrl());
 			model.addAttribute("fileList", fileService.selectFileList(map));
 		}
+		
 		
 		return "admin:site/pet/petInfoForm";
 	} 
@@ -116,7 +121,7 @@ public class PetInfoController{
 	/**
 	 * 펫 정보 등록
 	 * @param request
-	 * @param petinfo
+	 * @param petInfo
 	 * @param auth
 	 * @return
 	 * @throws JsonParseException
@@ -125,24 +130,20 @@ public class PetInfoController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/board/insertPetInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String,Object>  insertPetInfo(HttpServletRequest request, PetInfo petinfo, Auth auth) throws JsonParseException, JsonMappingException, IOException {
+	public Map<String,Object>  insertPetInfo(PetInfo petInfo) throws JsonParseException, JsonMappingException, IOException {
 		
-		petInfoService.insertPetInfo(petinfo);
+		petInfoService.insertPetInfo(petInfo);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("petinfoSrl", petinfo.getPetSrl());	
+		map.put("petSrl", petInfo.getPetSrl());	
 		
 		return map;
 		
 	} 
 	
-
-	
 	/**
 	 * 펫 정보 수정
-	 * @param request
 	 * @param petInfo
-	 * @param auth
 	 * @return
 	 * @throws JsonParseException
 	 * @throws JsonMappingException
@@ -150,12 +151,12 @@ public class PetInfoController{
 	 */
 	@ResponseBody
 	@RequestMapping(value="/board/updatePetInfo", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-	public Map<String,Object> updatePetInfo(HttpServletRequest request, PetInfo petInfo, Auth auth) throws JsonParseException, JsonMappingException, IOException {
+	public Map<String,Object> updatePetInfo( PetInfo petInfo) throws JsonParseException, JsonMappingException, IOException {
 		
 		petInfoService.updatePetInfo(petInfo);
 		
 		Map<String,Object> map = new HashMap<String,Object>();
-		map.put("petInfoSrl", petInfo.getPetSrl());	
+		map.put("petSrl", petInfo.getPetSrl());	
 		
 		return map;
 		
@@ -164,11 +165,10 @@ public class PetInfoController{
 	/**
 	 * 펫 정보 삭제
 	 * @param petInfo
-	 * @param auth
 	 */
 	@ResponseBody
 	@RequestMapping(value="/board/deletePetInfo", method = RequestMethod.POST)
-	public void deletePetInfo(PetInfo petInfo, Auth auth) {
+	public void deletePetInfo(PetInfo petInfo) {
 		petInfoService.deletePetInfo(petInfo);
 	} 
 	

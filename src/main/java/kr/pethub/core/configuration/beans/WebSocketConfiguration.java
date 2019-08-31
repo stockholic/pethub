@@ -17,8 +17,8 @@ import kr.pethub.core.configuration.handler.ConsoleSocketHandler;
 import kr.pethub.core.module.service.ConsoleLog;
 
 
-@Configuration
-@EnableWebSocket
+//@Configuration
+//@EnableWebSocket
 public class WebSocketConfiguration  implements WebSocketConfigurer {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
