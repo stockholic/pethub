@@ -43,12 +43,6 @@ public class PetInfoController{
 	@Autowired
 	private FileService fileService;
 	
-	@Value("${petInfo.file.url}") 
-	private String petInfoFileUrl;
-	
-	@Value("${petInfo.file.path}") 
-	private String petInfoFilePath;
-	
 	/**
 	 * 펫 정보 목록
 	 * @param request
@@ -97,13 +91,6 @@ public class PetInfoController{
 		map.put("fileTp", "petInfo");
 		map.put("fileRefSrl", petInfo.getPetSrl());
 		model.addAttribute("fileList", fileService.selectFileList(map));
-
-		
-		
-		model.addAttribute("petInfoFileUrl", petInfoFilePath);
-		
-		
-		System.out.println(">>>>>>>>>>>> " + petInfoFileUrl);
 		
 		return "admin:site/pet/petInfoView";
 	} 

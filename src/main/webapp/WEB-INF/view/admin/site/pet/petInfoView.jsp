@@ -46,7 +46,7 @@
 	</tr>
 
 	<tr>
-		<td><img  alt="보더콜리"> ${petInfoFileUrl}  aaaa </td> 
+		<td><img  alt="보더콜리"> ${petInfoData.petImg} </td> 
 		<td>
 			<div class="spec">
 			적응 : <div class='starrr' id="starrr1"></div><br>

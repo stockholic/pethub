@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,6 +34,9 @@ public class PetInfoService{
 		
 	@Autowired
 	private FileDao fileDao;
+	
+	@Value("${petInfo.file.url}") 
+	private String petInfoFileUrl;
 	
 	/**
 	 * 펫 정보 수
@@ -70,7 +74,10 @@ public class PetInfoService{
 	 * @return
 	 */
 	public PetInfo selectPetInfo(Integer petSrl){
-		return  petInfoDao.selectPetInfo(petSrl);
+		PetInfo petinfo =  petInfoDao.selectPetInfo(petSrl);
+		petinfo.setPetImg(petInfoFileUrl);
+		
+		return  petinfo;
 	}
 	
 	/**
