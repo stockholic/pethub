@@ -36,14 +36,30 @@
 		<div class="pull-right" v-cloak>Total : {{ vData.totalRow | addComma }} [ {{ vData.page }} / {{ vData.totalPage }} ]</div> 
 	    <table class="table table-hover table-top">
 		  <colgroup>
-		    <col style="width:60px">
-		     <col />
-		     <col style="width:100px">
+		    <col style="width:4%">
+		    <col style="width:10%">
+		    <col style="width:16%">
+		    <col style="width:10%">
+		    <col style="width:8%">
+		    <col style="width:8%">
+		    <col style="width:8%">
+		    <col style="width:8%">
+		    <col style="width:8%">
+		    <col style="width:8%">
+		    <col style="width:10%">
 		  </colgroup>
 		<thead>
 		<tr>
 			<th class="text-center">번호</th>
-			<th>제목</th>
+			<th>종류</th>
+			<th>이름</th>
+			<th class="text-center">사이즈</th>
+			<th class="text-center">적응</th>
+			<th class="text-center">친근</th>
+			<th class="text-center">청결</th>
+			<th class="text-center">훈련</th>
+			<th class="text-center">지능</th>
+			<th class="text-center">활동</th>
 			<th class="text-center">등록일</th>
 		</tr>
 		</thead>
@@ -51,12 +67,20 @@
 		
 		<tr v-for="lst in vData.dataList" v-cloak>
 			<td class="text-center">{{ lst.num  }}</td>
-			<td class="truncate-ellipsis"><a href="javascript:;" v-on:click="view(lst.petSrl)">{{ lst.petNm }}</a></td>
+			<td>{{ lst.petCd }}</td>
+			<td><a href="javascript:;" v-on:click="view(lst.petSrl)">{{ lst.petNm }}</a></td>
+			<td class="text-center">{{ lst.petSize }}</a></td>
+			<td class="text-center">{{ lst.spec1 }}</a></td>
+			<td class="text-center">{{ lst.spec2 }}</a></td>
+			<td class="text-center">{{ lst.spec3 }}</a></td>
+			<td class="text-center">{{ lst.spec5 }}</a></td>
+			<td class="text-center">{{ lst.spec5 }}</a></td>
+			<td class="text-center">{{ lst.spec6 }}</a></td>
 			<td class="text-center">{{ lst.regDt | timestampToDate }}</td>
 		</tr> 
 		
 		<tr v-if="vData.totalPage == 0" v-cloak>
-			<td class="text-center" colspan="3" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
+			<td class="text-center" colspan="11" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
 		</tr>
 		
 		</tbody>
@@ -75,7 +99,7 @@
 </section>
 
 <form name="urlFrm" method="POST">
-	<input type="hidden" name="page" id="page" value="">
+	<input type="hidden" name="page" id="page"  value="">
 	<input type="hidden" name="petSrl" id="petSrl" value="">
 	<input type="hidden" name="searchString" value="">
 </form>
@@ -89,7 +113,7 @@ var rowSize = 15;		//페이지당 보여줄 로우 수
 $(document).ready(function() {
 
 	//Vue 초기화
-	vObj = com.initVue("#dataWrap");
+	vObj = com.initVue("#dataWrap",${petInfo.page });
 	
 	//검색
 	$("#searchString").keyup(function(event) {
@@ -97,6 +121,7 @@ $(document).ready(function() {
 			search();
     	}
 	});
+	
 	
 });
 
@@ -126,6 +151,9 @@ function getVdata(params){
 				items : obj.totalRow,
 				itemsOnPage : rowSize
 			});
+			
+			com.selectPage("#paging",${petInfo.page });
+			
 		}else if($("#paging > ul").length > 0 ){
 			com.updatePageItems("#paging", obj.totalRow)
 		}
@@ -175,6 +203,7 @@ function goPage(pageNumber){
 function view(petSrl){
 	document.urlFrm.action = "/adm/board/petInfoView";
 	$("#petSrl").val(petSrl)
+	$("#page").val (com.getCurrentPage("#paging") )
 	document.urlFrm.submit();
 }
 

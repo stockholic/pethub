@@ -44,6 +44,27 @@
 		<td><input type="text" class="form-control" name="petNm" id="petNm" value="${petInfoData.petNm }"></td>
 	</tr>
 	<tr>
+		<th class="required">종류</th>
+		<td>
+			<select name="petCd" id="petCd" class="form-control" style="width:150px">
+				<option value="">선택</option>
+				<option value="dog" ${petInfoData.petCd eq "dog" ? "selected" : "" }>강아지</option>
+				<option value="cat" ${petInfoData.petCd eq "cat" ? "selected" : "" }>고양이</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<th class="required">사이즈</th>
+		<td>
+			<select name="petSize" id="petSize" class="form-control" style="width:150px">
+				<option value="">선택</option>
+				<option value="S" ${petInfoData.petSize eq "S" ? "selected" : "" }>소형</option>
+				<option value="M" ${petInfoData.petSize eq "M" ? "selected" : "" }>중형</option>
+				<option value="L" ${petInfoData.petSize eq "L" ? "selected" : "" }>대형</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
 		<th class="required">능력</th>
 		<td>
 		
@@ -71,6 +92,10 @@
 	<tr>
 		<th class="required">먹이</th>
 		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }"></td> 
+	</tr>
+	<tr>
+		<th class="required">기타</th>
+		<td><input type="text" class="form-control" name="etc" id="etc" value="${petInfoData.etc }"></td> 
 	</tr>
 	
 	<tr>

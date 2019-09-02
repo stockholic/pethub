@@ -192,7 +192,11 @@ var com = {
 		beforeUpdate 	Called when the data changes, before the virtual DOM is re-rendered and patched.
 		updated 		Called after a data change causes the virtual DOM to be re-rendered and patched.
 	*/
+	
 	initVue : function( selector ){
+		return this.initVue(selector, 1)
+	},
+	initVue : function( selector, pageNumber ){
 		
 		var vObj = new Vue({
 				el: selector,
@@ -203,7 +207,7 @@ var com = {
 				},
 				mounted: function () {
 					var _rowSize = (rowSize == undefined) ? 15 : rowSize;
-					this.vData = getVdata({rowSize : rowSize});
+					this.vData = getVdata({rowSize : rowSize, page : pageNumber});
 				}
 			});
 		

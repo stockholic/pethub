@@ -10,6 +10,8 @@ public class PetInfo extends Pagination{
 	private Integer petSrl;
 	private int num;
 	private String petNm;
+	private String petCd;
+	private String petSize;
 	private String intro;
 	private String feature;
 	private String care;
@@ -21,6 +23,9 @@ public class PetInfo extends Pagination{
 	private String spec5;
 	private String spec6;
 	private Date regDt;
+	private Date uptDt;
+	private String etc;
+	private String petImg;
 	private int fileCnt;
 	private String fileInfo;
 	private String searchString;
@@ -42,6 +47,18 @@ public class PetInfo extends Pagination{
 	}
 	public void setPetNm(String petNm) {
 		this.petNm = petNm;
+	}
+	public String getPetCd() {
+		return petCd;
+	}
+	public void setPetCd(String petCd) {
+		this.petCd = petCd;
+	}
+	public String getPetSize() {
+		return petSize;
+	}
+	public void setPetSize(String petSize) {
+		this.petSize = petSize;
 	}
 	public String getIntro() {
 		return intro;
@@ -108,6 +125,24 @@ public class PetInfo extends Pagination{
 	}
 	public void setRegDt(Date regDt) {
 		this.regDt = regDt;
+	}
+	public Date getUptDt() {
+		return uptDt;
+	}
+	public void setUptDt(Date uptDt) {
+		this.uptDt = uptDt;
+	}
+	public String getEtc() {
+		return etc;
+	}
+	public void setEtc(String etc) {
+		this.etc = etc;
+	}
+	public String getPetImg() {
+		return petImg;
+	}
+	public void setPetImg(String petImg) {
+		this.petImg = petImg;
 	}
 	public int getFileCnt() {
 		return fileCnt;

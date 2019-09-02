@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>  
 <%@ taglib prefix="tx" uri="http://www.pethub.kr/tags"%>
 <% pageContext.setAttribute("LF", "\n"); %>
 
@@ -40,7 +41,12 @@
 	<tbody>
 
 	<tr>
-		<td><img src="https://cdn2-www.dogtime.com/assets/uploads/2011/01/file_23178_border-collie-460x290.jpg" alt="보더콜리"></td> 
+		<td style="border-top:none">${petInfoData.petNm} - ${petInfoData.petSize}</td>
+		<td style="border-top:none;text-align:right"><span style="font-size:12px;color:gray;"><fmt:formatDate value="${petInfoData.regDt}" pattern="yyyy/MM/dd HH:mm:ss" /></span></td>
+	</tr>
+
+	<tr>
+		<td><img  alt="보더콜리"> ${petInfoFileUrl}  aaaa </td> 
 		<td>
 			<div class="spec">
 			적응 : <div class='starrr' id="starrr1"></div><br>
@@ -51,7 +57,7 @@
 			활동 : <div class='starrr' id="starrr6"></div>
 			</div>
 			
-			출처 : https://dogtime.com/dog-breeds/border-collie#/slide/1
+			출처 : <a href="${petInfoData.etc }" target="_blank">${petInfoData.etc }</a>
 			
 		</td>	
 	</tr>
@@ -101,9 +107,9 @@
 </section>
 
 <form name="frm" method="POST">
-	<input type="hidden" name="page" value="${petInfoData.page }">
-	<input type="hidden" name="petSrl" id="petSrl" value="${petInfoData.petSrl }">
-	<input type="hidden" name="searchString" value="${petInfoData.searchString }">
+	<input type="hidden" name="page" id="page" value="${petInfo.page }">
+	<input type="hidden" name="petSrl" id="petSrl" value="${petInfo.petSrl }">
+	<input type="hidden" name="searchString" value="${petInfo.searchString }">
 </form>
 
 <script>

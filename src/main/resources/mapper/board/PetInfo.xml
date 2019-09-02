@@ -21,6 +21,8 @@
 	SELECT
 		 pet_srl
 		, pet_nm
+		, pet_cd
+		, pet_size
 		, spec1
 		, spec2
 		, spec3
@@ -44,6 +46,8 @@
 	SELECT
   		 pet_srl
 		, pet_nm
+		, pet_cd
+		, pet_size
 		, intro
 		, feature
 		, care
@@ -54,6 +58,10 @@
 		, spec4
 		, spec5
 		, spec6
+		, etc
+		
+		,(select min(file_srl) file_srl from com_file_data where file_tp = 'petInfo' and file_ref_srl = t1.pet_srl)  file_srl
+		
 		, reg_dt
 		, upt_dt
 	FROM pet_info t1 
@@ -64,6 +72,8 @@
 	/** insertPetInfo **/
 	INSERT INTO pet_info(
 		 pet_nm
+		, pet_cd
+		, pet_size
 		, intro
 		, feature
 		, care
@@ -74,10 +84,13 @@
 		, spec4
 		, spec5
 		, spec6
+		, etc
 		, reg_dt
 		, upt_dt
 	)VALUES(
 		 #{petNm}
+		, #{petCd}
+		, #{petSize}
 		, #{intro}
 		, #{feature}
 		, #{care}
@@ -88,6 +101,7 @@
 		, #{spec4}
 		, #{spec5}
 		, #{spec6}
+		, #{etc}
 		, SYSDATE()
 		, SYSDATE()
 	)
@@ -97,6 +111,8 @@
 	/** updatePetInfo **/
 	UPDATE pet_info SET 
 		pet_nm = #{petNm}
+		, pet_cd = #{petCd}
+		, pet_size = #{petSize}
 		, intro = #{intro}
 		, feature = #{feature}
 		, care = #{care}
@@ -107,6 +123,7 @@
 		, spec4 = #{spec4}
 		, spec5 = #{spec5}
 		, spec6 = #{spec6}
+		, etc = #{etc}
 		,upt_dt = SYSDATE()
 	WHERE pet_srl = #{petSrl}
 	</update> 
@@ -121,6 +138,8 @@
 	CREATE TABLE `pet_info` (
 	  `pet_srl` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '일련번호',
 	  `pet_nm` varchar(60) DEFAULT NULL COMMENT '펫이름',
+	  `pet_cd` varchar(10) DEFAULT NULL COMMENT '종류',
+	  `pet_size` char(1) DEFAULT NULL COMMENT '크기 S:소형, M: 중형, L:대형',
 	  `intro` text COMMENT '소개',
 	  `feature` text COMMENT '특징',
 	  `care` text COMMENT '보살핌',
@@ -131,25 +150,12 @@
 	  `spec4` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
 	  `spec5` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
 	  `spec6` tinyint(4) DEFAULT '0' COMMENT '활동성 activity',
+	  `etc` varchar(400) DEFAULT NULL COMMENT '기타',
 	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
 	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',
 	  PRIMARY KEY (`pet_srl`)
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='펫정보';
+	) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='펫정보';
 
-
-		
-	CREATE TABLE com_file_data (
-	  file_srl int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-	  file_ref_srl int(10) unsigned DEFAULT '0' COMMENT '파일참조번호',
-	  file_path varchar(100) DEFAULT NULL,
-	  file_sys_nm varchar(50) DEFAULT NULL,
-	  file_real_nm varchar(100) DEFAULT NULL,
-	  file_size varchar(10) DEFAULT NULL,
-	  file_tp varchar(10) DEFAULT NULL COMMENT '파일구분',
-	  reg_dt datetime DEFAULT NULL,
-	  PRIMARY KEY (file_srl),
-	  KEY file_tp (file_tp,file_ref_srl)
-	) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='파일목록';		
 		
 	 -->
 

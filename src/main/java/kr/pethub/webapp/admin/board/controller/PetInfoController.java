@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,6 +43,12 @@ public class PetInfoController{
 	@Autowired
 	private FileService fileService;
 	
+	@Value("${petInfo.file.url}") 
+	private String petInfoFileUrl;
+	
+	@Value("${petInfo.file.path}") 
+	private String petInfoFilePath;
+	
 	/**
 	 * 펫 정보 목록
 	 * @param request
@@ -50,7 +57,7 @@ public class PetInfoController{
 	 * @return
 	 */
 	@RequestMapping(value="/board/petInfoList")
-	public String petInfoList() {
+	public String petInfoList(@ModelAttribute PetInfo petInfo) {
 		
 		 return "admin:site/pet/petInfoList";
 	}
@@ -90,6 +97,13 @@ public class PetInfoController{
 		map.put("fileTp", "petInfo");
 		map.put("fileRefSrl", petInfo.getPetSrl());
 		model.addAttribute("fileList", fileService.selectFileList(map));
+
+		
+		
+		model.addAttribute("petInfoFileUrl", petInfoFilePath);
+		
+		
+		System.out.println(">>>>>>>>>>>> " + petInfoFileUrl);
 		
 		return "admin:site/pet/petInfoView";
 	} 
