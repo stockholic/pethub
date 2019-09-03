@@ -24,7 +24,7 @@
 		  <div class="form-group-sm">
 			
 			<div class="input-group input-group-sm" style="width: 250px;">
-	             <input type="text" name="searchString" id="searchString" value="" class="form-control pull-right" placeholder="Search">
+	             <input type="text" name="searchString" id="searchString" value="${petInfo.searchString }" class="form-control pull-right" placeholder="Search">
 	             <div class="input-group-btn">
 	               <button type="button" onClick="search()" class="btn btn-default"><i class="fa fa-search"></i></button>
 	             </div>
@@ -36,10 +36,10 @@
 		<div class="pull-right" v-cloak>Total : {{ vData.totalRow | addComma }} [ {{ vData.page }} / {{ vData.totalPage }} ]</div> 
 	    <table class="table table-hover table-top">
 		  <colgroup>
-		    <col style="width:4%">
+		    <col style="width:6%">
 		    <col style="width:10%">
 		    <col style="width:16%">
-		    <col style="width:10%">
+		    <col style="width:8%">
 		    <col style="width:8%">
 		    <col style="width:8%">
 		    <col style="width:8%">
@@ -101,7 +101,7 @@
 <form name="urlFrm" method="GET">
 	<input type="hidden" name="page" id="page"  value="">
 	<input type="hidden" name="petSrl" id="petSrl" value="">
-	<input type="hidden" name="searchString" value="">
+	<input type="hidden" name="searchString" id="searchStringUrl"value="">
 </form>
 
 <script>
@@ -204,6 +204,7 @@ function view(petSrl){
 	document.urlFrm.action = "/adm/board/petInfoView";
 	$("#petSrl").val(petSrl)
 	$("#page").val (com.getCurrentPage("#paging") )
+	$("#searchStringUrl").val ($("#searchString").val() )
 	document.urlFrm.submit();
 }
 
