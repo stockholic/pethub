@@ -60,10 +60,8 @@
 		, spec6
 		, etc
 		
-	    ,(SELECT file_sys_nm 
-	    	FROM com_file_data f1,
-	   	    (SELECT min(file_srl) file_srl  FROM com_file_data WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl) f2
-	    WHERE f1.file_srl = f2.file_srl) pet_img
+	    ,(SELECT file_sys_nm FROM com_file_data
+         WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1 ) AS pet_img
 				
 		, reg_dt
 		, upt_dt

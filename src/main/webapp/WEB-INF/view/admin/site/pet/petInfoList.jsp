@@ -36,17 +36,17 @@
 		<div class="pull-right" v-cloak>Total : {{ vData.totalRow | addComma }} [ {{ vData.page }} / {{ vData.totalPage }} ]</div> 
 	    <table class="table table-hover table-top">
 		  <colgroup>
-		    <col style="width:6%">
-		    <col style="width:10%">
-		    <col style="width:16%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:8%">
-		    <col style="width:10%">
+		    <col style="width:50px">
+		    <col style="width:80px">
+		    <col />
+		    <col style="width:60px">
+		    <col style="width:60px">
+		    <col style="width:60px">
+		    <col style="width:60px">
+		    <col style="width:60px">
+		    <col style="width:60px">
+		    <col style="width:60px">
+		     <col style="width:100px">
 		  </colgroup>
 		<thead>
 		<tr>
@@ -67,8 +67,8 @@
 		
 		<tr v-for="lst in vData.dataList" v-cloak>
 			<td class="text-center">{{ lst.num  }}</td>
-			<td>{{ lst.petCd }}</td>
-			<td><a href="javascript:;" v-on:click="view(lst.petSrl)">{{ lst.petNm }}</a></td>
+			<td class="text-center" v-bind:style="{'color': ( lst.petCd == 'dog' ? '' : 'blue' )}">{{ lst.petCd  =='dog' ? '강아지' : '고양이' }}</td>
+			<td class="truncate-ellipsis"><a href="javascript:;" v-on:click="view(lst.petSrl)">{{ lst.petNm }}</a></td>
 			<td class="text-center">{{ lst.petSize }}</a></td>
 			<td class="text-center">{{ lst.spec1 }}</a></td>
 			<td class="text-center">{{ lst.spec2 }}</a></td>
