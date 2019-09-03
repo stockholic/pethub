@@ -4,6 +4,14 @@
 <%@ taglib prefix="tx" uri="http://www.pethub.kr/tags"%>
 
 
+<div class="top-menu">
+	<div>
+		<a href= "/">펫 검색</a> | 
+		<a href= "#">펫 정보</a>
+	</div>
+</div>
+
+
 <div class="row search-wrap">
 	<div class="col-3 logo">
 		<a href= "/">PetHub.kr</a>
@@ -19,7 +27,7 @@
   	</div>
   	
 	<div class="col-3 text-right last-update" id="updatedTime">
-		<div>last updated</div>
+		<div>업데이트 시간</div>
 		<div>${updatedTime }</div>
 	</div>
 </div>
