@@ -86,15 +86,15 @@
 		<td><textarea id="feature" name="feature" class="form-control"style="height:130px">${petInfoData.feature }</textarea></td>
 	</tr>
 	<tr>
-		<th class="required">보살핌</th>
+		<th>보살핌</th>
 		<td><textarea id="care" name="care" class="form-control" style="height:130px">${petInfoData.care }</textarea></td>
 	</tr>
 	<tr>
-		<th class="required">먹이</th>
+		<th>먹이</th>
 		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }"></td> 
 	</tr>
 	<tr>
-		<th class="required">기타</th>
+		<th>기타</th>
 		<td><input type="text" class="form-control" name="etc" id="etc" value="${petInfoData.etc }"></td> 
 	</tr>
 	
