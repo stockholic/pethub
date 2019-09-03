@@ -60,8 +60,11 @@
 		, spec6
 		, etc
 		
-		,(select min(file_srl) file_srl from com_file_data where file_tp = 'petInfo' and file_ref_srl = t1.pet_srl)  file_srl
-		
+	    ,(SELECT file_sys_nm 
+	    	FROM com_file_data f1,
+	   	    (SELECT min(file_srl) file_srl  FROM com_file_data WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl) f2
+	    WHERE f1.file_srl = f2.file_srl) pet_img
+				
 		, reg_dt
 		, upt_dt
 	FROM pet_info t1 
@@ -144,12 +147,12 @@
 	  `feature` text COMMENT '특징',
 	  `care` text COMMENT '보살핌',
 	  `feed` varchar(200) DEFAULT NULL COMMENT '먹이',
-	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응성 adaptabie',
-	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친근함 friendly',
-	  `spec3` tinyint(4) DEFAULT '0' COMMENT '청결 Health',
+	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응성 Adaptabie',
+	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친근함 Friendly',
+	  `spec3` tinyint(4) DEFAULT '0' COMMENT '미용 Grooming',
 	  `spec4` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
 	  `spec5` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
-	  `spec6` tinyint(4) DEFAULT '0' COMMENT '활동성 activity',
+	  `spec6` tinyint(4) DEFAULT '0' COMMENT '활동성 Activity',
 	  `etc` varchar(400) DEFAULT NULL COMMENT '기타',
 	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
 	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',

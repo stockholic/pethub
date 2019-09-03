@@ -74,10 +74,12 @@ public class PetInfoService{
 	 * @return
 	 */
 	public PetInfo selectPetInfo(Integer petSrl){
-		PetInfo petinfo =  petInfoDao.selectPetInfo(petSrl);
-		petinfo.setPetImg(petInfoFileUrl);
 		
-		return  petinfo;
+		PetInfo petInfo =  petInfoDao.selectPetInfo(petSrl);
+		if(StringUtils.isNotEmpty(petInfo.getPetImg())  )
+			petInfo.setPetImg(petInfoFileUrl + "/" + petInfo.getPetImg());
+		
+		return  petInfo;
 	}
 	
 	/**

@@ -56,7 +56,7 @@
 			<th class="text-center">사이즈</th>
 			<th class="text-center">적응</th>
 			<th class="text-center">친근</th>
-			<th class="text-center">청결</th>
+			<th class="text-center">미용</th>
 			<th class="text-center">훈련</th>
 			<th class="text-center">지능</th>
 			<th class="text-center">활동</th>
@@ -98,7 +98,7 @@
 
 </section>
 
-<form name="urlFrm" method="POST">
+<form name="urlFrm" method="GET">
 	<input type="hidden" name="page" id="page"  value="">
 	<input type="hidden" name="petSrl" id="petSrl" value="">
 	<input type="hidden" name="searchString" value="">

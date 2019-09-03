@@ -70,7 +70,7 @@
 		
 			적응 : <div class='starrr' id="starrr1"></div> <input type="text" name="spec1" id="spec1" style="width:20px;margin:0px 10px;border:0"value="${petInfoData.spec1 }" readOnly>
 			친근 : <div class='starrr' id="starrr2"></div> <input type="text" name="spec2" id="spec2" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec2 }" readOnly>
-			청결 : <div class='starrr' id="starrr3"></div> <input type="text" name="spec3" id="spec3" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec3 }" readOnly><br>
+			미용 : <div class='starrr' id="starrr3"></div> <input type="text" name="spec3" id="spec3" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec3 }" readOnly><br>
 			훈련 : <div class='starrr' id="starrr4"></div> <input type="text" name="spec4" id="spec4" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec4 }" readOnly>
 			지능 : <div class='starrr' id="starrr5"></div> <input type="text" name="spec5" id="spec5" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec5 }" readOnly>
 			활동 : <div class='starrr' id="starrr6"></div> <input type="text" name="spec6" id="spec6" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec6 }" readOnly>
@@ -128,7 +128,7 @@
 
 </section>
 
-<form name="urlFrm" method="POST">
+<form name="urlFrm" method="GET">
 	<input type="hidden" name="page" id="page" value="${petInfo.page }">
 	<input type="hidden" name="petSrl" id="petSrl" value="${petInfo.petSrl }">
 	<input type="hidden" name="searchString" value="${petInfo.searchString }">

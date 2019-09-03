@@ -46,12 +46,16 @@
 	</tr>
 
 	<tr>
-		<td><img  alt="보더콜리"> ${petInfoData.petImg} </td> 
+		<td>
+			<c:if test="${!empty petInfoData.petImg }" >
+			<img  src="${petInfoData.petImg }" alt="${petInfoData.petNm}" style="max-height: 230px;border-radius: 4%" onerror="$(this).hide()">
+			</c:if> 
+		</td> 
 		<td>
 			<div class="spec">
 			적응 : <div class='starrr' id="starrr1"></div><br>
 			친밀 : <div class='starrr' id="starrr2"></div><br>
-			청결 : <div class='starrr' id="starrr3"></div><br>
+			미용 : <div class='starrr' id="starrr3"></div><br>
 			훈련 : <div class='starrr' id="starrr4"></div><br>
 			지능 : <div class='starrr' id="starrr5"></div><br>
 			활동 : <div class='starrr' id="starrr6"></div>
@@ -106,7 +110,7 @@
 
 </section>
 
-<form name="frm" method="POST">
+<form name="frm" method="GET">
 	<input type="hidden" name="page" id="page" value="${petInfo.page }">
 	<input type="hidden" name="petSrl" id="petSrl" value="${petInfo.petSrl }">
 	<input type="hidden" name="searchString" value="${petInfo.searchString }">
