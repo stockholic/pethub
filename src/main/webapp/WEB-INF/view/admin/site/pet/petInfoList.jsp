@@ -51,7 +51,7 @@
 		<thead>
 		<tr>
 			<th class="text-center">번호</th>
-			<th>종류</th>
+			<th class="text-center">종류</th>
 			<th>이름</th>
 			<th class="text-center">사이즈</th>
 			<th class="text-center">적응</th>
