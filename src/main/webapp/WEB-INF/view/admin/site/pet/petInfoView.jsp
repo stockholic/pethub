@@ -60,7 +60,7 @@
 			활동 : <div class='starrr' id="starrr5"></div>
 			</div>
 			
-			출처 : <a href="${petInfoData.etc }" target="_blank">${petInfoData.etc }</a>
+			출처 : <a href="${petInfoData.link }" target="_blank">${petInfoData.link }</a>
 			
 		</td>	
 	</tr>

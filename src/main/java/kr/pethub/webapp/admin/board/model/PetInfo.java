@@ -21,10 +21,9 @@ public class PetInfo extends Pagination{
 	private String spec3;
 	private String spec4;
 	private String spec5;
-	private String spec6;
 	private Date regDt;
 	private Date uptDt;
-	private String etc;
+	private String link;
 	private String petImg;
 	private int fileCnt;
 	private String fileInfo;
@@ -114,12 +113,6 @@ public class PetInfo extends Pagination{
 	public void setSpec5(String spec5) {
 		this.spec5 = spec5;
 	}
-	public String getSpec6() {
-		return spec6;
-	}
-	public void setSpec6(String spec6) {
-		this.spec6 = spec6;
-	}
 	public Date getRegDt() {
 		return regDt;
 	}
@@ -133,10 +126,10 @@ public class PetInfo extends Pagination{
 		this.uptDt = uptDt;
 	}
 	public String getEtc() {
-		return etc;
+		return link;
 	}
-	public void setEtc(String etc) {
-		this.etc = etc;
+	public void setEtc(String link) {
+		this.link = link;
 	}
 	public String getPetImg() {
 		return petImg;

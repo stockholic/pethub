@@ -56,7 +56,7 @@
 		, spec3
 		, spec4
 		, spec5
-		, etc
+		, link
 		
 	    ,(SELECT file_sys_nm FROM com_file_data
          WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1 ) AS pet_img
@@ -82,7 +82,7 @@
 		, spec3
 		, spec4
 		, spec5
-		, etc
+		, link
 		, reg_dt
 		, upt_dt
 	)VALUES(
@@ -98,7 +98,7 @@
 		, #{spec3}
 		, #{spec4}
 		, #{spec5}
-		, #{etc}
+		, #{link}
 		, SYSDATE()
 		, SYSDATE()
 	)
@@ -119,7 +119,7 @@
 		, spec3 = #{spec3}
 		, spec4 = #{spec4}
 		, spec5 = #{spec5}
-		, etc = #{etc}
+		, link = #{link}
 		,upt_dt = SYSDATE()
 	WHERE pet_srl = #{petSrl}
 	</update> 
@@ -145,7 +145,7 @@
 	  `spec3` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
 	  `spec4` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
 	  `spec5` tinyint(4) DEFAULT '0' COMMENT '활동 Activity',
-	  `etc` varchar(400) DEFAULT NULL COMMENT '기타',
+	  `link` varchar(400) DEFAULT NULL COMMENT '리크',
 	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
 	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',
 	  PRIMARY KEY (`pet_srl`)
