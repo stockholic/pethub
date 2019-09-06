@@ -124,7 +124,7 @@
 	margin: 20px;
 }
 
-/*  ---------------  Breed ----------------- */
+/* ---------------  Breed  Start ----------------- */
 .breed-menu{
 	margin:10px 0px 30px 0px;
 	text-align:right;
@@ -136,10 +136,11 @@
 	color: #4782c1;
 }
 
-
 #list_wrap .media .pet-img { 
 	border-radius: 50% !important;
 	max-width: 100px; 
 	min-width: 100px;
 }
+
+/* ---------------  Breed  End ----------------- */
 
