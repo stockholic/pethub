@@ -12,12 +12,12 @@
 
 <section class="content-header">
   <h1>
-    품종
+    품종관리
     <small>작성</small>  
   </h1>
   <ol class="breadcrumb">
     <li><a href="#">컨텐츠관리</a></li>
-    <li class="active">품종</li>
+    <li class="active">품종관리</li>
   </ol>
 </section>
 
