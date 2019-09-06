@@ -59,6 +59,9 @@ public class PetInfoService{
 		int num = petInfo.getTotalRow() - petInfo.getRowStart();
 		
 		for (PetInfo pi : list) {
+			
+			pi.setPetImg(petInfoFileUrl + "/" + pi.getPetImg());
+			
 			pi.setNum(num);
 			num--;
 		}

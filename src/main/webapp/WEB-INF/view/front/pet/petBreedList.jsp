@@ -37,7 +37,7 @@
 	  
 	  <c:forEach var="lst" items="${list }" varStatus="status">
 	  <li class="media my-4" v-for="lst in dataList">
-	    <img class="mr-3" src="https://cdn3-www.dogtime.com/assets/uploads/2011/01/file_22944_saint-bernard-460x290.jpg" style="max-width: 120px; min-width: 120px" onerror="$(this).hide()">
+	    <img class="mr-3" src="${lst.petImg}" style="max-width: 120px; min-width: 120px" onerror="$(this).hide()">
 	    
 	    <div class="media-body">
 	      <h5 class="mt-0 mb-1">

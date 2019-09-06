@@ -21,6 +21,7 @@
 	SELECT
 		 pet_srl
 		, pet_nm
+		, (SELECT file_sys_nm FROM com_file_data  WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1 ) AS pet_img
 		, intro
 		, pet_cd
 		, pet_size
