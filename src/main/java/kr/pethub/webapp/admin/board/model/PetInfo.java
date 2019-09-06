@@ -125,10 +125,10 @@ public class PetInfo extends Pagination{
 	public void setUptDt(Date uptDt) {
 		this.uptDt = uptDt;
 	}
-	public String getEtc() {
+	public String getLink() {
 		return link;
 	}
-	public void setEtc(String link) {
+	public void setLink(String link) {
 		this.link = link;
 	}
 	public String getPetImg() {
