@@ -41,14 +41,6 @@
 
 <div class="container ">
 
-<div class="top-menu">
-
-	<div>
-			<a href= "/">분양</a> | 
-			<a href= "#">품종</a>
-		</div>
-	</div>
-
     
    <div>
      <tiles:insertAttribute name="body" />

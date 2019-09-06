@@ -3,9 +3,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="tx" uri="http://www.pethub.kr/tags"%>
 
+<div class="top-menu">
+	<div>
+		<span style="font-size: 14px;font-weight: bold;">분양</span> | 
+		<span>품종</span>
+	</div>
+</div>
+
 <div class="row search-wrap">
 	<div class="col-3 logo">
-		<a href= "/">PetHub.kr</a>
+		<a href= "/">Pethub.kr</a>
 	</div>
 	
   	<div class="col-6 text-center" id="searchInput">

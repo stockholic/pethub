@@ -21,6 +21,7 @@
 	SELECT
 		 pet_srl
 		, pet_nm
+		, intro
 		, pet_cd
 		, pet_size
 		, spec1
