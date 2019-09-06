@@ -4,12 +4,12 @@
 
 <section class="content-header">
   <h1>
-    펫정보
+    품종
     <small>목록</small>  
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"> 컨텐츠</a></li>
-    <li class="active">펫정보</li>
+    <li><a href="#">컨텐츠관리</a></li>
+    <li class="active">품종</li>
   </ol>
 </section>
 
@@ -45,7 +45,6 @@
 		    <col style="width:60px">
 		    <col style="width:60px">
 		    <col style="width:60px">
-		    <col style="width:60px">
 		     <col style="width:100px">
 		  </colgroup>
 		<thead>
@@ -55,8 +54,7 @@
 			<th>이름</th>
 			<th class="text-center">사이즈</th>
 			<th class="text-center">적응</th>
-			<th class="text-center">친근</th>
-			<th class="text-center">미용</th>
+			<th class="text-center">친밀</th>
 			<th class="text-center">훈련</th>
 			<th class="text-center">지능</th>
 			<th class="text-center">활동</th>
@@ -75,12 +73,11 @@
 			<td class="text-center">{{ lst.spec3 }}</a></td>
 			<td class="text-center">{{ lst.spec5 }}</a></td>
 			<td class="text-center">{{ lst.spec5 }}</a></td>
-			<td class="text-center">{{ lst.spec6 }}</a></td>
 			<td class="text-center">{{ lst.regDt | timestampToDate }}</td>
 		</tr> 
 		
 		<tr v-if="vData.totalPage == 0" v-cloak>
-			<td class="text-center" colspan="11" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
+			<td class="text-center" colspan="10" style="height:150px;vertical-align: middle;">자료가 없습니다.</td>
 		</tr>
 		
 		</tbody>

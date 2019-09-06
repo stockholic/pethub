@@ -12,12 +12,12 @@
 
 <section class="content-header">
   <h1>
-    펫정보
+    품종
     <small>작성</small>  
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"> 컨텐츠</a></li>
-    <li class="active">펫정보</li>
+    <li><a href="#">컨텐츠관리</a></li>
+    <li class="active">품종</li>
   </ol>
 </section>
 
@@ -70,10 +70,9 @@
 		
 			적응 : <div class='starrr' id="starrr1"></div> <input type="text" name="spec1" id="spec1" style="width:20px;margin:0px 10px;border:0"value="${petInfoData.spec1 }" readOnly>
 			친근 : <div class='starrr' id="starrr2"></div> <input type="text" name="spec2" id="spec2" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec2 }" readOnly>
-			미용 : <div class='starrr' id="starrr3"></div> <input type="text" name="spec3" id="spec3" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec3 }" readOnly><br>
-			훈련 : <div class='starrr' id="starrr4"></div> <input type="text" name="spec4" id="spec4" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec4 }" readOnly>
-			지능 : <div class='starrr' id="starrr5"></div> <input type="text" name="spec5" id="spec5" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec5 }" readOnly>
-			활동 : <div class='starrr' id="starrr6"></div> <input type="text" name="spec6" id="spec6" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec6 }" readOnly>
+			훈련 : <div class='starrr' id="starrr4"></div> <input type="text" name="spec3" id="spec3" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec3 }" readOnly>
+			지능 : <div class='starrr' id="starrr5"></div> <input type="text" name="spec4" id="spec4" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec4 }" readOnly>
+			활동 : <div class='starrr' id="starrr6"></div> <input type="text" name="spec5" id="spec5" style="width:20px;margin:0px 10px;border:0" value="${petInfoData.spec5 }" readOnly>
 			
 		</td>
 	</tr>
@@ -200,12 +199,6 @@ $(document).ready(function() {
  		rating: ${empty petInfoData.spec5 ? 0 : petInfoData.spec5},
 		change: function(e, value){
 			$("#spec5").val(value)
-		}
-	});
- 	$('#starrr6').starrr({
- 		rating: ${empty petInfoData.spec6 ? 0 : petInfoData.spec6},
-		change: function(e, value){
-			$("#spec6").val(value)
 		}
 	});
  	

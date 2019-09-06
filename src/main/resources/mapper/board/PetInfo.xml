@@ -28,7 +28,6 @@
 		, spec3
 		, spec4
 		, spec5
-		, spec6
 		, reg_dt
 	FROM pet_info t1
 	WHERE 1=1
@@ -57,7 +56,6 @@
 		, spec3
 		, spec4
 		, spec5
-		, spec6
 		, etc
 		
 	    ,(SELECT file_sys_nm FROM com_file_data
@@ -84,7 +82,6 @@
 		, spec3
 		, spec4
 		, spec5
-		, spec6
 		, etc
 		, reg_dt
 		, upt_dt
@@ -101,7 +98,6 @@
 		, #{spec3}
 		, #{spec4}
 		, #{spec5}
-		, #{spec6}
 		, #{etc}
 		, SYSDATE()
 		, SYSDATE()
@@ -123,7 +119,6 @@
 		, spec3 = #{spec3}
 		, spec4 = #{spec4}
 		, spec5 = #{spec5}
-		, spec6 = #{spec6}
 		, etc = #{etc}
 		,upt_dt = SYSDATE()
 	WHERE pet_srl = #{petSrl}
@@ -145,12 +140,11 @@
 	  `feature` text COMMENT '특징',
 	  `care` text COMMENT '보살핌',
 	  `feed` varchar(200) DEFAULT NULL COMMENT '먹이',
-	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응성 Adaptabie',
-	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친근함 Friendly',
-	  `spec3` tinyint(4) DEFAULT '0' COMMENT '미용 Grooming',
-	  `spec4` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
-	  `spec5` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
-	  `spec6` tinyint(4) DEFAULT '0' COMMENT '활동성 Activity',
+	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응 Adaptabie',
+	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친밀 Friendly',
+	  `spec3` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
+	  `spec4` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
+	  `spec5` tinyint(4) DEFAULT '0' COMMENT '활동 Activity',
 	  `etc` varchar(400) DEFAULT NULL COMMENT '기타',
 	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
 	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',

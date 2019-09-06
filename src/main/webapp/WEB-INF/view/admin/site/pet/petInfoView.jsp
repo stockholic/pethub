@@ -18,12 +18,12 @@
 
 <section class="content-header">
   <h1>
-     펫정보
+     품종
     <small>조회</small>  
   </h1>
   <ol class="breadcrumb">
-    <li><a href="#"> 컨텐츠</a></li>
-    <li class="active">펫정보</li>
+    <li><a href="#">컨텐츠관리</a></li>
+    <li class="active">품종</li>
   </ol>
 </section>
 
@@ -55,10 +55,9 @@
 			<div class="spec">
 			적응 : <div class='starrr' id="starrr1"></div><br>
 			친밀 : <div class='starrr' id="starrr2"></div><br>
-			미용 : <div class='starrr' id="starrr3"></div><br>
-			훈련 : <div class='starrr' id="starrr4"></div><br>
-			지능 : <div class='starrr' id="starrr5"></div><br>
-			활동 : <div class='starrr' id="starrr6"></div>
+			훈련 : <div class='starrr' id="starrr3"></div><br>
+			지능 : <div class='starrr' id="starrr4"></div><br>
+			활동 : <div class='starrr' id="starrr5"></div>
 			</div>
 			
 			출처 : <a href="${petInfoData.etc }" target="_blank">${petInfoData.etc }</a>
@@ -136,9 +135,6 @@ $(document).ready(function() {
 	});
 	$('#starrr5').starrr({
 	  rating: ${empty petInfoData.spec5 ? 0 : petInfoData.spec5},readOnly: true
-	});
-	$('#starrr6').starrr({
-	  rating: ${empty petInfoData.spec6 ? 0 : petInfoData.spec6},readOnly: true
 	});
 	
 });
