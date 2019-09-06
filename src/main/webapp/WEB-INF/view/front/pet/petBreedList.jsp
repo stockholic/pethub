@@ -30,6 +30,12 @@
 	</div>
 </div>
 
+<div class="breed-menu">
+	<div>
+		크기 | 지능 
+	</div>
+</div>
+
 
 <div id="list_wrap">
 
@@ -37,7 +43,7 @@
 	  
 	  <c:forEach var="lst" items="${list }" varStatus="status">
 	  <li class="media my-4" v-for="lst in dataList">
-	    <img class="mr-3" src="${lst.petImg}" style="max-width: 120px; min-width: 120px" onerror="$(this).hide()">
+	    <img class="pet-img mr-3" src="${lst.petImg}" onerror="$(this).hide()">
 	    
 	    <div class="media-body">
 	      <h5 class="mt-0 mb-1">
