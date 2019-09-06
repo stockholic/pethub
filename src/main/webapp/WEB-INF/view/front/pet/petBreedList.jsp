@@ -31,35 +31,38 @@
 </div>
 
 <div class="breed-menu">
-	<div>
-		크기 | 지능 
-	</div>
+		소형견 | 중형견 | 대형견 
 </div>
 
 
-<div id="list_wrap">
-
-	<ul class="list-unstyled">
-	  
-	  <c:forEach var="lst" items="${list }" varStatus="status">
-	  <li class="media my-4" v-for="lst in dataList">
-	    <img class="pet-img mr-3" src="${lst.petImg}" onerror="$(this).hide()">
-	    
-	    <div class="media-body">
-	      <h5 class="mt-0 mb-1">
-	      	<a href="#">${lst.petNm}</a>
-	      </h5>
-	     ${lst.intro}
-	    </div>
-	  </li>
-	  <hr/>
-	  </c:forEach>
-	  
-
-	</ul>
-	
-	
+<c:forEach var="lst" items="${list }" varStatus="status">
+<div class="row">
+  	<div class="col-sm text-center">
+  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
+  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
+ 	</div>
+  	<div class="col-sm text-center">
+  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
+  		<div class="breed-title"><a href="#">${lst.petNm}</a></div> 
+ 	</div>
+  	<div class="col-sm text-center">
+  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
+  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
+ 	</div>
 </div>
+
+<div class="row">
+  	<div class="col-sm text-center">
+  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
+  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
+ 	</div>
+  	<div class="col-sm text-center">
+  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
+  		<div class="breed-title"><a href="#">${lst.petNm}</a></div> 
+ 	</div>
+</div>
+
+</c:forEach>
 
 
 
@@ -77,7 +80,6 @@ $(document).ready(function() {
 	    	}
 	    }
 	});
-
 	
 });
 
