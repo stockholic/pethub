@@ -7,22 +7,22 @@
 	
 <style type="text/css"> 
 
-body {
-	padding : 0;
-	margin : 0;
+.layer {
+   position: absolute;
+   display: table;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%
 }
-
-table{text-align:center}
-
-#wrapper { 
-	width: 400px; 
-	height: 200px; 
-	position: absolute; 
-	top: 40%; 
-	left: 55%; 
-	margin: -100px 0 0 -200px;
-} 
-
+.layer .layer_inner {
+   display: table-cell;
+   text-align: center;
+   vertical-align: middle
+}
+.layer .content {
+   display: inline-block;
+}
 .code {
 	font-size:20pt;
 	color:#5980D6;
@@ -47,8 +47,9 @@ table{text-align:center}
 
 <body>
 	
-<div id="wrapper">
-
+<div class="layer">
+  <div class="layer_inner">
+    <div class="content">
     <table>
     <tr>
     	<td width="80 "height="40" class="code">404</td>
@@ -64,7 +65,8 @@ table{text-align:center}
     	<td height='100' colspan='2'  class="comment"></td>
     </tr>
     </table>
-	
+    </div>
+  </div>
 </div>
 
 </body>
