@@ -28,6 +28,12 @@
 		display:none;
 	}
 	
+	/* ---------------  Breed  Start ----------------- */
+	#breed-img{
+	 max-width: 320px;  
+	 border-radius: 4% !important;
+	}
+	/* ---------------  Breed  End ----------------- */
 	
 }
 	

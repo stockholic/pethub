@@ -2,6 +2,7 @@ package kr.pethub.webapp.front.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,8 @@ public class PetBreedController{
 		
 		List<PetInfo> list = petInfoService.selectPetInfoList(petInfo);
 		
-		
 		model.addAttribute("list", list);
+		model.addAttribute("petTitle", "펫허브:PetHub 강아지 품종 정보" );
 		
 		 return "front:pet/petBreedList";
 	} 
@@ -58,6 +59,7 @@ public class PetBreedController{
 		if(petInfoData == null) return "redirect:/static/error404.html";
 
 		model.addAttribute("petInfoData", petInfoData);
+		model.addAttribute("petTitle", "펫허브:PetHub " + petInfoData.getPetNm() );
 		 return "front:pet/petBreedView";
 	} 
 

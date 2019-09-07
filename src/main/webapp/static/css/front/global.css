@@ -159,7 +159,7 @@
 }
 
 .view.breed-img{
-	 max-width: 350px;  
+	 max-width: 400px;  
 	 border-radius: 4% !important;
 }
 .view.breed-title{
@@ -183,7 +183,5 @@
 .view.intro div{
 	padding-left: 10px;
 }
-
-
 /* ---------------  Breed  End ----------------- */
 
