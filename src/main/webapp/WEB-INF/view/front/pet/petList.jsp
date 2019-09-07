@@ -5,8 +5,8 @@
 
 <div class="top-menu">
 	<div>
-		<span style="font-size: 14px;font-weight: bold;">분양</span> | 
-		<span>품종</span>
+		<a href= "/" class="menu-selected">분양</a> |
+		<a href= "/breed/list">품종</a> 
 	</div>
 </div>
 
@@ -39,7 +39,7 @@
 	<ul class="list-unstyled">
 	  
 	  <c:forEach var="lst" items="${list }" varStatus="status">
-	  <li class="media my-4" v-for="lst in dataList">
+	  <li class="media my-4">
 	  	<c:if test="${!empty lst.dataImg}">
 	    <img class="mr-3" src="${lst.dataImg }" style="max-width: 90px; min-width: 90px" onerror="$(this).hide()">
 	    </c:if>

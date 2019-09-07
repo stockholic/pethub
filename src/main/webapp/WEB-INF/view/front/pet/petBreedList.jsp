@@ -7,7 +7,7 @@
 <div class="top-menu">
 	<div>
 		<a href= "/">분양</a> | 
-		<span style="font-size: 14px;font-weight: bold;">품종</span>
+		<a href= "/breed/list" class="menu-selected">품종</a>
 	</div>
 </div>
 
@@ -31,39 +31,26 @@
 </div>
 
 <div class="breed-menu">
-		소형견 | 중형견 | 대형견 
+	<a href="/breed/list?petSize=S" class="${petInfo.petSize eq 'S' ? 'menu-selected' : '' }">소형견</a> | 
+	<a href="/breed/list?petSize=M" class="${petInfo.petSize eq 'M' ? 'menu-selected' : '' }">중형견</a> | 
+	<a href="/breed/list?petSize=L" class="${petInfo.petSize eq 'L' ? 'menu-selected' : '' }">대형견</a> 
 </div>
 
-
+<div class="row">
+<c:set var="cnt" value="1" />
 <c:forEach var="lst" items="${list }" varStatus="status">
-<div class="row">
-  	<div class="col-sm text-center">
-  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
-  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
+  	<div class="col-sm text-center" style="margin-bottom: 20px">
+  		<div><a href="/breed/view/${lst.petSrl}"><img class="list breed-img" src="${lst.petImg}" onerror="$(this).hide()"></a></div>
+  		<div class="list breed-title"><a href="/breed/view/${lst.petSrl}">${lst.petNm}</a></div>
  	</div>
-  	<div class="col-sm text-center">
-  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
-  		<div class="breed-title"><a href="#">${lst.petNm}</a></div> 
- 	</div>
-  	<div class="col-sm text-center">
-  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
-  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
- 	</div>
+<c:if test="${cnt % 3 == 0}">
 </div>
-
 <div class="row">
-  	<div class="col-sm text-center">
-  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
-  		<div class="breed-title"><a href="#">${lst.petNm}</a></div>
- 	</div>
-  	<div class="col-sm text-center">
-  		<div><img class="breed-img" src="${lst.petImg}" onerror="$(this).hide()"></div>
-  		<div class="breed-title"><a href="#">${lst.petNm}</a></div> 
- 	</div>
-</div>
+</c:if>
 
+<c:set var="cnt" value="${cnt+1}" />
 </c:forEach>
-
+</div>
 
 
 <script>
@@ -74,9 +61,9 @@ $(document).ready(function() {
 	$("#searchString").keyup(function(event) {
 		if (event.keyCode == 13) {
 	    	if( $(this).val().trim().length  == 0){
-	    		document.location.href = "/breed/list"
+	    		document.location.href = "/breed/list?petSize=${petInfo.petSize}"
 	    	}else if( $(this).val().trim().length  > 1){
-	         document.location.href = "/breed/list/" + $(this).val();
+	         document.location.href = "/breed/list/" + $(this).val() + "?petSize=${petInfo.petSize}";
 	    	}
 	    }
 	});

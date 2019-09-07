@@ -28,6 +28,7 @@ public class PetInfo extends Pagination{
 	private int fileCnt;
 	private String fileInfo;
 	private String searchString;
+	private String orderBy;
 	
 	public Integer getPetSrl() {
 		return petSrl;
@@ -155,6 +156,11 @@ public class PetInfo extends Pagination{
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
-	
+	public String getOrderBy() {
+		return orderBy;
+	}
+	public void setOrderBy(String orderBy) {
+		this.orderBy = orderBy;
+	}
 	
 }

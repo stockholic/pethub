@@ -79,7 +79,7 @@ public class PetInfoService{
 	public PetInfo selectPetInfo(Integer petSrl){
 		
 		PetInfo petInfo =  petInfoDao.selectPetInfo(petSrl);
-		if(StringUtils.isNotEmpty(petInfo.getPetImg())  )
+		if(petInfo != null && StringUtils.isNotEmpty(petInfo.getPetImg())  )
 			petInfo.setPetImg(petInfoFileUrl + "/" + petInfo.getPetImg());
 		
 		return  petInfo;
