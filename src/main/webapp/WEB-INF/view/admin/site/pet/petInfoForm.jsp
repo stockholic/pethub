@@ -93,7 +93,7 @@
 		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }"></td> 
 	</tr>
 	<tr>
-		<th>기타</th>
+		<th>링크</th>
 		<td><input type="text" class="form-control" name="link" id="link" value="${petInfoData.link }"></td> 
 	</tr>
 	
