@@ -94,7 +94,7 @@
 	</tr>
 	<tr>
 		<th>기타</th>
-		<td><input type="text" class="form-control" name="link" id="link" value="${petInfoData.link }" onclick="com.autoHeight(this)"></td> 
+		<td><input type="text" class="form-control" name="link" id="link" value="${petInfoData.link }"></td> 
 	</tr>
 	
 	<tr>
