@@ -38,7 +38,7 @@ public class PetBreedController{
 		petInfo.setOrderBy("pet_nm asc");
 		
 		//소형견 디폴트
-		if( StringUtils.isEmpty(petInfo.getPetSize()) ) petInfo.setPetSize("S");
+		if( StringUtils.isEmpty(petInfo.getPetSize()) && StringUtils.isEmpty(searchString)) petInfo.setPetSize("S");
 		
 		List<PetInfo> list = petInfoService.selectPetInfoList(petInfo);
 		
