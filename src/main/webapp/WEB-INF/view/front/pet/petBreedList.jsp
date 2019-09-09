@@ -63,7 +63,7 @@ $(document).ready(function() {
 	    	if( $(this).val().trim().length  == 0){
 	    		document.location.href = "/breed/list?petSize=${petInfo.petSize}"
 	    	}else if( $(this).val().trim().length  > 1){
-	         document.location.href = "/breed/list/" + $(this).val() + "?petSize=${petInfo.petSize}";
+	         document.location.href = "/breed/list/" + $(this).val();
 	    	}
 	    }
 	});
