@@ -1,5 +1,6 @@
-<?xml version="1.0″ encoding="UTF-8″?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9″>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
 <url>
 	<loc>http://www.pethub.kr/search/list</loc>
 	<lastmod>2019-09-09</lastmod>
@@ -7,8 +8,22 @@
 	<priority>1.0</priority>
 </url>
 <url>
-	<loc>http://www.pethub.kr/breed/list</loc>
+	<loc>http://www.pethub.kr/breed/list?petSize=S</loc>
 	<lastmod>2019-09-09</lastmod>
 	<changefreq>daily</changefreq>
 	<priority>0.9</priority>
 </url>
+<url>
+	<loc>http://www.pethub.kr/breed/list?petSize=M</loc>
+	<lastmod>2019-09-09</lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.9</priority>
+</url>
+<url>
+	<loc>http://www.pethub.kr/breed/list?petSize=L</loc>
+	<lastmod>2019-09-09</lastmod>
+	<changefreq>daily</changefreq>
+	<priority>0.9</priority>
+</url>
+
+</urlset>
