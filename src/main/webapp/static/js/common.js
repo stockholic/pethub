@@ -479,6 +479,13 @@ var com = {
 		//console.log( obj )
 		return obj
 		
+	},
+	
+	/**
+	 * textarea 높이 내용에 맞게 조정
+	 */
+	autoHeight : function(obj){
+		$(obj).height( $(obj).prop("scrollHeight") + 16)
 	}
 	
 };

@@ -78,23 +78,23 @@
 	</tr>
 	<tr>
 		<th class="required">소개</th>
-		<td><textarea id="intro" name="intro" class="form-control" style="height:130px">${petInfoData.intro }</textarea></td>
+		<td><textarea id="intro" name="intro" class="form-control" style="height:130px" onclick="com.autoHeight(this)">${petInfoData.intro }</textarea></td>
 	</tr>
 	<tr>
 		<th class="required">특징</th>
-		<td><textarea id="feature" name="feature" class="form-control"style="height:130px">${petInfoData.feature }</textarea></td>
+		<td><textarea id="feature" name="feature" class="form-control"style="height:130px" onclick="com.autoHeight(this)">${petInfoData.feature }</textarea></td>
 	</tr>
 	<tr>
 		<th>보살핌</th>
-		<td><textarea id="care" name="care" class="form-control" style="height:130px">${petInfoData.care }</textarea></td>
+		<td><textarea id="care" name="care" class="form-control" style="height:130px" onclick="com.autoHeight(this)">${petInfoData.care }</textarea></td>
 	</tr>
 	<tr>
 		<th>먹이</th>
-		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }"></td> 
+		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }" onclick="com.autoHeight(this)"></td> 
 	</tr>
 	<tr>
 		<th>기타</th>
-		<td><input type="text" class="form-control" name="link" id="link" value="${petInfoData.link }"></td> 
+		<td><input type="text" class="form-control" name="link" id="link" value="${petInfoData.link }" onclick="com.autoHeight(this)"></td> 
 	</tr>
 	
 	<tr>
