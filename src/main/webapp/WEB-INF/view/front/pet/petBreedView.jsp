@@ -34,7 +34,7 @@
 
 
 <div class="row" style="margin-top: 30px">
-	<div class="col-sm text-center"><img class="mr-3 view breed-img" id="breed-img" src="${petInfoData.petImg }" onerror="$(this).hide()"></div>
+	<div class="col-sm text-center"><img class="mr-3 view breed-img" id="breed-img" src="${petInfoData.petImg }" alt="${petInfoData.petNm}" onerror="$(this).hide()"></div>
 	<div class="col-sm"> 
 		<div class="view breed-title">${petInfoData.petNm}</div>
 	   <div class="view spec">
