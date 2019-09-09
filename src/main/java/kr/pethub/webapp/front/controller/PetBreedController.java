@@ -2,6 +2,7 @@ package kr.pethub.webapp.front.controller;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class PetBreedController{
 		petInfo.setRowSize(1000);
 		petInfo.setOrderBy("pet_nm asc");
 		
+		//소형견 디폴트
+		if( StringUtils.isEmpty(petInfo.getPetSize()) ) petInfo.setPetSize("S");
+		
 		List<PetInfo> list = petInfoService.selectPetInfoList(petInfo);
 		
 		model.addAttribute("list", list);
@@ -45,13 +49,14 @@ public class PetBreedController{
 	} 
 	
 	/**
-	 * 품종 조히
+	 * 품종 조회
 	 */
 	@RequestMapping(value= "view/{petSrl}", method = RequestMethod.GET)
 	public String view( @ModelAttribute PetInfo petInfo,  Model model, @PathVariable(value="petSrl", required = true) Integer petSrl) {
 		
 		//petSrl validation
 		if( !StringUtil.isRegex("^[0-9]{1,4}$",Integer.toString(petSrl)) )	return "redirect:/static/error404.html";
+		
 		
 		//데이터가 없으면
 		PetInfo petInfoData = petInfoService.selectPetInfo(petSrl);
