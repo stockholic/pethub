@@ -90,7 +90,7 @@
 	</tr>
 	<tr>
 		<th>먹이</th>
-		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }" onclick="com.autoHeight(this)"></td> 
+		<td><input type="text" class="form-control" name="feed" id="feed" value="${petInfoData.feed }"></td> 
 	</tr>
 	<tr>
 		<th>기타</th>
