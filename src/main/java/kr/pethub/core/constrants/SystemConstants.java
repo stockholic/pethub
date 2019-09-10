@@ -2,7 +2,7 @@ package kr.pethub.core.constrants;
 
 public class SystemConstants {
 
-    public static final String ENCRYPT_KEY ="tmxkrghfflr!#";
+    public static final String ENCRYPT_KEY ="tmxkrghfflr!#"; 
     
     
     public static final String[] SEARCH_KEY = {"페키니즈","요크셔","요크셔테리어","그레이","그레이하운드","콜리","슈나우저","푸들","웰시","웰시코기","비글","마스티프","라사압소","셰틀랜드쉽독","바이마리너","진돗","진도","진돗개"
@@ -13,5 +13,8 @@ public class SystemConstants {
     														   ,"리트리버","비즐라","마리노이즈","복서","에어데일","테리어","달마시안","사모예드","알래스카","말라뮤트","알래스카말라뮤트","아메리카","아메리카코커스파니엘","불테리어","샤페이"
     														   ,"그레이트","그레이트피레니즈","보스톤테리어","풍산","풍산개","말티즈","시베리안","허스키","시베리안허스키","버니즈마운틴독","골든","골든리트리버","바센지"
     														  };
+    
+    public static final String TITLE_PREFIX ="펫허브:Pethub";
+    
     
 }

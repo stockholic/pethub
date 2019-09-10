@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kr.pethub.core.constrants.SystemConstants;
 import kr.pethub.core.utils.StringUtil;
 import kr.pethub.webapp.admin.board.model.PetInfo;
 import kr.pethub.webapp.admin.board.service.PetInfoService;
@@ -43,7 +44,7 @@ public class PetBreedController{
 		List<PetInfo> list = petInfoService.selectPetInfoList(petInfo);
 		
 		model.addAttribute("list", list);
-		model.addAttribute("petTitle", "펫허브:Pethub 강아지 품종 정보" );
+		model.addAttribute("petTitle", SystemConstants.TITLE_PREFIX +" 강아지 품종 정보" );
 		
 		 return "front:pet/petBreedList";
 	} 
@@ -63,7 +64,7 @@ public class PetBreedController{
 		if(petInfoData == null) return "redirect:/static/error404.html";
 
 		model.addAttribute("petInfoData", petInfoData);
-		model.addAttribute("petTitle", "펫허브:Pethub " + petInfoData.getPetNm() );
+		model.addAttribute("petTitle", SystemConstants.TITLE_PREFIX + " " + petInfoData.getPetNm() );
 		 return "front:pet/petBreedView";
 	} 
 
