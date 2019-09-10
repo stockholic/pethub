@@ -203,8 +203,6 @@ var com = {
 				data : {
 					vData : {}
 				},
-				methods : {
-				},
 				mounted: function () {
 					var _rowSize = (rowSize == undefined) ? 15 : rowSize;
 					this.vData = getVdata({rowSize : rowSize, page : pageNumber});
@@ -280,7 +278,7 @@ var com = {
 	/**
 	 * 페이징 destroy
 	 */
-	pageDestroy   : function( selector ){
+	pageDestroy : function( selector ){
 		$(selector).pagination('destroy');
 	},
 	

@@ -20,7 +20,7 @@
 
     <div class="box-body" id="dataWrap">
      	
-     	<form name="frm" id="frm" class="form-inline">
+     	<form name="frm" id="frm" class="form-inline" onsubmit="return false">
 		   <select name="petSize" id="petSize" class="form-control" onchange="search()">
 				<option value="">사이즈</option>
 				<option value="S" ${petInfo.petSize eq 'S' ? "selected" : "" }>소형</option>
@@ -129,9 +129,6 @@ $(document).ready(function() {
 //Ajax 데이터 추출,  Vue 에 정의된 함수명  
 function getVdata(params){	
 	
-	//loading open
-	//com.loading(".content-wrapper");
-	
 	var obj = {};
  	com.requestAjax({
 		type: "POST",
@@ -150,21 +147,13 @@ function getVdata(params){
 			com.initPaging({
 				selector : "#paging",
 				items : obj.totalRow,
-				itemsOnPage : rowSize
+				itemsOnPage : rowSize,
+				currentPage : ${petInfo.page }
 			});
-			
-			com.selectPage("#paging",${petInfo.page });
 			
 		}else if($("#paging > ul").length > 0 ){
 			com.updatePageItems("#paging", obj.totalRow)
 		}
-		
-		//loading close 
-		/* 
-		setTimeout(function() {
-			com.loadingClose(); 
-		}, 200);
- 		*/
 		
 	});
 	
@@ -174,7 +163,7 @@ function getVdata(params){
 // 검색
 function search(){
 	
-	if( $("#searchString").val().trim().length  !=0 && $("#searchString").val().trim().length < 2 ) return;
+	if( $("#searchString").val().trim().length !=0 && $("#searchString").val().trim().length < 2 ) return;
 	
 	//페이징 새로 그리기 위해 제거
 	com.pageDestroy("#paging");
