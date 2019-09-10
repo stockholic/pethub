@@ -19,19 +19,23 @@
 <div class="box box-default">
 
     <div class="box-body" id="dataWrap">
-    
-    	<div class="form-group-sm pull-left">
-		  <div class="form-group-sm">
-			
+     	
+     	<form name="frm" id="frm" class="form-inline">
+		   <select name="petSize" id="petSize" class="form-control" onchange="search()">
+				<option value="">사이즈</option>
+				<option value="S" ${petInfo.petSize eq 'S' ? "selected" : "" }>소형</option>
+				<option value="M" ${petInfo.petSize eq 'M' ? "selected" : "" }>중형</option>
+				<option value="L" ${petInfo.petSize eq 'L' ? "selected" : "" }>대형</option>
+			</select>
+		
 			<div class="input-group input-group-sm" style="width: 250px;">
 	             <input type="text" name="searchString" id="searchString" value="${petInfo.searchString }" class="form-control pull-right" placeholder="Search">
 	             <div class="input-group-btn">
 	               <button type="button" onClick="search()" class="btn btn-default"><i class="fa fa-search"></i></button>
 	             </div>
-           	</div>
-			
-		  </div>
-	  	</div>
+	         </div>
+		</form>
+		
 	  	
 		<div class="pull-right" v-cloak>Total : {{ vData.totalRow | addComma }} [ {{ vData.page }} / {{ vData.totalPage }} ]</div> 
 	    <table class="table table-hover table-top">
@@ -177,7 +181,8 @@ function search(){
 	
 	getVdata({
 		rowSize : rowSize,
-		searchString : $("#searchString").val().trim().length  > 1 ? $("#searchString").val() : ""
+		searchString : $("#searchString").val().trim().length  > 1 ? $("#searchString").val() : "",
+		petSize : $("#petSize").val()
 	});
 	
 }
