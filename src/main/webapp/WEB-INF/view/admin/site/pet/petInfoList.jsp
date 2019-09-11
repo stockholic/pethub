@@ -197,8 +197,8 @@ function view(petSrl){
 
 
 function regForm(){
-	document.urlFrm.action = "/adm/board/petInfoForm";
-	document.urlFrm.submit();
+	document.frm.action = "/adm/board/petInfoForm";
+	document.frm.submit();
 }
 
 
