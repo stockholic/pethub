@@ -131,6 +131,7 @@
 	<input type="hidden" name="page" id="page" value="${petInfo.page }">
 	<input type="hidden" name="petSrl" id="petSrl" value="${petInfo.petSrl }">
 	<input type="hidden" name="searchString" value="${petInfo.searchString }">
+	<input type="hidden" name="petSize" value="${petInfo.petSize }">
 </form>
 
 <script>

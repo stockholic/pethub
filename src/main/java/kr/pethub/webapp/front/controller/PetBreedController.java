@@ -36,7 +36,7 @@ public class PetBreedController{
 		
 		petInfo.setSearchString(searchString);
 		petInfo.setRowSize(1000);
-		petInfo.setOrderBy("binary(pet_nm) ASC");
+		petInfo.setOrderBy("pet_nm ASC");
 		
 		//소형견 디폴트
 		if( StringUtils.isEmpty(petInfo.getPetSize()) && StringUtils.isEmpty(searchString)) petInfo.setPetSize("S");
