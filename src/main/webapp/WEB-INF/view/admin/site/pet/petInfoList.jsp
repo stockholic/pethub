@@ -34,6 +34,10 @@
 	               <button type="button" onClick="search()" class="btn btn-default"><i class="fa fa-search"></i></button>
 	             </div>
 	         </div>
+	         
+	        <input type="hidden" name="page" id="page"  value="">
+			<input type="hidden" name="petSrl" id="petSrl" value="">
+	         
 		</form>
 		
 	  	
@@ -99,12 +103,6 @@
 
 </section>
 
-<form name="urlFrm" method="GET">
-	<input type="hidden" name="page" id="page"  value="">
-	<input type="hidden" name="petSrl" id="petSrl" value="">
-	<input type="hidden" name="searchString" id="searchStringUrl"value="">
-</form>
-
 <script>
 
 
@@ -128,6 +126,12 @@ $(document).ready(function() {
 
 //Ajax 데이터 추출,  Vue 에 정의된 함수명  
 function getVdata(params){	
+	
+	var filter = {
+		searchString : $("#searchString").val()	
+		,petSize : $("#petSize").val()
+	}
+	$.extend(params, filter);
 	
 	var obj = {};
  	com.requestAjax({
@@ -165,14 +169,8 @@ function search(){
 	
 	if( $("#searchString").val().trim().length !=0 && $("#searchString").val().trim().length < 2 ) return;
 	
-	//페이징 새로 그리기 위해 제거
-	com.pageDestroy("#paging");
-	
-	getVdata({
-		rowSize : rowSize,
-		searchString : $("#searchString").val().trim().length  > 1 ? $("#searchString").val() : "",
-		petSize : $("#petSize").val()
-	});
+	document.frm.action = "/adm/board/petInfoList";
+	document.frm.submit();
 	
 }
 
@@ -185,18 +183,16 @@ function goPage(pageNumber){
 	
 	getVdata({
 		page : page,
-		rowSize : rowSize,
-		searchString : $("#searchString").val().trim().length  > 1 ? $("#searchString").val() : ""
+		rowSize : rowSize
 	});
 	
 }
 
 function view(petSrl){
-	document.urlFrm.action = "/adm/board/petInfoView";
+	document.frm.action = "/adm/board/petInfoView";
 	$("#petSrl").val(petSrl)
 	$("#page").val (com.getCurrentPage("#paging") )
-	$("#searchStringUrl").val ($("#searchString").val() )
-	document.urlFrm.submit();
+	document.frm.submit();
 }
 
 
