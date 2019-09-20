@@ -22,37 +22,43 @@
 
 	<select id="selectPetInfoList" resultType="kr.pethub.webapp.admin.board.model.PetInfo">
 	/** selectPetInfoList **/
+	
 	SELECT
-		 pet_srl
-		, pet_nm
-		, (SELECT file_sys_nm FROM com_file_data  WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1 ) AS pet_img
-		, intro
-		, pet_cd
-		, pet_size
-		, spec1
-		, spec2
-		, spec3
-		, spec4
-		, spec5
-		, reg_dt
-	FROM pet_info t1
-	WHERE 1=1
-	
-	<if test="petSize != null  and petSize != ''">
-	AND pet_size = #{petSize}
-	</if>
-	
-	<if test="searchString != null  and searchString != ''">
-	AND pet_nm like '%' #{searchString} '%'
-	</if>
-	
-	<if test="orderBy != null and orderBy != ''">
-	ORDER BY ${orderBy}
-	</if>
-	<if test="orderBy == null or orderBy == ''">
-	ORDER BY pet_srl DESC
-	</if>
-	
+		t2.*
+		,IFNULL(t2.pet_img2,pet_img1) pet_img
+	FROM(	
+		SELECT
+			 pet_srl
+			, pet_nm
+			, intro
+			, pet_cd
+			, pet_size
+			, spec1
+			, spec2
+			, spec3
+			, spec4
+			, spec5
+			, reg_dt
+			, (SELECT file_sys_nm FROM com_file_data  WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 0,1 ) AS pet_img1	/*첫번째 이미지*/
+			, (SELECT file_sys_nm FROM com_file_data  WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1,1 ) AS pet_img2	/*두번째 이미지, 썸네일*/
+		FROM pet_info t1
+		WHERE 1=1
+		
+		<if test="petSize != null  and petSize != ''">
+		AND pet_size = #{petSize}
+		</if>
+		
+		<if test="searchString != null  and searchString != ''">
+		AND pet_nm like '%' #{searchString} '%'
+		</if>
+		
+		<if test="orderBy != null and orderBy != ''">
+		ORDER BY ${orderBy}
+		</if>
+		<if test="orderBy == null or orderBy == ''">
+		ORDER BY pet_srl DESC
+		</if>
+	) t2
 	
 	LIMIT #{rowStart},#{rowSize}
 	</select>
@@ -75,8 +81,7 @@
 		, spec5
 		, link
 		
-	    ,(SELECT file_sys_nm FROM com_file_data
-         WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 1 ) AS pet_img
+	    ,(SELECT file_sys_nm FROM com_file_data  WHERE file_tp = 'petInfo' AND file_ref_srl = t1.pet_srl order by file_srl limit 0,1 ) AS pet_img	/*첫번째이미지*/
 				
 		, reg_dt
 		, upt_dt
@@ -146,29 +151,5 @@
 	DELETE FROM pet_info  WHERE pet_srl = #{petSrl} 
 	</delete>
 	
-	
-	<!-- 
-	CREATE TABLE `pet_info` (
-	  `pet_srl` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '일련번호',
-	  `pet_nm` varchar(60) DEFAULT NULL COMMENT '펫이름',
-	  `pet_cd` varchar(10) DEFAULT NULL COMMENT '종류',
-	  `pet_size` char(1) DEFAULT NULL COMMENT '크기 S:소형, M: 중형, L:대형',
-	  `intro` text COMMENT '소개',
-	  `feature` text COMMENT '특징',
-	  `care` text COMMENT '보살핌',
-	  `feed` varchar(200) DEFAULT NULL COMMENT '먹이',
-	  `spec1` tinyint(4) DEFAULT '0' COMMENT '적응 Adaptabie',
-	  `spec2` tinyint(4) DEFAULT '0' COMMENT '친밀 Friendly',
-	  `spec3` tinyint(4) DEFAULT '0' COMMENT '훈련 Trainability',
-	  `spec4` tinyint(4) DEFAULT '0' COMMENT '지능 Intelligence',
-	  `spec5` tinyint(4) DEFAULT '0' COMMENT '활동 Activity',
-	  `link` varchar(400) DEFAULT NULL COMMENT '리크',
-	  `reg_dt` datetime DEFAULT NULL COMMENT '등록일',
-	  `upt_dt` datetime DEFAULT NULL COMMENT '수정일',
-	  PRIMARY KEY (`pet_srl`)
-	) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='펫정보';
-
-		
-	 -->
 
 </mapper>  
