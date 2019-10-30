@@ -133,7 +133,7 @@ public class DogZzangCoKr {
 		
 		PrintWriter writer = null;
 		
-		String selector = "body > table > tbody > tr > td > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(6) > tbody > tr > td > table";
+		String selector = "body > table > tbody > tr > td > table:nth-child(6) > tbody > tr > td:nth-child(2) > table:nth-child(7) > tbody > tr > td > table";
 		String domain = "http://www.dog-zzang.co.kr";
 		String patternId ="(.*)(no=)([0-9]+)(.*)";
 
