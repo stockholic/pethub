@@ -139,6 +139,21 @@ public class SysUtil {
 	 * @return String
 	 */
 	public static  String getFileSize(Long size){	
+
+		/*
+		String size = "0";
+
+		if(file < 1024){
+			size = file + " B";
+		}else if(file >= 1024 && file < 1024 * 1024){
+			size = String.format("%.2f", (double)file / 1024 ) + " KB";
+		}else{
+			size = String.format("%.2f", (double)file / 1024 ) + " MB";
+		}
+
+		return size;
+		*/
+		
 		if (size <= 0)	return "0";
 		
 		final String[] units = new String[] { "B", "kB", "MB", "GB", "TB" };
