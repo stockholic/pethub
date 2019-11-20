@@ -25,5 +25,23 @@ public class WasInfoController{
 		System.out.println("CPU uage : " + wasInfo.getCpuInfo());
 	} 
 	
+	@ResponseBody
+	@RequestMapping(value="/mem")
+	public void mem() {
+		System.out.println("Memory uage : " + wasInfo.getMemIfo());
+	} 
+	
+	@ResponseBody
+	@RequestMapping(value="/jdbc")
+	public void jdbc() {
+		System.out.println("JDBC Pool : " + wasInfo.getJdbcPool());
+	} 
+	
+	@ResponseBody
+	@RequestMapping(value="/thread")
+	public void thread() {
+		System.out.println("THREAD : " + wasInfo.getThread());
+	} 
+	
 	
 }
