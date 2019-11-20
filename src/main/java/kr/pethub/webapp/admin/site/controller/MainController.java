@@ -34,7 +34,7 @@ public class MainController{
 	@RequestMapping(value="/main")
 	public String main(Locale locale, HttpServletRequest request, Auth auth) {
 		
-		logger.debug("Welcome home! The client locale is {}.", locale);
+		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		return "admin:main";
 	} 

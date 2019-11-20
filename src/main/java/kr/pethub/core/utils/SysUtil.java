@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.SequenceInputStream;
 import java.io.Writer;
+import java.text.DecimalFormat;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -137,19 +138,12 @@ public class SysUtil {
 	 * @param file
 	 * @return String
 	 */
-	public static  String getFileSize(Long file){	
-
-		String size = "0";
-
-		if(file < 1024){
-			size = file + " B";
-		}else if(file >= 1024 && file < 1024 * 1024){
-			size = String.format("%.2f", (double)file / 1024 ) + " KB";
-		}else{
-			size = String.format("%.2f", (double)file / 1024 ) + " MB";
-		}
-
-		return size;
+	public static  String getFileSize(Long size){	
+		if (size <= 0)	return "0";
+		
+		final String[] units = new String[] { "B", "kB", "MB", "GB", "TB" };
+		int digitGroups = (int) (Math.log10(size) / Math.log10(1024));
+		return new DecimalFormat("#,##0.#").format(size / Math.pow(1024, digitGroups)) + " " + units[digitGroups];
 	}
 	
 	/***

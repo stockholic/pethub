@@ -58,6 +58,7 @@ public class DBConfiguration{
         dataSource.setMaxTotal(maxActive);
         dataSource.setMaxIdle(maxIdle);
         dataSource.setMaxWaitMillis(maxWait);
+        dataSource.setJmxName("kr.pethub.core.configuration.beans:type=DBCP");
         
         if( !"local".equals(deploy)) {
 	        dataSource.setValidationQuery(validationQuery);
