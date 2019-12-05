@@ -19,7 +19,7 @@ import kr.pethub.core.utils.SysUtil;
 public class WasInfoService {
 	
 	
-	@Autowired
+	//@Autowired
 	private JMXConnector jmxConnector;
 	
 	public String getCpuInfo() {
