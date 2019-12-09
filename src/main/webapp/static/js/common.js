@@ -99,8 +99,11 @@ var com = {
 		return parseFloat((a/Math.pow(c,f)).toFixed(d))+" "+e[f]
 	},
 	
-	formatNumber : function(x){
-	    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	formatNumber : function(p){
+	    return p.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	},
+	setFormatNumber : function(obj){
+		$(obj).val( $(obj).val().replace(/,/g,'').replace(/\B(?=(\d{3})+(?!\d))/g, ",") );
 	},
 	
 	/**
