@@ -68,12 +68,11 @@ $(document).ready(function() {
 	});
 	
 	 
-	$("#ea").keyup(function(event) {
+	$("#ea, #buyPrice").keyup(function(event) {
 		if( event.keyCode == 13){
 			setVdata();
     	}
 	});
-	 
 });
 
 function setVdata(){	
