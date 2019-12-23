@@ -19,9 +19,9 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 
-@Aspect
-@Configuration
-@EnableAspectJAutoProxy
+//@Aspect
+//@Configuration
+//@EnableAspectJAutoProxy
 public class AopConfiguration {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
