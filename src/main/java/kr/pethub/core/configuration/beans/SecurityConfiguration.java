@@ -97,6 +97,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 			.maximumSessions(1)
 			.expiredUrl("/expireSession")
 			.sessionRegistry(sessionRegistry())
+			
 		;
 
 	}
@@ -109,7 +110,7 @@ public class SecurityConfiguration  extends WebSecurityConfigurerAdapter {
 	public RememberMeServices tokenBasedRememberMeServices() {
 		TokenBasedRememberMeServices tokenBasedRememberMeServices = new TokenBasedRememberMeServices("REMEBMER_ME_KEY", userDetailsService());
 //		tokenBasedRememberMeServices.setAlwaysRemember(true);								// 체크박스 클릭안해도 무조건 유지
-		tokenBasedRememberMeServices.setTokenValiditySeconds(60 * 60 * 24 * 31);		//31일
+		tokenBasedRememberMeServices.setTokenValiditySeconds(60 * 60 * 24 * 30);		//30일
 		tokenBasedRememberMeServices.setCookieName("REMEMBER_ME_COOKE");
 		return tokenBasedRememberMeServices;
 	}
