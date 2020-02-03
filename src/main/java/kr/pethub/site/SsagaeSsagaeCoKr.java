@@ -37,7 +37,7 @@ public class SsagaeSsagaeCoKr {
 		
 		PrintWriter writer = null;
 		
-		String selector = "#fboardlist > ul > li";
+		String selector = "#fboardlist > div.list-webzine .list-item";
 		String domain = "http://www.ssagae-ssagae.co.kr";
 		String patternId ="(.*)(wr_id=)([0-9]+)";
 
@@ -55,17 +55,17 @@ public class SsagaeSsagaeCoKr {
 				SiteLinkData cli  = new SiteLinkData();
 				
 				//제목 추출
-				String dataTitle = ele.select(".fz_gallery_title").text().replace("파일첨부" ,"").replace("새글" ,"");
+				String dataTitle = ele.select(".media-heading").first().getElementsByTag("a").text();
 				logger.debug( "TITEL : {}" , JsoupUtil.specialCharacterRemove(dataTitle));
 				cli.setDataTitle( JsoupUtil.specialCharacterRemove(dataTitle)) ;
 				
 				//링크 추출
-				String dataLink = ele.getElementsByTag("a").attr("href");
+				String dataLink =  ele.select(".media-heading").first().getElementsByTag("a").attr("href");
 				logger.debug( "LINK : {}" , dataLink );
 				cli.setDataLink(dataLink);
 				
 				//이미지 추출
-				String dataImg =  ele.select(".fz_gallery_thumb").first().getElementsByTag("img").attr("src");
+				String dataImg =  ele.select(".img-item").first().getElementsByTag("a").attr("href");
 				logger.debug( "IMAGE : {}" , dataImg );
 				cli.setDataImg(dataImg);	
 				
