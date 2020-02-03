@@ -25,7 +25,7 @@ public class WasInfoService {
 	Logger logger = LoggerFactory.getLogger(getClass());
 	
 	
-	@Autowired
+//	@Autowired
 	private JMXConnector jmxConnector;
 	
 	/**
